@@ -1,0 +1,8 @@
+.datePicker {
+    width: 100%;
+ }
+
+.datePicker::placeholder {
+    font-style: italic;
+    color: rgb(var(--white02));
+}

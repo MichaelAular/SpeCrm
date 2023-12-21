@@ -1,0 +1,25 @@
+{
+   "days": [
+      "maandag",
+      "dinsdag",
+      "woensdag",
+      "donderdag",
+      "vrijdag",
+      "zaterdag"
+   ],
+   "employes": [
+      "Angel",
+      "Cindy",
+      "Daniel",
+      "Emma",
+      "Kwame",
+      "Phoebe",
+      "Rebecca",
+      "Rexford",
+      "Yomo"
+    ],
+    "sex": [
+      "jongen",
+      "meisje"
+    ]
+}

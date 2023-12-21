@@ -1,0 +1,23 @@
+{
+  "name": "spe_crm",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.20",
+    "dayjs": "^1.11.10",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-datepicker": "^4.24.0",
+    "react-dom": "^18",
+    "sass": "^1.69.5",
+    "uuid": "^9.0.1"
+  }
+}
