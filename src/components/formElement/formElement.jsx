@@ -6,7 +6,7 @@ import { Bar } from "../bar/bar";
 import { Incident } from "../incidents/incidents";
 import { Add } from "@/assets/icons/add";
 
-export function FormEmelent({ elementTitle, elementBars, elementArray, add}) {
+export function FormElement({ elementTitle, elementBars, elementArray, add}) {
   const [elementOpen, setElementOpen] = useState(true);
   const [elementHovered, setElementHovered] = useState(false);
   const [addHovered, setAddHovered] = useState(false);

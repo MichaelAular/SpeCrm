@@ -7,7 +7,7 @@
       "vrijdag",
       "zaterdag"
    ],
-   "employes": [
+   "employees": [
       "Angel",
       "Cindy",
       "Daniel",
@@ -18,8 +18,33 @@
       "Rexford",
       "Yomo"
     ],
+    "languages": [
+      "Nederlands",
+      "Engels",
+      "Afrikaans",
+      "Chinees",
+      "Duits",
+      "Frans",
+      "Hindi",
+      "Indonesisch",
+      "Javaans",
+      "Papiaments",
+      "Turks",
+      "Spaans",
+      "Sranantongo"
+    ],
     "sex": [
       "jongen",
       "meisje"
+    ],
+    "schoolType": [
+      "Basis school", 
+      "Middelbare school", 
+      "Voortgezet onderwijs"
+    ],
+    "schoolFieldOfStudy": [
+      "VMBO", 
+      "Mavo/Havo", 
+      "VWO"
     ]
 }
