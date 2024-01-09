@@ -6,6 +6,8 @@ import { DropdownMultiple } from "../dropdown/dropdown_multiple";
 import { Datepicker } from "../datePicker/datePicker";
 import { useCapitalize } from "@/hooks/capitalize";
 
+// TODO: Set input as values, not placeholders and catch onChange events
+// TODO: Save changes to profile object
 export function Bar({ title, input, type, options }) {
   const input_Age = <Age input={input}/>;
   const input_Date = <Datepicker input={input}/>;

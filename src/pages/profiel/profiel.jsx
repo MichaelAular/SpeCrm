@@ -1,62 +1,35 @@
 import styles from "../../app/page.module.scss";
 import Skeleton from '@mui/material/Skeleton';
 import React, { useEffect, useState } from "react";
-import { db } from '@/firebase';
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { FormElement } from "@/components/formElement/formElement";
 import profile from "../../models/profile.json"
 import options from "../../../dropdownOptions.json"
+import * as FirestoreProfileService from '../../services/firebaseProfiles';
 
 /// persoonlijke vraag: geen tel en email ed van school???
 /// kopie rapport bespreken (document zelf!)
 export function Tab_Profiel() {
-  const [data, setData] = useState(profile);
+  const [currentProfile, setCurrentProfile] = useState(profile);
   const [dataLoaded, setLoaded] = useState(false);
 
-  // Get all profiles from Firestore Database
-  // TODO: Haal specifieke document op
-  const fetchProfiles = async () => {
-    await getDocs(collection(db, "profiles"))
-      .then((querySnapshot) => {
-        const newData = querySnapshot.docs
-          .map((doc) => ({ ...doc.data(), id: doc.id }));
-        setData(newData[0]);
-        setLoaded(true);
-        console.log(data, newData);
-      })
-  }
-
-  // Add new profile to Firestore Database
-  // TODO: geeft random firestore ID in plaats van VoornaamAchternaam
-  const addProfile = async (e) => {
-    e.preventDefault();
-
-    try {
-      const docRef = await addDoc(collection(db, "profiles"), data);
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  }
-
-  // Update excisting profile to Firestore Database
-  // TODO: Werkt nog niet
-  const updateProfile = async (e) => {
-    e.preventDefault();
-
-    try {
-      const profileRef = doc(db, 'profiles', data.id);
-      console.log(data, profileRef);
-      const docRef = await updateDoc(profileRef, data);
-      console.log("Document updated with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error updating document: ", e);
-    }
-  }
-
   useEffect(() => {
-    fetchProfiles();
+    FirestoreProfileService.getProfile('FrencyJohn')
+      .then(doc => {
+        if (doc.exists) {
+          setCurrentProfile(doc.data());
+          setLoaded(true);
+          console.log(currentProfile);
+        } else {
+          // Not found
+          console.log('Document not found')
+        }
+      })
+      .catch(() => console.log('Error'));
   }, [])
+
+  const updateProfile = () => {
+    console.log(currentProfile)
+  }
 
   return (
     <div>
@@ -74,34 +47,34 @@ export function Tab_Profiel() {
           <FormElement
             elementTitle="gegevens kind"
             elementBars={[
-              { title: "voornaam", input: data.firstName, type: "string" },
-              { title: "roepnaam", input: data.nickname, type: "string" },
-              { title: "achternaam", input: data.lastName, type: "string" },
-              { title: "geslacht", input: data.sex, type: "dropdown", options: options.sex },
-              { title: "geboortedatum", input: new Date(data.birthDate.toDate()), type: "date" },
-              { title: "leeftijd", input: new Date(data.birthDate.toDate()), type: "age" },
-              { title: "straatnaam", input: data.address.street, type: "string" },
-              { title: "huisnummer", input: data.address.streetNo, type: "string" },
-              { title: "postcode", input: data.address.postalCode, type: "string" },
-              { title: "plaats", input: data.address.city, type: "string" },
-              { title: "e-mailadres kind", input: data.email, type: "string" },
-              { title: "e-mailadres ouder", input: data.family.parents[0].email, type: "string" },
-              { title: "geboorteland", input: data.countryOfBirth, type: "string" },
-              { title: "nationaliteit", input: data.nationality, type: "string" },
-              { title: "thuistaal", input: data.languages, type: "dropdown_multiple", options: options.languages },
-              { title: "telefoon vast", input: data.family.contactDetails.phoneNoHome, type: "string" },
-              { title: "telefoon mobiel", input: data.family.contactDetails.phoneNoMobile, type: "string" },
-              { title: "telefoon bij nood", input: data.family.contactDetails.phoneNoEmergency, type: "string" },
-              { title: "nood contactpersoon", input: data.family.contactDetails.name, type: "string" },
-              { title: "nood e-mailadres", input: data.family.contactDetails.email, type: "string" },
-              { title: "aantal kinderen in het gezin", input: data.family.noOfChildren, type: "string" },
-              { title: "sport / naschoolse activiteiten", input: data.afterSchoolActivities, type: "string" },
-              { title: "stadpas", input: data.cityPass, type: "dropdown_boolean" },
-              { title: "bibliotheekpas", input: data.libraryPass, type: "dropdown_boolean" },
-              { title: "eigen kamer", input: data.ownRoom, type: "dropdown_boolean" },
-              { title: "laptop", input: data.equipment.laptop, type: "dropdown_boolean" },
-              { title: "tablet", input: data.equipment.tablet, type: "dropdown_boolean" },
-              { title: "smartphone", input: data.equipment.smartphone, type: "dropdown_boolean" }
+              { title: "voornaam", input: currentProfile.firstName, type: "string" },
+              { title: "roepnaam", input: currentProfile.nickname, type: "string" },
+              { title: "achternaam", input: currentProfile.lastName, type: "string" },
+              { title: "geslacht", input: currentProfile.sex, type: "dropdown", options: options.sex },
+              { title: "geboortedatum", input: new Date(currentProfile.birthDate.toDate()), type: "date" },
+              { title: "leeftijd", input: new Date(currentProfile.birthDate.toDate()), type: "age" },
+              { title: "straatnaam", input: currentProfile.address.street, type: "string" },
+              { title: "huisnummer", input: currentProfile.address.streetNo, type: "string" },
+              { title: "postcode", input: currentProfile.address.postalCode, type: "string" },
+              { title: "plaats", input: currentProfile.address.city, type: "string" },
+              { title: "e-mailadres kind", input: currentProfile.email, type: "string" },
+              { title: "e-mailadres ouder", input: currentProfile.family.parents[0].email, type: "string" },
+              { title: "geboorteland", input: currentProfile.countryOfBirth, type: "string" },
+              { title: "nationaliteit", input: currentProfile.nationality, type: "string" },
+              { title: "thuistaal", input: currentProfile.languages, type: "dropdown_multiple", options: options.languages },
+              { title: "telefoon vast", input: currentProfile.family.contactDetails.phoneNoHome, type: "string" },
+              { title: "telefoon mobiel", input: currentProfile.family.contactDetails.phoneNoMobile, type: "string" },
+              { title: "telefoon bij nood", input: currentProfile.family.contactDetails.phoneNoEmergency, type: "string" },
+              { title: "nood contactpersoon", input: currentProfile.family.contactDetails.name, type: "string" },
+              { title: "nood e-mailadres", input: currentProfile.family.contactDetails.email, type: "string" },
+              { title: "aantal kinderen in het gezin", input: currentProfile.family.noOfChildren, type: "string" },
+              { title: "sport / naschoolse activiteiten", input: currentProfile.afterSchoolActivities, type: "string" },
+              { title: "stadpas", input: currentProfile.cityPass, type: "dropdown_boolean" },
+              { title: "bibliotheekpas", input: currentProfile.libraryPass, type: "dropdown_boolean" },
+              { title: "eigen kamer", input: currentProfile.ownRoom, type: "dropdown_boolean" },
+              { title: "laptop", input: currentProfile.equipment.laptop, type: "dropdown_boolean" },
+              { title: "tablet", input: currentProfile.equipment.tablet, type: "dropdown_boolean" },
+              { title: "smartphone", input: currentProfile.equipment.smartphone, type: "dropdown_boolean" }
             ]}
           />
         </div>}
@@ -110,24 +83,24 @@ export function Tab_Profiel() {
           <FormElement
             elementTitle="gegevens school / bijles"
             elementBars={[
-              { title: "soort school", input: data.school.type, type: "dropdown", options: options.schoolType },
-              { title: "naam school", input: data.school.name, type: "string" },
-              { title: "richting", input: data.school.fieldOfStudy, type: "dropdown", options: options.schoolFieldOfStudy },
-              { title: "leerjaar", input: data.school.schoolYear, type: "string" },
-              { title: "straatnaam", input: data.school.address.street, type: "string" },
-              { title: "huisnummer", input: data.school.address.streetNo, type: "string" },
-              { title: "postcode", input: data.school.address.postalCode, type: "string" },
-              { title: "plaats", input: data.school.address.city, type: "string" },
-              { title: "speciaal onderwijs", input: data.school.specialEducation, type: "dropdown_boolean" },
-              { title: "voorlopig advies (groep 7/8)", input: data.school.preliminaryAdvise, type: "string" },
-              { title: "cito-toets score", input: data.school.citoScore, type: "string" },
-              { title: "link kopie rapport", input: data.school.rapportCopy, type: "string" },
-              { title: "bijlesdagen", input: data.lessonSchedule, type: "dropdown_multiple", options: options.days },
+              { title: "soort school", input: currentProfile.school.type, type: "dropdown", options: options.schoolType },
+              { title: "naam school", input: currentProfile.school.name, type: "string" },
+              { title: "richting", input: currentProfile.school.fieldOfStudy, type: "dropdown", options: options.schoolFieldOfStudy },
+              { title: "leerjaar", input: currentProfile.school.schoolYear, type: "string" },
+              { title: "straatnaam", input: currentProfile.school.address.street, type: "string" },
+              { title: "huisnummer", input: currentProfile.school.address.streetNo, type: "string" },
+              { title: "postcode", input: currentProfile.school.address.postalCode, type: "string" },
+              { title: "plaats", input: currentProfile.school.address.city, type: "string" },
+              { title: "speciaal onderwijs", input: currentProfile.school.specialEducation, type: "dropdown_boolean" },
+              { title: "voorlopig advies (groep 7/8)", input: currentProfile.school.preliminaryAdvise, type: "string" },
+              { title: "cito-toets score", input: currentProfile.school.citoScore, type: "string" },
+              { title: "link kopie rapport", input: currentProfile.school.rapportCopy, type: "string" },
+              { title: "bijlesdagen", input: currentProfile.lessonSchedule, type: "dropdown_multiple", options: options.days },
             ]}
           />
           <FormElement
             elementTitle="incident registratie"
-            elementArray={data.incidents.map((incident) => { return incident })}
+            elementArray={currentProfile.incidents.map((incident) => { return incident })}
             add={true}
           />
           <FormElement
