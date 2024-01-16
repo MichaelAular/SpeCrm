@@ -39,7 +39,7 @@ export function FormElement({ elementTitle, elementBars, elementArray, add}) {
           <Arrow_Up
             className="arrow_Up"
             color={elementHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
-            size="16px"
+            size="16"
           />
         </button>
         </div>

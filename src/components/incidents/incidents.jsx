@@ -46,7 +46,7 @@ export function Incident({ incident }) {
                   ? "rgb(var(--secundair))"
                   : "rgb(var(--white06))"
               }
-              size="10px"
+              size="10"
             />
           </button>
         </div>
