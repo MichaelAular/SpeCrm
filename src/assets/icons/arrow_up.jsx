@@ -1,9 +1,11 @@
 export function Arrow_Up({ color, size }) {
-  const Heigth = (size/6)*5
+  const Heigth = size
+
+  console.log("arrowHeight:", Heigth)
   return(
     <svg
       width={size}
-      height={Heigth}
+      height={size}
       viewBox="0 0 12.7 12.7"
       version="1.1"
       id="arrow_up"
