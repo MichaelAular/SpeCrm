@@ -18,11 +18,12 @@ export function Incident({ incident }) {
     <div
       className="incidentContainer"
       style={{ height: incidentOpen ? "auto" : "20px", overflow: "hidden" }}
+    >
+      <div className="incidentHeader"
       onClick={() => {setIncidentOpen(!incidentOpen)}}
       onMouseEnter={() => {setIncidentHovered(true)}}
       onMouseLeave={() => {setIncidentHovered(false)}}
-    >
-      <div className="incidentHeader">
+      >
         <h6
           style={{
             color:

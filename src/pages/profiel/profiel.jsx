@@ -1,7 +1,7 @@
 import styles from "../../app/page.module.scss";
-import Skeleton from '@mui/material/Skeleton';
 import React, { useEffect, useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
+import Skeleton from '@mui/material/Skeleton';
 import profile from "../../models/profile.json"
 import options from "../../../dropdownOptions.json"
 import * as FirestoreProfileService from '../../services/firebaseProfiles';
@@ -12,13 +12,13 @@ export function Tab_Profiel() {
   const [currentProfile, setCurrentProfile] = useState(profile);
   const [dataLoaded, setLoaded] = useState(false);
 
+
   useEffect(() => {
     FirestoreProfileService.getProfile('FrencyJohn')
       .then(doc => {
         if (doc.exists) {
           setCurrentProfile(doc.data());
           setLoaded(true);
-          console.log(currentProfile);
         } else {
           // Not found
           console.log('Document not found')
@@ -27,19 +27,10 @@ export function Tab_Profiel() {
       .catch(() => console.log('Error'));
   }, [])
 
-  const updateProfile = () => {
-    console.log(currentProfile)
-  }
-
   return (
     <div>
-      <div className={styles.textContainer}>
+      <div className={styles.textContainer} style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px"}}>
         <h1 className="pageTitle">profielschets</h1>
-        <div className="btn-container">
-          <button type="submit" className="btn" onClick={updateProfile}>
-            Opslaan
-          </button>
-        </div>
       </div>
 
       <main className={styles.main}>

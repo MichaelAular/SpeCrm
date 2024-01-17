@@ -21,6 +21,19 @@
     min-width: 350px;
 }
 
+.saveBtn {
+    position: absolute;
+    left: 2rem;
+    border: none;
+    height: 28px;
+    border-radius: 3px;
+    background-color: rgb(var(--TextOnWhite));
+    cursor: pointer;
+    margin-top: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
 @media (max-width: 700px) {
     .headerContainer {
         height: calc(6rem - 5px);
