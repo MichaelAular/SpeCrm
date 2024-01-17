@@ -31,23 +31,25 @@ export function FormElement({ elementTitle, elementBars, elementArray, add}) {
           />
         </button>
       </div>
-      {elementBars && elementBars.map((i) => ( <Bar key={uuidv4()} title={i.title} input={i.input} type={i.type} options={i.options}/>))}
-      {elementArray && elementArray.map((incident) => ( <Incident key={uuidv4()} incident={incident}/>))}
+      { elementBars && elementBars.map((i) => ( <Bar key={uuidv4()} title={i.title} input={i.input} type={i.type} options={i.options}/>)) }
+      { elementArray && elementArray.map((incident) => ( <Incident key={uuidv4()} incident={incident}/>)) }
       { add === true &&
+      <>
           <button
           className="titlebarButton addButton"
           onMouseEnter={()=>{setAddButtonHovered(true)}}
           onMouseLeave={()=>{setAddButtonHovered(false)}}
-          onClick={()=>{setAddIncident(!addIncident)}}
+          onClick={()=>{setAddIncident(true)}}
           >
-            {/* <Modal modalOpen={addIncident} title="add incident"/> */}
           <Add
             className="addIcon"
               color={addButtonHovered === true ? "rgb(var(--secundair))" : "rgb(var(--TextOnWhite))"}
             size="20px"
           />
           </button>
-        }
+            <Modal modalOpen={addIncident} setModalOpen={setAddIncident} title="add incident" input={"test"}/>
+            </>
+      }
     </div>
   );
 }

@@ -1,4 +1,4 @@
-export function Save({ color, size }) {
+export function SaveIcon({ color, size }) {
    return(
      <svg
        width={size}

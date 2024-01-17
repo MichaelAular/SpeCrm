@@ -1,14 +1,15 @@
 import "./header.scss";
 import React, { useState } from "react";
-import { Save } from "@/assets/icons/save";
+import { Modal } from "../modal/modal";
+import { Save } from "../save/save";
+import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
 import { TabMenu } from "../tabMenu/tabMenu";
 
 export function Header({ currentTab, setCurrentTab }) {
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
-  const updateProfile = () => {
-    console.log("[currentProfile:]", );
-  };
+  const [saveModal, setSaveModal] = useState(false);
+  const updateProfile = () => {setSaveModal(true)};
 
   return (
     <div className="headerContainer">
@@ -16,6 +17,7 @@ export function Header({ currentTab, setCurrentTab }) {
         <TabMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <Searchbar />
         {currentTab === "Profielschets" && (
+          <>
           <button
             type="submit"
             className="saveBtn"
@@ -27,7 +29,7 @@ export function Header({ currentTab, setCurrentTab }) {
               setSaveBtnHovered(false);
             }}
           >
-            <Save
+            <SaveIcon
               className="saveBtn"
               color={
                 saveBtnHovered === true
@@ -37,6 +39,8 @@ export function Header({ currentTab, setCurrentTab }) {
               size="22"
             />
           </button>
+          <Modal modalOpen={saveModal} setModalOpen={setSaveModal} title="Save" input={<Save/>}/>
+          </>
         )}
       </div>
     </div>
