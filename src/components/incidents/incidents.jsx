@@ -1,19 +1,18 @@
 import "./incidents.scss";
 import React, { useState } from "react";
+import options from "../../../dropdownOptions.json";
 import { Arrow_Up } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
-import options from "../../../dropdownOptions.json";
-
 
 export function Incident({ incident }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
+  const [incidentModalOpen, setIncidentModalOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
   const date = new Date(incident.date.toDate());
   const year = date.getFullYear();
   const month = useLeadingZero(date.getMonth(), 2);
   const day = useLeadingZero(date.getDate(), 2);
-
 
   return (
     <div
