@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Add } from "@/assets/icons/add";
 import { Arrow_Up } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
+import { Edit } from "@/assets/icons/edit";
 import { Modal } from "../modal/modal";
 import { Incident } from "../incidents/incidents";
 import { v4 as uuidv4 } from "uuid";
@@ -17,6 +18,8 @@ export function FormElement({ elementTitle, elementBars, elementArray, add}) {
     <div className="formElement" style={{height: !elementOpen && "35px"}}>
       <div className="elementTitle">
         <h3>{elementTitle}</h3>
+        <button className="titlebarButton arrowButton" ><Edit className="edit" color={elementHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+            size="16"/></button>
         <button
           className="titlebarButton arrowButton"
           style={{ transform: elementOpen === true && `rotate(180deg)` }}

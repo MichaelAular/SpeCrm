@@ -5,8 +5,8 @@ export function Save() {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
 
-  const clickedYes =()=> {console.log("yes");}
-  const clickedNo =()=> {console.log("no");}
+  const clickedYes =()=> {console.log("save");}
+  const clickedNo =()=> {console.log("don't save");}
 
   const saveButton = (input, state, setState, handleClick) => {
     return (

@@ -1,5 +1,4 @@
 export function Arrow_Up({ color, size }) {
-  const Heigth = size
   return(
     <svg
       width={size}
