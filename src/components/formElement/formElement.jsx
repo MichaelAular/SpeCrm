@@ -37,7 +37,7 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
           )}
           <button
             className="titlebarButton arrowButton"
-            style={{transform: elementOpen && `rotate(180deg) translateY(6px)`}}
+            style={{transform: elementOpen && `rotate(180deg) translateY(4px)`}}
             onClick={() => {setElementOpen(!elementOpen)}}
             onMouseEnter={() => {setElementHovered(true)}}
             onMouseLeave={() => {setElementHovered(false)}}

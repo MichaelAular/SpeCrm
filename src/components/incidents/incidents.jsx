@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import options from "../../../dropdownOptions.json";
 import { ArrowUpIcon } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
+import { Delete } from "../delete/delete";
+import { Modal } from "../modal/modal";
 import { TrashIcon } from "@/assets/icons/trash";
 import { useLeadingZero } from "@/hooks/leadingZero";
 
@@ -10,6 +12,7 @@ export function Incident({ incident, editElement }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
   const [trashHovered, setTrashHovered] = useState(false);
+  const [deleteIncident, setDeleteIncident] = useState(false);
   const date = new Date(incident.date.toDate());
   const year = date.getFullYear();
   const month = useLeadingZero(date.getMonth(), 2);
@@ -34,7 +37,7 @@ export function Incident({ incident, editElement }) {
         <div className="incidentButtonContainer">
           {editElement === true && <button
             className="titlebarButton trashButton"
-            // onClick={() => {}}
+            onClick={() => {setDeleteIncident(true)}}
             onMouseEnter={() => {setTrashHovered(true)}}
             onMouseLeave={() => {setTrashHovered(false)}}
           >
@@ -64,6 +67,12 @@ export function Incident({ incident, editElement }) {
         <Bar title="locatie" input={incident.location} type="string" />
         <Bar title="betrokkenen" input={incident.peopleInvolved} type="dropdown_multiple" options={options.employees}/>
       </div>
+      <Modal
+        modalOpen={deleteIncident}
+        setModalOpen={setDeleteIncident}
+        title="Delete Incident"
+        input={<Delete/>}
+      />
     </div>
   );
 }
