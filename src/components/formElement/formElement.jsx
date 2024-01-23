@@ -1,6 +1,7 @@
 import "./formElement.scss";
 import React, { useState } from "react";
 import { Add } from "@/assets/icons/add";
+import { AddIncident } from "../addIncident/addIncident";
 import { ArrowUpIcon } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
 import { Edit } from "@/assets/icons/edit";
@@ -82,7 +83,7 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
             modalOpen={addIncident}
             setModalOpen={setAddIncident}
             title="add incident"
-            input={"test"}
+            input={<AddIncident/>}
           />
         </div>
       )}

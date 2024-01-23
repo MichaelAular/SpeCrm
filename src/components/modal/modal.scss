@@ -9,7 +9,7 @@
     padding: 5rem;
 }
 .modal {
-    overflow: hidden;
+    // overflow: hidden;
     position: absolute;
     max-width: 800px;
     min-width: 350px;
@@ -24,12 +24,22 @@
 }
 .modalTitleBar {
     position: relative;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     text-align: center;
     background-color: rgb(var(--TextOnWhite));
     color: rgb(var(--white06));
+    padding-left: 24px;
+    padding-right: 3px;
 }
 
 .modalInput {
     margin: 10px;
+}
+.closeBtn{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-top: 2px;
 }
