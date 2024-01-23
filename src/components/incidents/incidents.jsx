@@ -1,14 +1,15 @@
 import "./incidents.scss";
 import React, { useState } from "react";
 import options from "../../../dropdownOptions.json";
-import { Arrow_Up } from "@/assets/icons/arrow_up";
+import { ArrowUpIcon } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
+import { TrashIcon } from "@/assets/icons/trash";
 import { useLeadingZero } from "@/hooks/leadingZero";
 
-export function Incident({ incident }) {
+export function Incident({ incident, editElement }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
-  const [incidentModalOpen, setIncidentModalOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
+  const [trashHovered, setTrashHovered] = useState(false);
   const date = new Date(incident.date.toDate());
   const year = date.getFullYear();
   const month = useLeadingZero(date.getMonth(), 2);
@@ -17,36 +18,42 @@ export function Incident({ incident }) {
   return (
     <div
       className="incidentContainer"
-      style={{ height: incidentOpen ? "auto" : "20px", overflow: "hidden" }}
+      style={{ height: incidentOpen ? "auto" : "28px", overflow: "hidden" }}
     >
-      <div className="incidentHeader"
-      onClick={() => {setIncidentOpen(!incidentOpen)}}
-      onMouseEnter={() => {setIncidentHovered(true)}}
-      onMouseLeave={() => {setIncidentHovered(false)}}
-      >
+      <div className="incidentHeader">
         <h6
           style={{
             color:
-              incidentHovered === true
+              incidentHovered === true || trashHovered === true
                 ? "rgb(var(--secundair))"
                 : "rgb(var(--white06))",
           }}
         >
           {day}-{month}-{year}
         </h6>
-        <div>
+        <div className="incidentButtonContainer">
+          {editElement === true && <button
+            className="titlebarButton trashButton"
+            // onClick={() => {}}
+            onMouseEnter={() => {setTrashHovered(true)}}
+            onMouseLeave={() => {setTrashHovered(false)}}
+          >
+            <TrashIcon
+              className="trashIcon"
+              color={ trashHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+            size="18"/>
+          </button>}
           <button
             className="titlebarButton"
-            style={{ transform: incidentOpen === true && `rotate(180deg)` }}
+            style={{transform: incidentOpen === true && `rotate(180deg) translateY(6px)`}}
+            onClick={() => {setIncidentOpen(!incidentOpen)}}
+            onMouseEnter={() => {setIncidentHovered(true)}}
+            onMouseLeave={() => {setIncidentHovered(false)}}
           >
-            <Arrow_Up
-              className="arrow_Up"
-              color={
-                incidentHovered === true
-                  ? "rgb(var(--secundair))"
-                  : "rgb(var(--white06))"
-              }
-              size="10"
+            <ArrowUpIcon
+              className="arrowUpIcon"
+              color={incidentHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+              size="16"
             />
           </button>
         </div>

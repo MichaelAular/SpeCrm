@@ -1,12 +1,29 @@
 import "./save.scss";
 import React, { useState } from "react";
+import { getDatabase, ref, set } from "firebase/database";
+// import { db } from "@/firebase";
 
 export function Save() {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
 
-  const clickedYes =()=> {console.log("save");}
-  const clickedNo =()=> {console.log("don't save");}
+  function writeUserData(userId, name, email, imageUrl) {
+    const db = getDatabase();
+    console.log(db);
+    // set(ref(db, 'users/' + userId), {
+    //   username: name,
+    //   email: email,
+    //   profile_picture : imageUrl
+    // });
+  }
+
+  const clickedYes =()=> {
+    console.log("save")
+    writeUserData()
+  }
+  const clickedNo =()=> {
+    console.log("don't save")
+  }
 
   const saveButton = (input, state, setState, handleClick) => {
     return (

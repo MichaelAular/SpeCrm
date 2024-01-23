@@ -13,7 +13,7 @@
     appId: "1:100337021195:web:09bd82b528fdc26cc0720e"
  };
  // Initialize Firebase
- 
+
  const app = initializeApp(firebaseConfig);
  // Export firestore database
  // It will be imported into your react app whenever it is needed

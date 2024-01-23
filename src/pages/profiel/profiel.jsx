@@ -8,13 +8,14 @@ import * as FirestoreProfileService from '../../services/firebaseProfiles';
 
 /// persoonlijke vraag: geen tel en email ed van school???
 /// kopie rapport bespreken (document zelf!)
+
 export function Tab_Profiel() {
   const [currentProfile, setCurrentProfile] = useState(profile);
   const [dataLoaded, setLoaded] = useState(false);
 
 
   useEffect(() => {
-    FirestoreProfileService.getProfile('FrencyJohn')
+    FirestoreProfileService.getProfile('SennaKaterberg')
       .then(doc => {
         if (doc.exists) {
           setCurrentProfile(doc.data());

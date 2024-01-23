@@ -1,4 +1,4 @@
-export function Arrow_Up({ color, size }) {
+export function ArrowUpIcon({ color, size }) {
   return(
     <svg
       width={size}

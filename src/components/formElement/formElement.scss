@@ -25,10 +25,10 @@
     margin-bottom: 10px;
 }
 
-.titlebarButtonContainer {
+.titlebarButtonContainer{
     display: flex;
-    gap: 10px;
-
+    gap: 6px;
+    height: 100%
 }
 .titlebarButton {
     position: relative;
@@ -36,4 +36,9 @@
     background-color: transparent;
     cursor: pointer;
     transition-duration: .4s;
+}
+
+.addContainter{
+    display: flex;
+    justify-content: center;
 }
