@@ -1,66 +1,66 @@
 {
-    "id": "",
-    "firstName": "",
-    "nickName": "",
-    "lastname": "",
-    "sex": "",
-    "birthDate": "2000-01-01T00:00:00.000Z",
-    "address": {
-       "street": "",
-       "streetNo": "",
-       "postalCode": "",
-       "district": "",
-       "city": ""
-    },
-    "countryOfBirth": "",
-    "nationality": "",
-    "languages": "",
-    "email": "",
-    "family": {
-       "parents": [
-          {
-             "email": "",
-             "firstName": "",
-             "lastName": "",
-             "type": ""
-          }
-       ],
-       "contactDetails": {
-          "name": "",
-          "email": "",
-          "phoneNoHome": "",
-          "phoneNoMobile": "",
-          "phoneNoEmergency": ""
-       },
-       "incomeClass": "",
-       "benefits": false,
-       "noOfChildren": 0
-    },
-    "equipment":{
-       "smartphone":false,
-       "tablet":false,
-       "laptop":false
-    },
-    "cityPass": false,
-    "libraryPass": false,
-    "ownRoom": false,
-    "lessonSchedule": "",
-    "afterSchoolActivities": "",
-    "school": {
-       "name": "",
-       "type": "",
-       "address": {
-          "street": "",
-          "streetNo": "",
-          "postalCode": "",
-          "city": ""
-       },
-       "preliminaryAdvise": "",
-       "rapportCopy": "",
-       "specialEducation": false,
-       "fieldOfStudy": "",
-       "citoScore": "",
-       "schoolYear": ""
-    },
-    "incidents": []
- }
+   "id": "",
+   "firstName": "",
+   "nickName": "",
+   "lastname": "",
+   "sex": "",
+   "birthDate": "2000-01-01T00:00:00.000Z",
+   "address": {
+      "street": "",
+      "streetNo": "",
+      "postalCode": "",
+      "district": "",
+      "city": ""
+   },
+   "countryOfBirth": "",
+   "nationality": "",
+   "languages": "",
+   "email": "",
+   "family": {
+      "parents": [
+         {
+            "email": "",
+            "firstName": "",
+            "lastName": "",
+            "type": ""
+         }
+      ],
+      "contactDetails": {
+         "name": "",
+         "email": "",
+         "phoneNoHome": "",
+         "phoneNoMobile": "",
+         "phoneNoEmergency": ""
+      },
+      "incomeClass": "",
+      "benefits": false,
+      "noOfChildren": 0
+   },
+   "equipment": {
+      "smartphone": false,
+      "tablet": false,
+      "laptop": false
+   },
+   "cityPass": false,
+   "libraryPass": false,
+   "ownRoom": false,
+   "lessonSchedule": "",
+   "afterSchoolActivities": "",
+   "school": {
+      "name": "",
+      "type": "",
+      "address": {
+         "street": "",
+         "streetNo": "",
+         "postalCode": "",
+         "city": ""
+      },
+      "preliminaryAdvise": "",
+      "rapportCopy": "",
+      "specialEducation": false,
+      "fieldOfStudy": "",
+      "citoScore": "",
+      "schoolYear": ""
+   },
+   "incidents": []
+}

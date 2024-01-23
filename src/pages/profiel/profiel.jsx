@@ -14,7 +14,7 @@ export function Tab_Profiel() {
 
 
   useEffect(() => {
-    FirestoreProfileService.getProfile('FrencyJohn')
+    FirestoreProfileService.getProfile('SennaKaterberg')
       .then(doc => {
         if (doc.exists) {
           setCurrentProfile(doc.data());
