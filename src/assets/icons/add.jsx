@@ -1,4 +1,4 @@
-export function Add({ color, size }) {
+export function AddIcon({ color, size }) {
    return(
      <svg
        width={size}

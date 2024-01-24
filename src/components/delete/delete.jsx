@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 // import { db } from "@/firebase";
 
-export function Delete() {
+export function Delete({setDeleteOpen}) {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
 
@@ -19,22 +19,27 @@ export function Delete() {
 
   const clickedYes =()=> {
     console.log("delete")
+    setDeleteOpen(false)
     writeUserData()
   }
   const clickedNo =()=> {
     console.log("don't delete")
+    setDeleteOpen(false)
   }
 
   const deleteButton = (input, state, setState, handleClick) => {
     return (
       <button
-        className="deleteButton"
+        className="deleteBtn"
         style={{
-            color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
-            backgroundColor: state === true ? "rgb(var(--white00)" : "rgb(var(--TextOnWhite)"
+            color: "rgb(var(--white07)",
+            backgroundColor: state === true && input === "yes" ? "rgb(var(--danger)" :
+            state === true && input === "no" ? "rgb(var(--white00)" :
+            "rgb(var(--TextOnWhite)"
         }}
         onMouseEnter={()=> setState(true)}
         onMouseLeave={()=> setState(false)}
+        onMouseOut={()=> setState(false)}
         onClick={()=>handleClick()}
       >
         {input}

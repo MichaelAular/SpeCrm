@@ -1,7 +1,7 @@
 import "./incidents.scss";
 import React, { useState } from "react";
 import options from "../../../dropdownOptions.json";
-import { ArrowUpIcon } from "@/assets/icons/arrow_up";
+import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
 

@@ -1,4 +1,4 @@
-export function Close({ color, size }) {
+export function CloseIcon({ color, size }) {
    return(
      <svg
        width={size}

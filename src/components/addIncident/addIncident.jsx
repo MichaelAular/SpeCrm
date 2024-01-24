@@ -9,6 +9,7 @@ export function AddIncident() {
         <Bar title="omschrijving" input="" type="string" />
         <Bar title="locatie" input="" type="string" />
         <Bar title="betrokkenen" input="" type="dropdown_multiple" options={options.employees}/>
+        <button className="addIncidentBtn">ADD</button>
     </div>
     )
 }
