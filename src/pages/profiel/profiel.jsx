@@ -1,13 +1,11 @@
 import styles from "../../app/page.module.scss";
 import React, { useEffect, useState } from "react";
-import { FormElement } from "@/components/formElement/formElement";
-import Skeleton from '@mui/material/Skeleton';
-import profile from "../../models/profile.json"
-import options from "../../../dropdownOptions.json"
 import * as FirestoreProfileService from '../../services/firebaseProfiles';
-
-/// persoonlijke vraag: geen tel en email ed van school???
-/// kopie rapport bespreken (document zelf!)
+import { FormElement } from "@/components/formElement/formElement";
+import options from "../../../dropdownOptions.json"
+import profile from "../../models/profile.json"
+import Skeleton from '@mui/material/Skeleton';
+import { Spinner } from "@/components/spinner/spinner";
 
 export function Tab_Profiel() {
   const [currentProfile, setCurrentProfile] = useState(profile);
@@ -105,7 +103,8 @@ export function Tab_Profiel() {
           />
         </div>}
 
-        {!dataLoaded && <Skeleton variant="rectangular" width={600} height={200} />}
+        {!dataLoaded && <Skeleton variant="rectangular" width={600} height={200}/>}
+        {!dataLoaded && <Spinner/>}
       </main>
     </div>
   );
