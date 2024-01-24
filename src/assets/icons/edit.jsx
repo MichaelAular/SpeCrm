@@ -1,4 +1,4 @@
-export function Edit({ color, size }) {
+export function EditIcon({ color, size }) {
   return(
     <svg
       width={size}

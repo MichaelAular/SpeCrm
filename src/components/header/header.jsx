@@ -19,34 +19,37 @@ export function Header({ currentTab, setCurrentTab }) {
   return (
     <div className="headerContainer">
       <div className="header">
-        {currentTab === "Profielschets" && (
-            <button
-              type="submit"
-              className="headerBtn saveBtn"
-              onClick={updateProfile}
-              onMouseEnter={() => {setSaveBtnHovered(true)}}
-              onMouseLeave={() => {setSaveBtnHovered(false)}}
-            >
-              <SaveIcon
-                className="saveBtn"
-                color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
-                size="22"
-              />
-            </button>
-        )}
 
-        <button
-          className="headerBtn userBtn"
-          onClick={showUser}
-          onMouseEnter={() => {setUserBtnHovered(true)}}
-          onMouseLeave={() => {setUserBtnHovered(false)}}
-        >
-        <UserIcon
-          className="userBtn"
-          color={userBtnHovered === true ? "--secundair" : "--white07"}
-          size="22"
-        />
-        </button>
+        <div className="headerButtonContainer">
+          <button
+            className="headerBtn userBtn"
+            onClick={showUser}
+            onMouseEnter={() => {setUserBtnHovered(true)}}
+            onMouseLeave={() => {setUserBtnHovered(false)}}
+          >
+          <UserIcon
+            className="userBtn"
+            color={userBtnHovered === true ? "--secundair" : "--white07"}
+            size="22"
+          />
+          </button>
+          {currentTab === "Profielschets" && (
+              <button
+                type="submit"
+                className="headerBtn saveBtn"
+                onClick={updateProfile}
+                onMouseEnter={() => {setSaveBtnHovered(true)}}
+                onMouseLeave={() => {setSaveBtnHovered(false)}}
+              >
+                <SaveIcon
+                  className="saveBtn"
+                  color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
+                  size="22"
+                />
+              </button>
+          )}
+        </div>
+
         <TabMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <Searchbar />
 
@@ -62,7 +65,6 @@ export function Header({ currentTab, setCurrentTab }) {
           title="User"
           input={"userdata"}
         />
-
 
       </div>
     </div>

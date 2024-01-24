@@ -1,17 +1,15 @@
 import "./formElement.scss";
 import React, { useState } from "react";
-import { Add } from "@/assets/icons/add";
-import { AddIncident } from "../addIncident/addIncident";
 import { ArrowUpIcon } from "@/assets/icons/arrow_up";
 import { Bar } from "../bar/bar";
-import { Edit } from "@/assets/icons/edit";
+import { EditIcon } from "@/assets/icons/edit";
+import { EditIncident } from "../edit/edit";
 import { Modal } from "../modal/modal";
 import { Incident } from "../incidents/incidents";
 import { v4 as uuidv4 } from "uuid";
 
 export function FormElement({ elementTitle, elementBars, elementArray, add }) {
-  const [addIncident, setAddIncident] = useState(false);
-  const [addButtonHovered, setAddButtonHovered] = useState(false);
+  const [editIncident, setEditIncident] = useState(false);
   const [elementHovered, setElementHovered] = useState(false);
   const [elementOpen, setElementOpen] = useState(true);
   const [editElement, setEditElement] = useState(false);
@@ -25,13 +23,13 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
           {elementTitle === "incident registratie" && (
             <button
               className="titlebarButton editButton"
-              onClick={() => {setEditElement(!editElement)}}
+              onClick={() => {setEditIncident(true)}}
               onMouseEnter={() => {setEditHovered(true)}}
               onMouseLeave={() => {setEditHovered(false)}}
             >
-              <Edit
+              <EditIcon
                 className="edit"
-                color={editHovered || editElement? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+                color={editHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
                 size="18"
               />
             </button>
@@ -65,28 +63,12 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
         elementArray.map((incident) => (
           <Incident key={uuidv4()} incident={incident} editElement={editElement}/>
         ))}
-      {add && editElement && (
-        <div className="addContainter">
-          <button
-            className="titlebarButton addButton"
-            onMouseEnter={() => {setAddButtonHovered(true)}}
-            onMouseLeave={() => {setAddButtonHovered(false)}}
-            onClick={() => {setAddIncident(true)}}
-          >
-            <Add
-              className="addIcon"
-              color={addButtonHovered ? "rgb(var(--secundair))" : "rgb(var(--TextOnWhite))"}
-              size="20px"
-            />
-          </button>
           <Modal
-            modalOpen={addIncident}
-            setModalOpen={setAddIncident}
-            title="add incident"
-            input={<AddIncident/>}
+            modalOpen={editIncident}
+            setModalOpen={setEditIncident}
+            title="Edit Incident"
+            input={<EditIncident/>}
           />
-        </div>
-      )}
     </div>
   );
 }

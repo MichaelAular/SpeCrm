@@ -21,8 +21,14 @@
     min-width: 350px;
 }
 
-.headerBtn {
+.headerButtonContainer{
+    display: flex;
+    gap: 6px;
     position: absolute;
+    left: 2rem;
+}
+
+.headerBtn {
     border: none;
     height: 28px;
     border-radius: 3px;
@@ -33,19 +39,25 @@
     padding-right: 4px;
 }
 
-.saveBtn {
-    left: 4rem;
-}
-.userBtn {
-    left: 2rem;
+
+@media (max-width: 1200px) {
+    .headerButtonContainer{
+        left: 1rem;
+    }
 }
 
 @media (max-width: 700px) {
     .headerContainer {
-        height: calc(6rem - 5px);
-        .header {
-            flex-direction: column;
-            gap: 2px;
-        }
+        height: calc(6rem - 5px)
+    }
+    .header {
+        flex-direction: column;
+        gap: 2px;
+        position: relative;
+    }
+    .headerButtonContainer{
+        top:2.7rem;
+        width: 100%;
+        left: 0;
     }
 }
