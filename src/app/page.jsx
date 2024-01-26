@@ -2,9 +2,9 @@
 import "./page"
 import React, { useState } from "react";
 import { Header } from "@/components/header/header";
-import { Tab_Evaluatie } from "@/pages/evaluatie/evaluatie";
-import { Tab_Profiel } from "@/pages/profiel/profiel";
-import { Tab_Voortgang } from "@/pages/voortgang/voortgang";
+import { Tab_Evaluatie } from "@/tabs/evaluatie/evaluatie"; 
+import { Tab_Profiel } from "@/tabs/profiel/profiel";
+import { Tab_Voortgang } from "@/tabs/voortgang/voortgang";
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("Profielschets");
