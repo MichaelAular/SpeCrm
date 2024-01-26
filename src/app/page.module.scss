@@ -7,6 +7,15 @@
   min-height: 100vh;
 }
 
+.evaluatieScheme {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  padding-top: 0rem;
+}
+
 .textContainer {
   position: relative;
   margin-top: 6rem;

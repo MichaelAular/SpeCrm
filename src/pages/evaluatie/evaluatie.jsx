@@ -1,16 +1,25 @@
-import styles from "../../app/page.module.scss"
-import { FormElement } from "@/components/formElement/formElement";
+import styles from "../../app/page.module.scss";
+import { EvaluatieInput } from "@/components/evaluatieInput/evaluatieInput";
+import { EvaluatieWeek } from "@/components/evaluatieWeek/evaluatieWeek";
 
 export function Tab_Evaluatie() {
+
   return (
-    <main className={styles.main}>
-      <a className={styles.textContainer}>
-      <h1 className="pageTitle">Evaluatie</h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus omnis
-        accusantium ratione iusto. Pariatur ratione possimus, odio nam
-        repellendus praesentium, vitae quibusdam ducimus minus consequuntur,
-        laboriosam neque consectetur. Repellat, rem.
-      </a>
-    </main>
+    <div>
+      <div
+        className={styles.textContainer}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingRight: "10px",
+        }}
+      >
+        <h1 className="pageTitle">Evaluatie</h1>
+      </div>
+      <main className={styles.evaluatieScheme}>
+        <EvaluatieInput />
+        {/* <EvaluatieWeek /> */}
+      </main>
+    </div>
   );
 }

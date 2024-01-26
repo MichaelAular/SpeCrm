@@ -6,10 +6,8 @@ import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
 
 export function Incident({ incident }) {
-
   const [incidentOpen, setIncidentOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
-
   const date = new Date(incident.date.toDate());
   const year = date.getFullYear();
   const month = useLeadingZero(date.getMonth(), 2);
@@ -48,7 +46,6 @@ export function Incident({ incident }) {
         <Bar title="locatie" input={incident.location} type="string" />
         <Bar title="betrokkenen" input={incident.peopleInvolved} type="dropdown_multiple" options={options.employees}/>
       </div>
-   
     </div>
   );
 }

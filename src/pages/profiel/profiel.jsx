@@ -1,6 +1,6 @@
 import styles from "../../app/page.module.scss";
-import React, { useEffect, useState } from "react";
 import * as FirestoreProfileService from '../../services/firebaseProfiles';
+import React, { useEffect, useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import options from "../../../dropdownOptions.json"
 import profile from "../../models/profile.json"
@@ -10,7 +10,6 @@ import { Spinner } from "@/components/spinner/spinner";
 export function Tab_Profiel() {
   const [currentProfile, setCurrentProfile] = useState(profile);
   const [dataLoaded, setLoaded] = useState(false);
-
 
   useEffect(() => {
     FirestoreProfileService.getProfile('SennaKaterberg')

@@ -4,7 +4,7 @@ import { Modal } from "../modal/modal";
 import { Save } from "../save/save";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
-import { TabMenu } from "../tabMenu/tabMenu";
+import { TabHeader } from "../tabMenu/tabHeader";
 import { UserIcon } from "@/assets/icons/user";
 
 export function Header({ currentTab, setCurrentTab }) {
@@ -50,7 +50,7 @@ export function Header({ currentTab, setCurrentTab }) {
           )}
         </div>
 
-        <TabMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+        <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <Searchbar />
 
         <Modal

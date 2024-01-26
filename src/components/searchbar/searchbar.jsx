@@ -15,12 +15,11 @@ export function Searchbar() {
         setHovered(false);
       }}
     >
-      {/* <em style={{ fontSize: "12px" }}>search...</em> */}
       <Search
         size="18"
         color={hovered ? "rgb(var(--secundair))" : "rgb(var(--TextOnWhite))"}
       />
-      <input className="inputSearch" placeholder={`search...`} />
+      <input className="inputSearch" placeholder={`search student...`} />
     </div>
   );
 }

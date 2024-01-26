@@ -1,6 +1,6 @@
 import "./tabMenu.scss";
 
-export function TabMenu({ currentTab, setCurrentTab }) {
+export function TabUser({ currentTab, setCurrentTab }) {
   const tab = (title) => {
     return (
       <div
@@ -18,9 +18,8 @@ export function TabMenu({ currentTab, setCurrentTab }) {
   };
   return (
     <div className="tabMenuContainer">
-      {tab("Profielschets")}
-      {tab("Evaluatie")}
-      {tab("Voortgang")}
+      {tab("NAW")}
+      {tab("Uren")}
     </div>
   );
 }
