@@ -1,14 +1,14 @@
 import { db } from '@/firebase';
-import { collection, doc, setDoc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
-// Get all profiles from Firestore Database
-export const fetchProfiles = async () => {
-  return getDocs(collection(db, "profiles"))
+// Get profile name list from Firestore Database
+export const fetchProfileNameList = async () => {
+  return getDoc(doc(db, 'profiles', 'All'));
 }
 
 // Get specific profile from Firestore Database by id
 export const getProfile = (profileId) => {
-    const profileDocRef = doc(db, 'profiles', profileId)
+    const profileDocRef = doc(db, 'profiles', profileId);
     return getDoc(profileDocRef);
 };
 
@@ -26,6 +26,7 @@ export const addProfile = async (data) => {
 
 // Update excisting profile to Firestore Database
 export const updateProfile = async (data) => {
+    //TODO: Update profilelist if name changed.
     try {
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
@@ -36,7 +37,7 @@ export const updateProfile = async (data) => {
     }
 }
 
-// Update profile name list
+// Update profile name list to Firestore Database
 export const updateProfileList = async (profile) => {
     const item = {
         id: profile.firstName + profile.lastName,
