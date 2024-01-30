@@ -9,7 +9,6 @@ export function Save() {
 
   function writeUserData(userId, name, email, imageUrl) {
     const db = getDatabase();
-    console.log(db);
     // set(ref(db, 'users/' + userId), {
     //   username: name,
     //   email: email,
@@ -31,7 +30,9 @@ export function Save() {
         className="saveButton"
         style={{
             color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
-            backgroundColor: state === true ? "rgb(var(--white00)" : "rgb(var(--TextOnWhite)"
+            backgroundColor: state === true && input === "yes" ? "rgb(var(--danger)" :
+            state === true && input === "no" ? "rgb(var(--white00)" :
+            "rgb(var(--TextOnWhite)"
         }}
         onMouseEnter={()=> setState(true)}
         onMouseLeave={()=> setState(false)}

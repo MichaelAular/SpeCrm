@@ -1,6 +1,7 @@
 import "./tabMenu.scss";
 
 export function TabHeader({ currentTab, setCurrentTab }) {
+  const Scroll =()=> ScrollBack()
   const tab = (title) => {
     return (
       <div
@@ -10,7 +11,10 @@ export function TabHeader({ currentTab, setCurrentTab }) {
         backgroundColor: currentTab === title && "rgb(var(--white07))",
         fontWeight: currentTab === title && 600,
     }}
-      onClick={()=>{setCurrentTab(title)}}
+      onClick={()=>{
+        setCurrentTab(title)
+        window.scrollTo(0, 0)
+      }}
       >
         {title}
       </div>
