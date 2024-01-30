@@ -1,9 +1,9 @@
-import styles from "../../app/page.module.scss";
-import * as FirestoreProfileService from '../../services/firebaseProfiles';
+import styles from "../app/page.module.scss";
+import * as FirestoreProfileService from '../services/firebaseProfiles';
 import React, { useEffect, useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
-import options from "../../../dropdownOptions.json"
-import profile from "../../models/profile.json"
+import options from "../../dropdownOptions.json"
+import profile from "../models/profile.json"
 import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from "@/components/spinner/spinner";
 

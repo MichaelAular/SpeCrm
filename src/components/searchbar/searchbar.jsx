@@ -15,10 +15,12 @@ export function Searchbar() {
         setHovered(false);
       }}
     >
-      <Search
-        size="18"
-        color={hovered ? "rgb(var(--secundair))" : "rgb(var(--TextOnWhite))"}
-      />
+      <button className="searchBtn">
+        <Search
+          size="18"
+          color={hovered ? "rgb(var(--secundair))" : "rgb(var(--TextOnWhite))"}
+        />
+      </button>
       <input className="inputSearch" placeholder={`search student...`} />
     </div>
   );

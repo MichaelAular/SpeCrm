@@ -1,4 +1,4 @@
-import styles from "../../app/page.module.scss"
+import styles from "../app/page.module.scss"
 import { FormElement } from "@/components/formElement/formElement";
 
 export function Tab_Voortgang() {

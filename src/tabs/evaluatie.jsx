@@ -1,4 +1,4 @@
-import styles from "../../app/page.module.scss";
+import styles from "../app/page.module.scss";
 import { EvaluatieInput } from "@/components/evaluatieInput/evaluatieInput";
 import { EvaluatieWeek } from "@/components/evaluatieWeek/evaluatieWeek";
 
@@ -18,7 +18,7 @@ export function Tab_Evaluatie() {
       </div>
       <main className={styles.evaluatieScheme}>
         <EvaluatieInput />
-        {/* <EvaluatieWeek /> */}
+        <EvaluatieWeek weekNr="01" />
       </main>
     </div>
   );

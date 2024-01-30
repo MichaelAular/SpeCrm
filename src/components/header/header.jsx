@@ -5,6 +5,7 @@ import { Save } from "../save/save";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
 import { TabHeader } from "../tabMenu/tabHeader";
+import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
 
 export function Header({ currentTab, setCurrentTab }) {
@@ -64,6 +65,7 @@ export function Header({ currentTab, setCurrentTab }) {
           setModalOpen={setUserModal}
           title="User"
           input={"userdata"}
+          // input={<TabUser/>}
         />
 
       </div>
