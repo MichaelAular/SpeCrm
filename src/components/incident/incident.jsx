@@ -1,10 +1,9 @@
-import "./incidents.scss";
+import "./incident.scss";
 import React, { useState } from "react";
 import options from "../../../dropdownOptions.json";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
-import { compileString } from "sass";
 
 export function Incident({ incident }) {
   const [incidentOpen, setIncidentOpen] = useState(false);

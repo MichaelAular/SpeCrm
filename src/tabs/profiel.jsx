@@ -90,15 +90,10 @@ export function Tab_Profiel() {
           <FormElement
             elementTitle="incident registratie"
             elementArray={currentProfile.incidents.map((incident) => { return incident })}
-            add={true}
           />
           <FormElement
             elementTitle="aandachtspunten"
-            elementBars={[
-              { title: "omschrijving", input: "", type: "string" },
-              { title: "plan van aanpak", input: "", type: "string" },
-              { title: "afspraken", input: "", type: "string" },
-            ]}
+            elementArray={currentProfile.attentionPoints.map((incident) => { return incident })}
           />
         </div>}
 

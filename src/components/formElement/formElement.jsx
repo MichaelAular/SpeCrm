@@ -1,24 +1,25 @@
 import "./formElement.scss";
 import React, { useState } from "react";
+import { Aandacht } from "../aandacht/aandacht";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
+import { Edit } from "../edit/edit";
 import { EditIcon } from "@/assets/icons/edit";
-import { EditIncident } from "../edit/edit";
+import { Incident } from "../incident/incident";
 import { Modal } from "../modal/modal";
-import { Incident } from "../incidents/incidents";
 import { v4 as uuidv4 } from "uuid";
 
-export function FormElement({ elementTitle, elementBars, elementArray, add }) {
+export function FormElement({ elementTitle, elementBars, elementArray }) {
+  const [editAandacht, setEditAandacht] = useState(false);
   const [editIncident, setEditIncident] = useState(false);
   const [elementHovered, setElementHovered] = useState(false);
   const [elementOpen, setElementOpen] = useState(true);
-  const [editElement, setEditElement] = useState(false);
   const [editHovered, setEditHovered] = useState(false);
 
   return (
     <div
       className="formElement"
-      style={{ 
+      style={{
         height: !elementOpen && "35px",
         overflow: elementOpen ? "visible" : "hidden"
       }}
@@ -26,10 +27,13 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
       <div className="elementTitle">
         <h3>{elementTitle}</h3>
         <div className="titlebarButtonContainer">
-          {elementTitle === "incident registratie" && (
+          {(elementTitle === "incident registratie" || elementTitle === "aandachtspunten") && (
             <button
               className="titlebarButton editButton"
-              onClick={() => {setEditIncident(true)}}
+              onClick={() => {
+                elementTitle === "incident registratie" && setEditIncident(true)
+                elementTitle === "aandachtspunten" && setEditAandacht(true)
+              }}
               onMouseEnter={() => {setEditHovered(true)}}
               onMouseLeave={() => {setEditHovered(false)}}
             >
@@ -64,16 +68,25 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
             type={i.type}
             options={i.options}
           />
-        ))}
-      {elementArray &&
-        elementArray.map((incident) => (
-          <Incident key={uuidv4()} incident={incident} editElement={editElement}/>
-        ))}
+        ))
+      }
+      { elementArray && elementTitle === "incident registratie" &&
+        elementArray.map((incident) => (<Incident key={uuidv4()} incident={incident}/>))
+      }
+      { elementArray && elementTitle === "aandachtspunten" &&
+        elementArray.map((punt) => (<Aandacht key={uuidv4()} punt={punt}/>))
+      }
           <Modal
             modalOpen={editIncident}
             setModalOpen={setEditIncident}
             title="Edit Incidenten"
-            input={<EditIncident elementArray={elementArray}/>}
+            input={<Edit elementArray={elementArray} type="incident"/>}
+          />
+          <Modal
+            modalOpen={editAandacht}
+            setModalOpen={setEditAandacht}
+            title="Edit Aandachtspunten"
+            input={<Edit elementArray={elementArray} type="aandacht"/>}
           />
     </div>
   );
