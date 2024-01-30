@@ -4,19 +4,23 @@ import options from "../../../dropdownOptions.json";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
+import { compileString } from "sass";
 
 export function Incident({ incident }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
   const date = new Date(incident.date.toDate());
   const year = date.getFullYear();
-  const month = useLeadingZero(date.getMonth(), 2);
+  const month = useLeadingZero((date.getMonth() + 1), 2);
   const day = useLeadingZero(date.getDate(), 2);
 
   return (
     <div
       className="incidentContainer"
-      style={{ height: incidentOpen ? "auto" : "28px", overflow: "hidden" }}
+      style={{ 
+        height: incidentOpen ? "auto" : "28px",
+        overflow: incidentOpen ? "none" : "hidden"
+      }}
     >
       <div className="incidentHeader">
         <h6
