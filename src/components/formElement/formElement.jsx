@@ -16,7 +16,13 @@ export function FormElement({ elementTitle, elementBars, elementArray, add }) {
   const [editHovered, setEditHovered] = useState(false);
 
   return (
-    <div className="formElement" style={{ height: !elementOpen && "35px" }}>
+    <div
+      className="formElement"
+      style={{ 
+        height: !elementOpen && "35px",
+        overflow: elementOpen ? "visible" : "hidden"
+      }}
+      >
       <div className="elementTitle">
         <h3>{elementTitle}</h3>
         <div className="titlebarButtonContainer">

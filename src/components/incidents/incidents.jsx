@@ -19,7 +19,7 @@ export function Incident({ incident }) {
       className="incidentContainer"
       style={{ 
         height: incidentOpen ? "auto" : "28px",
-        overflow: incidentOpen ? "none" : "hidden"
+        overflow: incidentOpen ? "visible" : "hidden",
       }}
     >
       <div className="incidentHeader">
