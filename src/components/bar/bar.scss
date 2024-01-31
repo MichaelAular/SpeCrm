@@ -30,6 +30,10 @@ input, .inputGiven {
     top: 5px;
 }
 
+.stackBar {
+    border: none;
+}
+
 .inputGiven::placeholder {
     color: inherit;
 }
@@ -52,4 +56,12 @@ input, .inputGiven {
     .css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
         font-size: 11px !important;
     }
+}
+
+.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root {
+    padding: 2px !important;
+}
+
+.css-38raov-MuiButtonBase-root-MuiChip-root{
+    height: auto !important;
 }

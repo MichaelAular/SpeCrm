@@ -39,13 +39,13 @@
       "meisje"
     ],
     "schoolType": [
-      "Basisschool", 
-      "Middelbare school", 
+      "Basisschool",
+      "Middelbare school",
       "Voortgezet onderwijs"
     ],
     "schoolFieldOfStudy": [
-      "VMBO", 
-      "Mavo/Havo", 
+      "VMBO",
+      "Mavo/Havo",
       "VWO"
     ]
 }

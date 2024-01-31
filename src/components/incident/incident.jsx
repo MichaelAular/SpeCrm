@@ -16,7 +16,7 @@ export function Incident({ incident }) {
   return (
     <div
       className="incidentContainer"
-      style={{ 
+      style={{
         height: incidentOpen ? "auto" : "28px",
         overflow: incidentOpen ? "visible" : "hidden",
       }}
@@ -47,7 +47,8 @@ export function Incident({ incident }) {
         <Bar title="datum" input={new Date(incident.date.toDate())} type="date" />
         <Bar title="omschrijving" input={incident.description} type="string_FH" />
         <Bar title="locatie" input={incident.location} type="string" />
-        <Bar title="betrokkenen" input={incident.peopleInvolved} type="dropdown_multiple" options={options.employees}/>
+        {/* <Bar title="betrokkenen" input={incident.peopleInvolved} type="dropdown_multiple" options={options.employees}/> */}
+        <Bar title="betrokkenen" input={[incident.peopleInvolved]} type="string_auto" options={options.employees}/>
       </div>
     </div>
   );
