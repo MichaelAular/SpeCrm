@@ -8,11 +8,26 @@ import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from "@/components/spinner/spinner";
 
 export function Tab_Profiel() {
-  const [currentProfile, setCurrentProfile] = useState(profile);
+  const [currentProfile, setCurrentProfile] = useState();
+  const [profiles, setProfiles] = useState();
   const [dataLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    FirestoreProfileService.getProfile('SennaKaterberg')
+    FirestoreProfileService.fetchProfileNameList()
+      .then(doc => {
+        if (doc.exists) {
+          setProfiles(doc.data());
+          setLoaded(true);
+        } else {
+          // Not found
+          console.log('Document not found')
+        }
+      })
+      .catch(() => console.log('Error'));
+    }, [])
+
+    useEffect(() => {
+      FirestoreProfileService.getProfile('SennaKaterberg')
       .then(doc => {
         if (doc.exists) {
           setCurrentProfile(doc.data());
@@ -23,7 +38,9 @@ export function Tab_Profiel() {
         }
       })
       .catch(() => console.log('Error'));
-  }, [])
+    }, [])
+
+    console.log("profiles:", profiles.list);
 
   return (
     <div>
