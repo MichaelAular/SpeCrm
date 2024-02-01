@@ -3,12 +3,10 @@ import * as FirestoreProfileService from '../services/firebaseProfiles';
 import React, { useEffect, useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import options from "../../dropdownOptions.json"
-import profile from "../models/profile.json"
 import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from "@/components/spinner/spinner";
 
-export function Tab_Profiel() {
-  const [currentProfile, setCurrentProfile] = useState();
+export function Tab_Profiel({ currentProfile, setCurrentProfile }) {
   const [profiles, setProfiles] = useState();
   const [dataLoaded, setLoaded] = useState(false);
 
@@ -40,7 +38,7 @@ export function Tab_Profiel() {
       .catch(() => console.log('Error'));
     }, [])
 
-    console.log("profiles:", profiles.list);
+    // profiles && console.log("profiles:", profiles.list);
 
   return (
     <div>
