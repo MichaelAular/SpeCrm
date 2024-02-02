@@ -9,6 +9,8 @@ import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
 import { LogOutIcon } from "@/assets/icons/logOut";
 
+import { useWindowSize } from "@/hooks/windowSize";
+
 export function Header({
     currentPage,
     currentTab,
@@ -20,6 +22,7 @@ export function Header({
   const [userBtnHovered, setUserBtnHovered] = useState(false);
   const [userModal, setUserModal] = useState(false);
   const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
+  const size = useWindowSize();
 
   const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {setUserModal(true)};
@@ -40,18 +43,17 @@ export function Header({
     )
   }
 
-
   return (
     <div className="headerContainer">
 
       <div className="header">
 
-        <div className="headerSide">
+        <div className="headerSide" style={{order:size.width > 700 ? 1 : 2}}>
           {headerBtn( "Students" )}
           {headerBtn( "Analyses" )}
         </div>
 
-        <div className="headerSide">
+        <div className="headerSide" style={{order:size.width > 700 ? 2 : 1}}>
           <Searchbar />
           {currentTab === "Profielschets" && currentPage === "Analyses" && (
               <button
