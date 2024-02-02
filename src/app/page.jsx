@@ -2,9 +2,9 @@
 import "./page"
 import React, { useState } from "react";
 import { Header } from "@/components/header/header";
-import { Tab_Evaluatie } from "@/tabs/evaluatie";
-import { Tab_Profiel } from "@/tabs/profiel";
-import { Tab_Voortgang } from "@/tabs/voortgang";
+import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
+import { Tab_Profiel } from "@/pagesAndTabs/profiel";
+import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("students");

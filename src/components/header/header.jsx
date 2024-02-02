@@ -7,6 +7,7 @@ import { Searchbar } from "../searchbar/searchbar";
 import { TabHeader } from "../tabMenu/tabHeader";
 import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
+import { LogOutIcon } from "@/assets/icons/logOut";
 
 export function Header({
     currentPage,
@@ -18,6 +19,7 @@ export function Header({
   const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);
   const [userModal, setUserModal] = useState(false);
+  const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
 
   const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {setUserModal(true)};
@@ -65,7 +67,8 @@ export function Header({
                   size="22"
                 />
               </button>
-          )} 
+          )}
+
            <button
               className="headerBtn userBtn"
               onClick={showUser}
@@ -78,6 +81,20 @@ export function Header({
                size="22"
              />
             </button>
+
+            <button
+              className="headerBtn logOutBtn"
+              onClick={showUser}
+              onMouseEnter={() => {setLogOutBtnHovered(true)}}
+              onMouseLeave={() => {setLogOutBtnHovered(false)}}
+            >
+              <LogOutIcon
+                className="logOutBtn"
+                color={logOutBtnHovered=== true ?  "rgb(var(--secundair))" : "rgb(var(--white07))"}
+               size="22"
+             />
+            </button>
+
           </div>
       </div>
 
