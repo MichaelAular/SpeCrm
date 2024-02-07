@@ -12,9 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 export function Edit({ elementArray, type}) {
   const [addOpen, setAddOpen] = useState(false);
   const [addHovered, setAddHovered] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const editIncident = (i) => {
-    const [deleteOpen, setDeleteOpen] = useState(false);
 
     return (
       <div key={uuidv4()}>

@@ -1,45 +1,10 @@
 import styles from "../app/page.module.scss";
-import * as FirestoreProfileService from '../services/firebaseProfiles';
-import React, { useEffect, useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import options from "../../dropdownOptions.json"
 import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from "@/components/spinner/spinner";
 
-export function Tab_Profiel({ currentProfile, setCurrentProfile }) {
-  const [profiles, setProfiles] = useState();
-  const [dataLoaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    FirestoreProfileService.fetchProfileNameList()
-      .then(doc => {
-        if (doc.exists) {
-          setProfiles(doc.data());
-          setLoaded(true);
-        } else {
-          // Not found
-          console.log('Document not found')
-        }
-      })
-      .catch(() => console.log('Error'));
-    }, [])
-
-    useEffect(() => {
-      FirestoreProfileService.getProfile('SennaKaterberg')
-      .then(doc => {
-        if (doc.exists) {
-          setCurrentProfile(doc.data());
-          setLoaded(true);
-        } else {
-          // Not found
-          console.log('Document not found')
-        }
-      })
-      .catch(() => console.log('Error'));
-    }, [])
-
-    // profiles && console.log("profiles:", profiles.list);
-
+export function Tab_Profiel({ currentProfile, dataLoaded }) {
   return (
     <div>
       <div className={styles.textContainer} style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px"}}>

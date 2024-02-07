@@ -18,7 +18,8 @@ export function Bar({ title, input, type, options }) {
   const input_Dropdown_Multiple = <DropdownMultiple options={options} input={input} title={title}/>;
   const input_Empty = <input className="inputEmpty" placeholder={`vul ${title} in...`} />;
   const input_String = <input className="inputGiven" placeholder={input} />
-  const input_String_auto= <AutoComplete options={options} input={input}/>
+  const input_String_auto= <AutoComplete options={options} input={input} multi={false} fs={false}/>
+  const input_String_auto_mfs= <AutoComplete options={options} input={input} multi={true} fs={true}/>
   const input_String_FH =()=> {
     const [inputString, setInputString] = useState(false);
     return (
@@ -30,9 +31,8 @@ export function Bar({ title, input, type, options }) {
   }
 
   return (
-    <div className="bar" style={{maxHeight: (type === "string_FH" || type === "string_auto" ) && input && "none"}}>
+    <div className="bar" style={{maxHeight: (type === "string_FH" || type === "string_auto" || type === "string_auto_mfs" ) && input && "none"}}>
       <h5 className="barTitle">{useCapitalize(title)}</h5>
-
       {type === "age" && input && input_Age}
       {type === "date" && input && input_Date}
       {type === "dropdown" && input_Dropdown}
@@ -41,6 +41,7 @@ export function Bar({ title, input, type, options }) {
       {type === "string" && input &&  input_String}
       {type === "string" && !input && input_Empty}
       {type === "string_auto" && input && input_String_auto}
+      {type === "string_auto_mfs" && input && input_String_auto_mfs}
       {type === "string_FH" && input && input_String_FH()}
     </div>
   );

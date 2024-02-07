@@ -14,8 +14,11 @@ import { useWindowSize } from "@/hooks/windowSize";
 export function Header({
     currentPage,
     currentTab,
+    profiles,
     setCurrentPage,
-    setCurrentTab
+    setCurrentTab,
+    setProfileID,
+    profileID
   }) {
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
   const [saveModal, setSaveModal] = useState(false);
@@ -23,7 +26,6 @@ export function Header({
   const [userModal, setUserModal] = useState(false);
   const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
   const size = useWindowSize();
-
   const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {setUserModal(true)};
 
@@ -45,16 +47,18 @@ export function Header({
 
   return (
     <div className="headerContainer">
-
       <div className="header">
-
         <div className="headerSide" style={{order:size.width > 700 ? 1 : 2}}>
           {headerBtn( "Students" )}
           {headerBtn( "Analyses" )}
         </div>
 
         <div className="headerSide" style={{order:size.width > 700 ? 2 : 1}}>
-          <Searchbar />
+          {profiles && <Searchbar
+            profiles={profiles}
+            setProfileID={setProfileID}
+            profileID={profileID}
+          />}
           {currentTab === "Profielschets" && currentPage === "Analyses" && (
               <button
                 type="submit"

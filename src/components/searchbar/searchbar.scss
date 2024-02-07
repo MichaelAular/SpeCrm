@@ -4,26 +4,20 @@
     align-items: center;
     width: calc(100% -  2px);
     height: 28px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border: 1px solid rgb(var(--TextOnWhite));
-    border-radius: 14px;
-    background-color: rgb(var(--white07));
-    box-shadow: inset -1px 1px 5px rgb(var(--white05)), -1px 1px 5px rgb(var(--white02));
 }
 
 .searchBtn {
     border: none;
-    background-color: transparent;
+    display: flex;
+    height: 28px;
+    border-radius: 3px;
+    background-color: rgb(var(--TextOnWhite));
     cursor: pointer;
-}
-
-.inputSearch {
-    font-size: 14px;
-    font-style: italic;
-    width: 100%;
-    padding: 5px;
-    &::placeholder {
-        color: rgb(var(--white02));
+    color: rgb(var(--white09));
+    text-align: center;
+    border-radius: 3px;
+    align-items: center;
+    &:hover{
+        background-color: rgb(var(--white03));
     }
 }
