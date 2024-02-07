@@ -48,12 +48,12 @@ export function Header({
   return (
     <div className="headerContainer">
       <div className="header">
-        <div className="headerSide" style={{order:size.width > 700 ? 1 : 2}}>
+        <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
           {headerBtn( "Students" )}
           {headerBtn( "Analyses" )}
         </div>
 
-        <div className="headerSide" style={{order:size.width > 700 ? 2 : 1}}>
+        <div className="headerSide" style={{order:size.width <= 700 ? 1 : 2}}>
           {profiles && <Searchbar
             profiles={profiles}
             setProfileID={setProfileID}

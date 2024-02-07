@@ -8,7 +8,7 @@ import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("students");
+  const [currentPage, setCurrentPage] = useState("Students");
   const [currentTab, setCurrentTab] = useState("Profielschets");
   const [currentProfile, setCurrentProfile] = useState();
   const [profiles, setProfiles] = useState();

@@ -2,7 +2,6 @@ import "./autocomplete.scss"
 import React, { useState } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip }  from "@mui/material";
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,11 +17,7 @@ export function AutoComplete({
   const [value, setValue] = useState(input);
   const [inputValue, setInputValue] = useState("");
 
-  // profileID && console.log("profileID:", profileID);
-
-
   return (
-    <Stack sx={{ width: "auto", marginLeft: "12px", marginRight: "6px", }}>
       <Autocomplete
         disableClearable
         value={value}
@@ -48,7 +43,6 @@ export function AutoComplete({
           ))
         }}
       />
-    </Stack>
   );
 }
 
