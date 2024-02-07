@@ -18,8 +18,8 @@ export function Bar({ title, input, type, options }) {
   const input_Dropdown_Multiple = <DropdownMultiple options={options} input={input} title={title}/>;
   const input_Empty = <input className="inputEmpty" placeholder={`vul ${title} in...`} />;
   const input_String = <input className="inputGiven" placeholder={input} />
-  const input_String_auto= <AutoComplete options={options} input={input} multi={false} fs={false}/>
-  const input_String_auto_mfs= <AutoComplete options={options} input={input} multi={true} fs={true}/>
+  const input_String_auto= <div className="autoContainer"><AutoComplete options={options} input={input} multi={false} fs={false} /></div>
+  const input_String_auto_mfs= <div className="autoContainer"><AutoComplete options={options} input={input} multi={true} fs={true}/></div>
   const input_String_FH =()=> {
     const [inputString, setInputString] = useState(false);
     return (

@@ -49,8 +49,8 @@ export function Header({
     <div className="headerContainer">
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
-          {headerBtn( "Students" )}
-          {headerBtn( "Analyses" )}
+          {headerBtn( "Studenten" )}
+          {headerBtn( "Analyse" )}
         </div>
 
         <div className="headerSide" style={{order:size.width <= 700 ? 1 : 2}}>
@@ -59,7 +59,7 @@ export function Header({
             setProfileID={setProfileID}
             profileID={profileID}
           />}
-          {currentTab === "Profielschets" && currentPage === "Analyses" && (
+          {currentPage === "Analyse" && (
               <button
                 type="submit"
                 className="headerBtn saveBtn"
@@ -104,7 +104,7 @@ export function Header({
           </div>
       </div>
 
-      { currentPage === "Analyses" &&
+      { currentPage === "Analyse" &&
       <div className="tabHeaderContainer">
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>

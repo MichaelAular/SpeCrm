@@ -24,7 +24,6 @@ export function AutoComplete({
         onChange={(event, newValue) => {
           setValue(newValue);
           fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
-          console.log(profileID)
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
