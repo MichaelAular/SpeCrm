@@ -42,8 +42,6 @@ export default function Home() {
       .catch(() => console.log('Error'));
     }, [profileID])
 
-    console.log("currentProfile:", currentProfile)
-
   return (
     <main>
       <Header

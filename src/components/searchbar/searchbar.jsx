@@ -16,8 +16,6 @@ export function Searchbar({
     options.push({label: `${profiles.list[i].firstName} ${profiles.list[i].lastName}`, id: `${profiles.list[i].id}`})
   }
 
-  console.log("options:", profiles)
-
   return (
     <div className="searchbarContainer">
       <button
