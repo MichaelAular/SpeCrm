@@ -6,6 +6,14 @@
   padding-top: 0rem;
   min-height: 100vh;
 }
+.mainCentered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem;
+  padding-top: 0rem;
+  min-height: 100vh;
+}
 
 .evaluatieScheme {
   display: flex;
