@@ -15,7 +15,6 @@ export default function Home() {
   const [profiles, setProfiles] = useState();
   const [profileID, setProfileID] = useState('KenechiObiuto');
   const [dataLoaded, setLoaded] = useState(false);
-  // const [inputValue, setInputValue] = useState();
 
    useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()

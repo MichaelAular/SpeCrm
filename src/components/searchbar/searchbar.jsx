@@ -1,7 +1,13 @@
 import "./searchbar.scss";
 import { AutoComplete } from "../autocomplete/autocomplete";
 
-export function Searchbar({ profiles, setProfileID, profileID }) {
+export function Searchbar({
+  profiles,
+  setProfileID,
+  profileID,
+  setCurrentPage,
+  setCurrentTab,
+ }) {
   let options = [];
   let input = `${profiles.list[0].firstName} ${profiles.list[0].lastName}`;
 
@@ -20,6 +26,8 @@ export function Searchbar({ profiles, setProfileID, profileID }) {
         fullOptions={options}
         setProfileID={setProfileID}
         profileID={profileID}
+        setCurrentPage={setCurrentPage}
+        setCurrentTab={setCurrentTab}
       />
     </div>
   );

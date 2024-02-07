@@ -12,7 +12,8 @@ export function AutoComplete({
   multi,
   fs,
   setProfileID,
-  profileID
+  setCurrentPage,
+  setCurrentTab,
   }) {
   const [value, setValue] = useState(input);
   const [inputValue, setInputValue] = useState("");
@@ -23,6 +24,8 @@ export function AutoComplete({
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
+          setCurrentPage("Analyse");
+          setCurrentTab("Profielschets");
           fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
         }}
         inputValue={inputValue}

@@ -58,6 +58,8 @@ export function Header({
             profiles={profiles}
             setProfileID={setProfileID}
             profileID={profileID}
+            setCurrentPage={setCurrentPage}
+            setCurrentTab={setCurrentTab}
           />}
           {currentPage === "Analyse" && (
               <button
