@@ -3,17 +3,19 @@ import "./page"
 import React, { useState, useEffect } from "react";
 import * as FirestoreProfileService from '../services/firebaseProfiles';
 import { Header } from "@/components/header/header";
+import { Page_Employee } from "@/pagesAndTabs/employee";
 import { Page_Students } from "@/pagesAndTabs/students";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("Studenten");
-  const [currentTab, setCurrentTab] = useState("Profielschets");
+  const [currentPage, setCurrentPage] = useState("Employee");
+  const [currentTab, setCurrentTab] = useState("NAW");
   const [currentProfile, setCurrentProfile] = useState();
   const [profiles, setProfiles] = useState();
-  const [profileID, setProfileID] = useState('KenechiObiuto');
+  const [profileID, setProfileID] = useState("KenechiObiuto");
+  // const [profileID, setProfileID] = useState(undefined);
   const [dataLoaded, setLoaded] = useState(false);
 
    useEffect(() => {
@@ -52,14 +54,17 @@ export default function Home() {
         profiles={profiles}
         setProfileID={setProfileID}
         profileID={profileID}
+        dataLoaded={dataLoaded}
       />
       {currentPage === "Studenten" &&
-      <Page_Students
-        profiles={profiles}
-        setProfileID={setProfileID}
-        setCurrentPage={setCurrentPage}
-        setCurrentTab={setCurrentTab}
-      />}
+        <Page_Students
+          profiles={profiles}
+          setProfileID={setProfileID}
+          setCurrentPage={setCurrentPage}
+          setCurrentTab={setCurrentTab}
+        />
+      }
+      {currentPage === "Employee" && <Page_Employee currentTab={currentTab}/>}
       {currentPage === "Analyse" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
       {currentPage === "Analyse" && currentTab === "Profielschets" && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
       {currentPage === "Analyse" && currentTab === "Voortgang" && <Tab_Voortgang />}

@@ -1,3 +1,11 @@
-.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
-    padding: 0px 0px 0px 6px !important;
+.css-1h51icj-MuiAutocomplete-root
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
+  padding: 0px 0px 0px 6px !important;
+  height: 22px !important;
+  color: rgb(var(--white09));
 }
+.MuiOutlinedInput-root {
+    background-color: rgb(var(--TextOnWhite));
+}
+

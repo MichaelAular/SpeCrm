@@ -22,27 +22,21 @@ export function AutoComplete({
       <Autocomplete
         disableClearable
         value={value}
+        inputValue={inputValue}
+        multiple={multi}
+        freeSolo={fs}
+        options={options}
+
+        renderInput={(params) => <TextField {...params} sx={{minWidth: "200px"}} variant="outlined"/>}
+        renderOption={(props, option) => <li {...props} key={option} >{option}</li>}
+        renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
+
+        onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
         onChange={(event, newValue) => {
           setValue(newValue);
           setCurrentPage("Analyse");
           setCurrentTab("Profielschets");
           fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
-        }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
-        multiple={multi}
-        freeSolo={fs}
-        options={options}
-        renderInput={(params) => {
-          return <TextField {...params} sx={{minWidth: "200px"}} variant="outlined"/>}}
-        renderOption={(props, option) => {return (<li {...props} key={option} >{option}</li>)}}
-        renderTags={(tagValue, getTagProps) => {
-          return tagValue.map((option, index) => (
-            <Chip {...getTagProps({ index })}
-              key={uuidv4()}
-              label={option}
-            />
-          ))
         }}
       />
   );

@@ -37,7 +37,7 @@
 .headerBtn {
     display: flex;
     border: none;
-    height: 28px;
+    height: 24px;
     border-radius: 3px;
     background-color: rgb(var(--TextOnWhite));
     cursor: pointer;
@@ -51,6 +51,10 @@
     &:hover{
         background-color: rgb(var(--white03));
     }
+}
+
+.saveBtn, .userBtn, .logOutBtn {
+    width: 24px;
 }
 
 @media (max-width: 700px) {

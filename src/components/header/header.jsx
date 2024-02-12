@@ -18,22 +18,28 @@ export function Header({
     setCurrentPage,
     setCurrentTab,
     setProfileID,
-    profileID
+    profileID,
+    dataLoaded
   }) {
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
   const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);
-  const [userModal, setUserModal] = useState(false);
   const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
   const size = useWindowSize();
   const updateProfile = () => {setSaveModal(true)};
-  const showUser = () => {setUserModal(true)};
+  const showUser = () => {
+    setCurrentPage("Employee")
+    setCurrentTab("NAW")
+  };
 
   const headerBtn =( title )=> {
     return (
       <button
         className="headerBtn"
-        onClick={()=>{setCurrentPage(title)}}
+        onClick={()=>{
+          setCurrentPage(title)
+          setCurrentTab("Profielschets")
+        }}
         style={{
           backgroundColor: title === currentPage && "rgb(var(--white07))",
           color: title === currentPage && "rgb(var(--secundair))",
@@ -50,7 +56,7 @@ export function Header({
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
           {headerBtn( "Studenten" )}
-          {headerBtn( "Analyse" )}
+          {dataLoaded && headerBtn( "Analyse" )}
         </div>
 
         <div className="headerSide" style={{order:size.width <= 700 ? 1 : 2}}>
@@ -72,7 +78,7 @@ export function Header({
                 <SaveIcon
                   className="saveBtn"
                   color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
-                  size="22"
+                  size="24"
                 />
               </button>
           )}
@@ -86,13 +92,13 @@ export function Header({
               <UserIcon
                 className="userBtn"
                 color={userBtnHovered === true ? "--secundair" : "--white07"}
-               size="22"
+                size="24"
              />
             </button>
 
             <button
               className="headerBtn logOutBtn"
-              onClick={showUser}
+              onClick={()=>{console.log("Log Out")}}
               onMouseEnter={() => {setLogOutBtnHovered(true)}}
               onMouseLeave={() => {setLogOutBtnHovered(false)}}
             >
@@ -111,19 +117,17 @@ export function Header({
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>
       }
+      { currentPage === "Employee" &&
+      <div className="tabHeaderContainer">
+        <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      </div>
+      }
       <Modal
         modalOpen={saveModal}
         setModalOpen={setSaveModal}
         title="Save"
         input={<Save/>}
       />
-      <Modal
-        modalOpen={userModal}
-        setModalOpen={setUserModal}
-        title="User"
-        input={"userdata"}
-        // input={<TabUser/>}
-        />
     </div>
   );
 }
