@@ -44,7 +44,6 @@ export function AutoComplete({
 
         onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
         onChange={(event, newValue) => {
-          console.log("type:", type)
           setValue(newValue);
           type === "header" && setCurrentPage("Analyse");
           type === "header" && setCurrentTab("Profielschets");
