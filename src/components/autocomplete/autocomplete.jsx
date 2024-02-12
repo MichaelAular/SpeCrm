@@ -9,11 +9,13 @@ export function AutoComplete({
   options,
   fullOptions,
   input,
+  label,
   multi,
   fs,
   setProfileID,
   setCurrentPage,
   setCurrentTab,
+  type,
   }) {
   const [value, setValue] = useState(input);
   const [inputValue, setInputValue] = useState("");
@@ -27,16 +29,26 @@ export function AutoComplete({
         freeSolo={fs}
         options={options}
 
-        renderInput={(params) => <TextField {...params} sx={{minWidth: "200px"}} variant="outlined"/>}
         renderOption={(props, option) => <li {...props} key={option} >{option}</li>}
         renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
+        renderInput={(params) => <TextField {...params}
+          variant="outlined"
+          sx={{
+            minWidth: "200px",
+            backgroundColor: type === "header" && "rgb(var(--TextOnWhite))",
+            borderRadius: "3px",
+            border: "none"
+          }}
+          // label={label}
+        />}
 
         onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
         onChange={(event, newValue) => {
+          console.log("type:", type)
           setValue(newValue);
-          setCurrentPage("Analyse");
-          setCurrentTab("Profielschets");
-          fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
+          type === "header" && setCurrentPage("Analyse");
+          type === "header" && setCurrentTab("Profielschets");
+          type === "header" && fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
         }}
       />
   );

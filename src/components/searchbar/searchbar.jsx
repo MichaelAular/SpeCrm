@@ -28,6 +28,8 @@ export function Searchbar({
         profileID={profileID}
         setCurrentPage={setCurrentPage}
         setCurrentTab={setCurrentTab}
+        type="header"
+        label="student"
       />
     </div>
   );
