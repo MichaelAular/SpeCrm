@@ -2,6 +2,7 @@ import "./edit.scss";
 import React, { useState } from "react";
 import { Aandacht } from "../aandacht/aandacht";
 import { AddIcon } from "@/assets/icons/add";
+import { AddAandacht } from "../addAandacht/addAandacht";
 import { AddIncident } from "../addIncident/addIncident";
 import { Delete } from "../delete/delete";
 import { Incident } from "../incident/incident";
@@ -10,12 +11,17 @@ import { TrashIcon } from "@/assets/icons/trash";
 import { v4 as uuidv4 } from "uuid";
 
 export function Edit({ elementArray, type}) {
-  const [addOpen, setAddOpen] = useState(false);
+  const [addIncidentOpen, setAddIncidentOpen] = useState(false);
+  const [addAandachtOpen, setAddAandachtOpen] = useState(false);
   const [addHovered, setAddHovered] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const editIncident = (i) => {
+  const handleClick =(type)=> {
+    {type === "incident" && setAddIncidentOpen(true)}
+    {type === "aandacht" && setAddAandachtOpen(true)}
+  }
 
+  const editIncident = (i) => {
     return (
       <div key={uuidv4()}>
         <div className="editIncidentContainer" >
@@ -46,7 +52,7 @@ export function Edit({ elementArray, type}) {
       {elementArray && elementArray.map((i) => editIncident(i))}
       <button
         className="addBtn"
-        onClick={()=> {setAddOpen(true)}}
+        onClick={()=>  {handleClick(type)}}
         onMouseEnter={()=> {setAddHovered(true)}}
         onMouseLeave={()=> {setAddHovered(false)}}
       >
@@ -57,10 +63,18 @@ export function Edit({ elementArray, type}) {
       </button>
       <div style={{zIndex: "1000", position: "absolute", transform: "translate(Calc(-50vw + 245px), Calc(-50vh + 53px))"}}>
           <Modal
-            modalOpen={addOpen}
-            setModalOpen={setAddOpen}
+            modalOpen={addIncidentOpen}
+            setModalOpen={setAddIncidentOpen}
             title="Add Incidenten"
             input={<AddIncident />}
+            noShade
+          />
+          <Modal
+            modalOpen={addAandachtOpen}
+            setModalOpen={setAddAandachtOpen}
+            title="Add Aandacht"
+            input={<AddAandacht />}
+            noShade
           />
         </div>
     </div>

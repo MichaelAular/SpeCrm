@@ -1,4 +1,4 @@
-.incidentContainer {
+.aandachtContainer {
     position: relative;
     width: Calc(100% - 20px);
     margin-left: 10px;
@@ -8,7 +8,7 @@
     border-radius: 3px;
 }
 
-.incidentHeader {
+.aandachtHeader {
     display: flex;
     width: 100%;
     height: 28px;
@@ -20,14 +20,14 @@
     background-color: rgb(var(--TextOnWhite));
     color: rgb(var(--white07));
 }
-.incident_BarContainer {
+.aandacht_BarContainer {
     width: 100%;
     margin-top: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.incidentButtonContainer{
+.aandachtButtonContainer{
     display: flex;
     gap: 4px;
 

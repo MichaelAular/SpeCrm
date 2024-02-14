@@ -71,10 +71,10 @@ export function FormElement({ elementTitle, elementBars, elementArray }) {
         ))
       }
       { elementArray && elementTitle === "incident registratie" &&
-        elementArray.map((incident) => (<Incident key={uuidv4()} incident={incident}/>))
+        elementArray.map((incident) => <Incident key={uuidv4()} incident={incident}/>)
       }
       { elementArray && elementTitle === "aandachtspunten" &&
-        elementArray.map((punt) => (<Aandacht key={uuidv4()} punt={punt}/>))
+        elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
       }
           <Modal
             modalOpen={editIncident}

@@ -5,9 +5,8 @@ import { Bar } from "../bar/bar";
 import { useLeadingZero } from "@/hooks/leadingZero";
 
 export function Aandacht({ punt }) {
-  const [incidentOpen, setIncidentOpen] = useState(false);
-  const [incidentHovered, setIncidentHovered] = useState(false);
-
+  const [aandachtOpen, setAandachtOpen] = useState(false);
+  const [aandachtHovered, setAandachtHovered] = useState(false);
   const date = new Date(punt.date.toDate());
   const year = date.getFullYear();
   const month = useLeadingZero((date.getMonth() + 1), 2);
@@ -15,35 +14,33 @@ export function Aandacht({ punt }) {
 
   return (
     <div
-      className="incidentContainer"
+      className="aandachtContainer"
       style={{
-        height: incidentOpen ? "auto" : "28px",
-        overflow: incidentOpen ? "visible" : "hidden",
+        height: aandachtOpen ? "auto" : "28px",
+        overflow: aandachtOpen ? "visible" : "hidden",
       }}
     >
-      <div className="incidentHeader">
-        <h6
-          style={{color: incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}}
-        >
+      <div className="aandachtHeader">
+        <h6 style={{color: aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}} >
           {day}-{month}-{year}
         </h6>
-        <div className="incidentButtonContainer">
+        <div className="aandachtButtonContainer">
           <button
             className="titlebarButton"
-            style={{transform: incidentOpen && `rotate(180deg) translateY(6px)`}}
-            onClick={() => {setIncidentOpen(!incidentOpen)}}
-            onMouseEnter={() => {setIncidentHovered(true)}}
-            onMouseLeave={() => {setIncidentHovered(false)}}
+            style={{transform: aandachtOpen && `rotate(180deg) translateY(6px)`}}
+            onClick={() => {setAandachtOpen(!aandachtOpen)}}
+            onMouseEnter={() => {setAandachtHovered(true)}}
+            onMouseLeave={() => {setAandachtHovered(false)}}
           >
             <ArrowUpIcon
               className="arrowUpIcon"
-              color={incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+              color={aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
               size="16"
             />
           </button>
         </div>
       </div>
-      <div className="incident_BarContainer">
+      <div className="aandacht_BarContainer">
         <Bar title="datum" input={new Date(punt.date.toDate())} type="date" />
         <Bar title="omschrijving" input={punt.description} type="string_FH" />
         <Bar title="plan van aanpak" input={punt.approach} type="string_FH" />

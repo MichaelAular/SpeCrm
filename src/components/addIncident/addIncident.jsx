@@ -5,10 +5,10 @@ import options from "../../../dropdownOptions"
 export function AddIncident() {
     return (
     <div className="incident_BarContainer">
-        <Bar title="datum" input={new Date()} type="date" />
-        <Bar title="omschrijving" input="" type="string" />
-        <Bar title="locatie" input="" type="string" />
-        <Bar title="betrokkenen" input="" type="dropdown_multiple" options={options.employees}/>
+        <Bar title="Datum" input={new Date()} type="date" />
+        <Bar title="Omschrijving" input="" type="string" />
+        <Bar title="Locatie" input="" type="string" />
+        <Bar title="Betrokkenen" input="" type="dropdown_multiple" options={options.employees}/>
         <button className="addIncidentBtn">ADD</button>
     </div>
     )
