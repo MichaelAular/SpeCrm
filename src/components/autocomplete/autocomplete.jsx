@@ -1,5 +1,5 @@
 import "./autocomplete.scss"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import { Chip }  from "@mui/material";
 import TextField from '@mui/material/TextField';
@@ -16,40 +16,45 @@ export function AutoComplete({
   setCurrentPage,
   setCurrentTab,
   type,
+  profileID
   }) {
-  const [value, setValue] = useState(input);
-  const [inputValue, setInputValue] = useState("");
+    const [value, setValue] = useState(input);
+    const [inputValue, setInputValue] = useState("");
+    const useEffectChange =()=> {for (let i=0; i < fullOptions.length; i++) {fullOptions[i].id === profileID && handleChange(fullOptions[i].label)}}
+    const handleChange = (newValue) => {
+      setValue(newValue);
+      type === "header" && setCurrentPage("Analyse");
+      type === "header" && setCurrentTab("Profielschets");
+      type === "header" && fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
+    }
 
-  return (
-      <Autocomplete
-        disableClearable
-        value={value}
-        inputValue={inputValue}
-        multiple={multi}
-        freeSolo={fs}
-        options={options}
+    useEffect(()=>{ profileID && useEffectChange() },[profileID]);
 
-        renderOption={(props, option) => <li {...props} key={option} >{option}</li>}
-        renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
-        renderInput={(params) => <TextField {...params}
-          variant="outlined"
-          sx={{
-            minWidth: "200px",
-            backgroundColor: type === "header" && "rgb(var(--TextOnWhite))",
-            borderRadius: "3px",
-            border: "none"
-          }}
+    return (
+        <Autocomplete
+          disableClearable
+          freeSolo={fs}
+          inputValue={inputValue}
           // label={label}
-        />}
+          multiple={multi}
+          options={options}
+          value={value}
 
-        onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-          type === "header" && setCurrentPage("Analyse");
-          type === "header" && setCurrentTab("Profielschets");
-          type === "header" && fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
-        }}
-      />
-  );
+          renderOption={(props, option) => <li {...props} key={option} >{option}</li>}
+          renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
+          renderInput={(params) => <TextField {...params}
+            variant="outlined"
+            sx={{
+              minWidth: "200px",
+              backgroundColor: type === "header" && "rgb(var(--TextOnWhite))",
+              borderRadius: "3px",
+              border: "none"
+            }}
+          />}
+
+          onChange={(event, newValue) => {handleChange(newValue)}}
+          onInputChange={(event, newInputValue) => {setInputValue(newInputValue)}}
+        />
+    );
 }
 

@@ -13,10 +13,9 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState("Employee");
   const [currentTab, setCurrentTab] = useState("NAW");
   const [currentProfile, setCurrentProfile] = useState();
+  const [dataLoaded, setLoaded] = useState(false);
   const [profiles, setProfiles] = useState();
   const [profileID, setProfileID] = useState("KenechiObiuto");
-  // const [profileID, setProfileID] = useState(undefined);
-  const [dataLoaded, setLoaded] = useState(false);
 
    useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
