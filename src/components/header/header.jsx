@@ -43,7 +43,9 @@ export function Header({
         style={{
           backgroundColor: title === currentPage && "rgb(var(--white07))",
           color: title === currentPage && "rgb(var(--secundair))",
-          fontWeight: title === currentPage && 600
+          fontWeight: title === currentPage && 600,
+          paddingLeft: (title === "Studenten" || title === "Analyse") && "16px",
+          paddingRight: (title === "Studenten" || title === "Analyse") && "16px",
         }}
       >
         {title}
@@ -59,7 +61,11 @@ export function Header({
           {dataLoaded && headerBtn( "Analyse" )}
         </div>
 
-        <div className="headerSide" style={{order:size.width <= 700 ? 1 : 2}}>
+        <div className="headerSide" style={{
+          order:size.width <= 700 ? 1 : 2,
+          paddingTop:size.width <= 700 && "14px"
+        }}
+          >
           {profiles && <Searchbar
             profiles={profiles}
             setProfileID={setProfileID}

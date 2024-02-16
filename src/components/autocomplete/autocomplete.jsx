@@ -41,7 +41,6 @@ export function AutoComplete({
           disableClearable
           freeSolo={fs}
           inputValue={inputValue}
-          // label={label}
           multiple={multi}
           options={options}
           value={value}
@@ -50,6 +49,7 @@ export function AutoComplete({
           renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
           renderInput={(params) => <TextField {...params}
             variant="outlined"
+            label= {profileID === null ? `geef ${label} in` : `${label}`}
             sx={{
               minWidth: "200px",
               backgroundColor: type === "header" && "rgb(var(--TextOnWhite))",
