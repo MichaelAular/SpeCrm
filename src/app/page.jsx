@@ -12,10 +12,10 @@ import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("Employee");
   const [currentTab, setCurrentTab] = useState("NAW");
-  const [currentProfile, setCurrentProfile] = useState();
+  const [currentProfile, setCurrentProfile] = useState(null);
   const [dataLoaded, setLoaded] = useState(false);
   const [profiles, setProfiles] = useState();
-  const [profileID, setProfileID] = useState("KenechiObiuto");
+  const [profileID, setProfileID] = useState(null);
 
    useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
@@ -31,11 +31,10 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-      FirestoreProfileService.getProfile(profileID)
+      profileID !== null && FirestoreProfileService.getProfile(profileID)
       .then(doc => {
         if (doc.exists) {
           setCurrentProfile(doc.data());
-          setLoaded(true);
         } else {
           console.log('Document not found')
         }
@@ -65,7 +64,7 @@ export default function Home() {
       }
       {currentPage === "Employee" && <Page_Employee currentTab={currentTab}/>}
       {currentPage === "Analyse" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
-      {currentPage === "Analyse" && currentTab === "Profielschets" && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
+      {currentPage === "Analyse" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
       {currentPage === "Analyse" && currentTab === "Voortgang" && <Tab_Voortgang />}
     </main>
   );

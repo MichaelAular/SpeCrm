@@ -20,7 +20,11 @@ export function AutoComplete({
   }) {
     const [value, setValue] = useState(input);
     const [inputValue, setInputValue] = useState("");
-    const useEffectChange =()=> {for (let i=0; i < fullOptions.length; i++) {fullOptions[i].id === profileID && handleChange(fullOptions[i].label)}}
+    const useEffectChange =()=> {
+      for (let i=0; i < fullOptions.length; i++) {
+        fullOptions[i].id === profileID && handleChange(fullOptions[i].label)
+      }
+    }
     const handleChange = (newValue) => {
       setValue(newValue);
       type === "header" && setCurrentPage("Analyse");
@@ -28,7 +32,9 @@ export function AutoComplete({
       type === "header" && fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
     }
 
-    useEffect(()=>{ profileID && useEffectChange() },[profileID]);
+    useEffect(()=>{
+      profileID !== null && fullOptions !== undefined && useEffectChange()
+    },[profileID]);
 
     return (
         <Autocomplete

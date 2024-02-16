@@ -9,7 +9,7 @@ export function Searchbar({
   setCurrentTab,
  }) {
   let options = [];
-  let input = `${profiles.list[0].firstName} ${profiles.list[0].lastName}`;
+  let input = null;
 
   for (let i = 0; i < profiles.list.length; i++) {
     options.push({
