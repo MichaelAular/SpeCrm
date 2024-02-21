@@ -10,8 +10,8 @@ import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("Employee");
-  const [currentTab, setCurrentTab] = useState("NAW");
+  const [currentPage, setCurrentPage] = useState("Studenten");
+  const [currentTab, setCurrentTab] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
   const [dataLoaded, setLoaded] = useState(false);
   const [profiles, setProfiles] = useState();
@@ -63,9 +63,9 @@ export default function Home() {
         />
       }
       {currentPage === "Employee" && <Page_Employee currentTab={currentTab}/>}
-      {currentPage === "Analyse" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
-      {currentPage === "Analyse" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
-      {currentPage === "Analyse" && currentTab === "Voortgang" && <Tab_Voortgang />}
+      {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
+      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
+      {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
     </main>
   );
 }

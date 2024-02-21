@@ -35,7 +35,7 @@ export function Header({
   const headerBtn =( title )=> {
     return (
       <button
-        className="headerBtn"
+        className="headerBtn prevent-select"
         onClick={()=>{
           setCurrentPage(title)
           setCurrentTab("Profielschets")
@@ -57,8 +57,8 @@ export function Header({
     <div className="headerContainer">
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
-          {headerBtn( "Studenten" )}
-          {dataLoaded && headerBtn( "Analyse" )}
+          {dataLoaded && headerBtn( "Studenten" )}
+          {/* {dataLoaded && headerBtn( "Analyse" )} */}
         </div>
 
         <div className="headerSide" style={{
@@ -118,7 +118,7 @@ export function Header({
           </div>
       </div>
 
-      { currentPage === "Analyse" &&
+      { currentPage === "Student" &&
       <div className="tabHeaderContainer">
         <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>

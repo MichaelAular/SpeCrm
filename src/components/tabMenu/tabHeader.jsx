@@ -25,6 +25,7 @@ export function TabHeader({ currentTab, setCurrentTab }) {
       {tab("Profielschets")}
       {tab("Evaluatie")}
       {tab("Voortgang")}
+      {tab("Analyse")}
     </div>
   );
 }

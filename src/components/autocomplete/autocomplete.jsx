@@ -6,18 +6,19 @@ import TextField from '@mui/material/TextField';
 import { v4 as uuidv4 } from "uuid";
 
 export function AutoComplete({
-  options,
+  fs,
   fullOptions,
   input,
   label,
   multi,
-  fs,
-  setProfileID,
+  options,
+  profileID,
   setCurrentPage,
   setCurrentTab,
+  setProfileID,
   type,
-  profileID
   }) {
+
     const [value, setValue] = useState(input);
     const [inputValue, setInputValue] = useState("");
     const useEffectChange =()=> {
@@ -27,7 +28,7 @@ export function AutoComplete({
     }
     const handleChange = (newValue) => {
       setValue(newValue);
-      type === "header" && setCurrentPage("Analyse");
+      type === "header" && setCurrentPage("Student");
       type === "header" && setCurrentTab("Profielschets");
       type === "header" && fullOptions.map((option)=> {option.label === newValue && setProfileID(option.id)})
     }
@@ -48,13 +49,16 @@ export function AutoComplete({
           renderOption={(props, option) => <li {...props} key={option} >{option}</li>}
           renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => <Chip {...getTagProps({ index })} key={uuidv4()} label={option} /> ) }
           renderInput={(params) => <TextField {...params}
-            variant="outlined"
-            label= {profileID === null ? `geef ${label} in` : `${label}`}
+            label= {profileID === null && `geef ${label} in`}
             sx={{
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {border: "none" },
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+              {border: "none" },
               minWidth: "200px",
-              backgroundColor: type === "header" && "rgb(var(--TextOnWhite))",
               borderRadius: "3px",
-              border: "none"
+              backgroundColor: type === "header" && profileID === null ? "rgb(var(--TextOnWhite))" :
+              type === "header" && profileID !== null &&  "rgb(var(--white07))",
             }}
           />}
 
