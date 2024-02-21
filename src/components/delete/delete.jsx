@@ -1,25 +1,13 @@
 import "./delete.scss";
 import React, { useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
-// import { db } from "@/firebase";
 
-export function Delete({setDeleteOpen}) {
+export function Delete({ setDeleteOpen, type }) {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
-
-  function writeUserData(userId, name, email, imageUrl) {
-    const db = getDatabase();
-    // set(ref(db, 'users/' + userId), {
-    //   username: name,
-    //   email: email,
-    //   profile_picture : imageUrl
-    // });
-  }
 
   const clickedYes =()=> {
     console.log("delete")
     setDeleteOpen(false)
-    writeUserData()
   }
   const clickedNo =()=> {
     console.log("don't delete")
@@ -48,8 +36,9 @@ export function Delete({setDeleteOpen}) {
 
   return (
     <div >
-      Are you sure you want to delete<br/>
-      this incident?
+      Are you sure you want to delete this 
+      {type === "incident" && " incident?"}
+      {type === "aandacht" && " focus point?"}
       <div className="buttonContainer">
         {deleteButton("yes", yesButton, setYesButton, clickedYes)}
         {deleteButton("no", noButton, setNoButton, clickedNo)}

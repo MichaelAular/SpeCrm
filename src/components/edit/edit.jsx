@@ -1,8 +1,8 @@
 import "./edit.scss";
 import React, { useState } from "react";
 import { Aandacht } from "../aandacht/aandacht";
-import { AddIcon } from "@/assets/icons/add";
 import { AddAandacht } from "../addAandacht/addAandacht";
+import { AddIcon } from "@/assets/icons/add";
 import { AddIncident } from "../addIncident/addIncident";
 import { Delete } from "../delete/delete";
 import { Incident } from "../incident/incident";
@@ -11,38 +11,32 @@ import { TrashIcon } from "@/assets/icons/trash";
 import { v4 as uuidv4 } from "uuid";
 
 export function Edit({ elementArray, type}) {
-  const [addIncidentOpen, setAddIncidentOpen] = useState(false);
   const [addAandachtOpen, setAddAandachtOpen] = useState(false);
   const [addHovered, setAddHovered] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [addIncidentOpen, setAddIncidentOpen] = useState(false);
+  const [deleteAandachtOpen, setDeleteAandachtOpen] = useState(false);
+  const [deleteIncidentOpen, setDeleteIncidentOpen] = useState(false);
 
-  const handleClick =(type)=> {
+  const handleClickAdd =(type)=> {
     {type === "incident" && setAddIncidentOpen(true)}
     {type === "aandacht" && setAddAandachtOpen(true)}
+  }
+  const handleClickDelete =(type)=> {
+    {type === "incident" && setDeleteIncidentOpen(true)}
+    {type === "aandacht" && setDeleteAandachtOpen(true)}
   }
 
   const editIncident = (i) => {
     return (
-      <div key={uuidv4()}>
-        <div className="editIncidentContainer" >
+      <div key={uuidv4()} className="editIncidentContainer" >
           <button
             className="trashBtn"
-            onClick={()=>{setDeleteOpen(true)}}
+            onClick={()=>{handleClickDelete(type)}}
           >
             <TrashIcon size="20"/>
           </button>
           {type === "aandacht" && <Aandacht punt={i} />}
           {type === "incident" && <Incident incident={i} />}
-
-        </div>
-        <div style={{zIndex: "1000", position: "absolute", transform: "translate(Calc(-50vw + 245px), Calc(-50vh + 53px))"}}>
-          <Modal
-            modalOpen={deleteOpen}
-            setModalOpen={setDeleteOpen}
-            title="Delete Incidenten"
-            input={<Delete setDeleteOpen={setDeleteOpen}/>}
-          />
-        </div>
       </div>
     );
   };
@@ -52,7 +46,7 @@ export function Edit({ elementArray, type}) {
       {elementArray && elementArray.map((i) => editIncident(i))}
       <button
         className="addBtn"
-        onClick={()=>  {handleClick(type)}}
+        onClick={()=>  {handleClickAdd(type)}}
         onMouseEnter={()=> {setAddHovered(true)}}
         onMouseLeave={()=> {setAddHovered(false)}}
       >
@@ -74,6 +68,28 @@ export function Edit({ elementArray, type}) {
             setModalOpen={setAddAandachtOpen}
             title="Add Aandacht"
             input={<AddAandacht />}
+            noShade
+          />
+          <Modal
+            modalOpen={deleteIncidentOpen}
+            setModalOpen={setDeleteIncidentOpen}
+            title="Delete Incident"
+            input={
+              <Delete 
+                setDeleteOpen={setDeleteIncidentOpen}
+                type="incident"
+              />}
+            noShade
+          />
+          <Modal
+            modalOpen={deleteAandachtOpen}
+            setModalOpen={setDeleteAandachtOpen}
+            title="Delete Aandacht"
+            input={
+              <Delete 
+                setDeleteOpen={setDeleteAandachtOpen}
+                type="aandacht"
+              />}
             noShade
           />
         </div>
