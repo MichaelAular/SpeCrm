@@ -9,7 +9,6 @@ export function Delete({setDeleteOpen}) {
 
   function writeUserData(userId, name, email, imageUrl) {
     const db = getDatabase();
-    console.log(db);
     // set(ref(db, 'users/' + userId), {
     //   username: name,
     //   email: email,
@@ -48,7 +47,7 @@ export function Delete({setDeleteOpen}) {
   };
 
   return (
-    <div className="saveContainer">
+    <div >
       Are you sure you want to delete<br/>
       this incident?
       <div className="buttonContainer">

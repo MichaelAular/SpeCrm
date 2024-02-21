@@ -3,7 +3,7 @@ import "./page"
 import React, { useState, useEffect } from "react";
 import * as FirestoreProfileService from '../services/firebaseProfiles';
 import { Header } from "@/components/header/header";
-import { Page_Employee } from "@/pagesAndTabs/employee";
+import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
@@ -62,7 +62,7 @@ export default function Home() {
           setCurrentTab={setCurrentTab}
         />
       }
-      {currentPage === "Employee" && <Page_Employee currentTab={currentTab}/>}
+      {currentPage === "User" && <Page_User currentTab={currentTab}/>}
       {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
       {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
       {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}

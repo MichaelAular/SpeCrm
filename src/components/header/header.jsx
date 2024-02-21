@@ -28,8 +28,9 @@ export function Header({
   const size = useWindowSize();
   const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {
-    setCurrentPage("Employee")
+    setCurrentPage("User")
     setCurrentTab("NAW")
+    setProfileID(null)
   };
 
   const headerBtn =( title )=> {
@@ -39,6 +40,7 @@ export function Header({
         onClick={()=>{
           setCurrentPage(title)
           setCurrentTab("Profielschets")
+          setProfileID(null)
         }}
         style={{
           backgroundColor: title === currentPage && "rgb(var(--white07))",
@@ -73,7 +75,7 @@ export function Header({
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
           />}
-          {currentPage === "Analyse" && (
+          {currentPage === "Student" && (
               <button
                 type="submit"
                 className="headerBtn saveBtn"
@@ -94,10 +96,12 @@ export function Header({
               onClick={showUser}
               onMouseEnter={() => {setUserBtnHovered(true)}}
               onMouseLeave={() => {setUserBtnHovered(false)}}
+              style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
             >
               <UserIcon
                 className="userBtn"
-                color={userBtnHovered === true ? "--secundair" : "--white07"}
+                color={
+                  userBtnHovered === true || currentPage === "User" ? "--secundair" : "--white07"}
                 size="24"
              />
             </button>
@@ -119,11 +123,11 @@ export function Header({
       </div>
 
       { currentPage === "Student" &&
-      <div className="tabHeaderContainer">
-        <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
-      </div>
+        <div className="tabHeaderContainer">
+          <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
+        </div>
       }
-      { currentPage === "Employee" &&
+      { currentPage === "User" &&
       <div className="tabHeaderContainer">
         <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>

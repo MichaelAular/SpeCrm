@@ -1,7 +1,7 @@
 import styles from "../app/page.module.scss";
 import { Employee_naw } from "@/components/employee_naw/employee_naw";
 
-export function Page_Employee({ currentTab }) {
+export function Page_User({ currentTab }) {
 
   return (
     <div>
