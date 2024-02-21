@@ -75,13 +75,17 @@ export function Header({
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
           />}
-          {currentPage === "Student" && (
+          {/* {currentPage === "Student" && ( */}
               <button
                 type="submit"
                 className="headerBtn saveBtn"
                 onClick={updateProfile}
-                onMouseEnter={() => {setSaveBtnHovered(true)}}
-                onMouseLeave={() => {setSaveBtnHovered(false)}}
+                onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
+                onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
+                style={{
+                  pointerEvents: currentPage !== "Student" && "none",
+                  opacity: currentPage !== "Student" && .2,
+                }}
               >
                 <SaveIcon
                   className="saveBtn"
@@ -89,7 +93,7 @@ export function Header({
                   size="24"
                 />
               </button>
-          )}
+          {/* )} */}
 
            <button
               className="headerBtn userBtn"

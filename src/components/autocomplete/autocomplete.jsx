@@ -48,7 +48,17 @@ export function AutoComplete({
       multiple={multi}
       options={options}
       value={value}
-      renderOption={(props, option) => (<li {...props} key={option}>{option}</li>)}
+      renderOption={(props, option) => (
+        <li {...props}
+          key={option}
+          style={{
+            fontSize: "14px",
+            padding: "3px 20px 3px 20px",
+          }}
+        >
+          {option}
+        </li>
+      )}
       renderTags={(tagValue, getTagProps) => tagValue.map((option, index) => (<Chip {...getTagProps({ index })} key={uuidv4()} label={option}/>) )}
       renderInput={(params) => (
         <TextField
@@ -58,7 +68,7 @@ export function AutoComplete({
             "& .MuiOutlinedInput-root": { color: label === "student" && "rgb(var(--secundair))" },
             "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline" : { border: "none" },
             "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline" : { border: "none" },
-            minWidth: "200px",
+            minWidth: "300px",
             borderRadius: "3px",
             backgroundColor:
               type === "header" && profileID === null ? "rgb(var(--TextOnWhite))" :
