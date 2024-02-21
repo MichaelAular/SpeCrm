@@ -5,6 +5,7 @@ import * as FirestoreProfileService from '../services/firebaseProfiles';
 import { Header } from "@/components/header/header";
 import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
+import { Tab_Analyse } from "@/pagesAndTabs/analyse";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
@@ -66,6 +67,7 @@ export default function Home() {
       {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
       {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
       {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
+      {currentPage === "Student" && currentTab === "Analyse" && <Tab_Analyse />}
     </main>
   );
 }
