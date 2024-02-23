@@ -65,7 +65,7 @@ export default function Home() {
       }
       {currentPage === "User" && <Page_User currentTab={currentTab}/>}
       {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
-      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} dataLoaded={dataLoaded}/>}
+      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} setCurrentProfile={setCurrentProfile} dataLoaded={dataLoaded}/>}
       {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
       {currentPage === "Student" && currentTab === "Analyse" && <Tab_Analyse />}
     </main>

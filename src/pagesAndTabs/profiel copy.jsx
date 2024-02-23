@@ -4,7 +4,7 @@ import options from "../../dropdownOptions.json"
 import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from "@/components/spinner/spinner";
 
-export function Tab_Profiel({ currentProfile, dataLoaded, setCurrentProfile }) {
+export function Tab_Profiel({ currentProfile, dataLoaded }) {
   return (
     <div>
       <div className={styles.textContainer} style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px"}}>
@@ -16,8 +16,6 @@ export function Tab_Profiel({ currentProfile, dataLoaded, setCurrentProfile }) {
           <FormElement
             elementTitle="gegevens kind"
             elementBars={[
-              // { title: "Test Voornaam", input: currentProfile.firstNam, type: "testString", currentProfile: currentProfile, setChange: setCurrentProfile},
-
               { title: "voornaam", input: currentProfile.firstName, type: "string" },
               { title: "roepnaam", input: currentProfile.nickname, type: "string" },
               { title: "achternaam", input: currentProfile.lastName, type: "string" },

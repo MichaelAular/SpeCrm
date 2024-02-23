@@ -10,7 +10,8 @@ import { AutoComplete } from "../autocomplete/autocomplete";
 // TODO: Set input as values, not placeholders and catch onChange events
 // TODO: Save changes to profile object
 
-export function Bar({ title, input, type, options }) {
+export function Bar({ title, input, type, options, setChange, currentProfile, add }) {
+
   const input_Age = <Age input={input}/>;
   const input_Date = <Datepicker input={input}/>;
   const input_Dropdown = <Dropdown options={options} input={input} title={title}/>;
@@ -30,6 +31,8 @@ export function Bar({ title, input, type, options }) {
     );
   }
 
+  // const input_TestString = <input className="inputGiven" value={input} onChange={(e) => setChange(...currentProfile, <add>: e.target.value)}/>
+
   return (
     <div className="bar" style={{maxHeight: (type === "string_FH" || type === "string_auto" || type === "string_auto_mfs" ) && input && "none"}}>
       <h5 className="barTitle">{useCapitalize(title)}</h5>
@@ -43,6 +46,8 @@ export function Bar({ title, input, type, options }) {
       {type === "string_auto" && input && input_String_auto}
       {type === "string_auto_mfs" && input && input_String_auto_mfs}
       {type === "string_FH" && input && input_String_FH()}
+
+      {/* {type === "testString" && input &&  input_TestString} */}
     </div>
   );
 }

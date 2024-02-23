@@ -67,6 +67,9 @@ export function FormElement({ elementTitle, elementBars, elementArray }) {
             input={i.input}
             type={i.type}
             options={i.options}
+            currentProfile={i.currentProfile}
+            setChange={i.setChange}
+            add={i.add}
           />
         ))
       }
