@@ -9,9 +9,7 @@ export function Tab_Profiel({ currentProfile, dataLoaded }) {
   const [formJson, setFormJson] = useState();
   const [age, setAge] = useState();
   const [birthDate, setBirthDate] = useState(new Date(currentProfile.birthDate.toDate()))
-  console.log("birthDate:", birthDate)
-  const today = new Date().getTime();
-
+ 
   const dateFormatter =(input)=> {
     const formattedDays = input.split(" ")[0].split("-");
     const convertedDate =  new Date(formattedDays[2], formattedDays[1] - 1, formattedDays[0]).getTime();
@@ -21,14 +19,13 @@ export function Tab_Profiel({ currentProfile, dataLoaded }) {
   const getAge =(input, source)=> {
     const epoch =  source === "fromForm" ? dateFormatter(input): input;
     const other_date = new Date(epoch).getTime();
-    const difference = Math.abs(today - other_date);
+    const difference = Math.abs(new Date().getTime() - other_date);
     const days = Math.abs(difference / (1000 * 3600 * 24));
     const years = Math.floor(days / 365.25);
     return years;
   }
 
   useEffect(()=>{
-    console.log("running useEffect date");
     setAge(formJson === undefined ? getAge(new Date(currentProfile.birthDate.toDate()), "current") : getAge(formJson.birthDate, "fromForm"));
     formJson && console.log("formJson date:", formJson.birthDate);
     formJson && setBirthDate(dateFormatter(formJson.birthDate));
