@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export function Datepicker({ input }) {
+export function Datepicker({ input, name }) {
   const [startDate, setStartDate] = useState(new Date(input));
 
   return (
@@ -12,7 +12,8 @@ export function Datepicker({ input }) {
         selected={startDate}
         dateFormat="dd-MM-yyyy"
         placeholderText="selecteer datum"
-        onChange={(newDate) => setStartDate(newDate)}
+        name={name}
+        onChange={(newDate) => setStartDate(newDate.getTime())}
       />
   );
 }

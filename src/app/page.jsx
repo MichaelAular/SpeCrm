@@ -5,7 +5,7 @@ import * as FirestoreProfileService from '../services/firebaseProfiles';
 import { Header } from "@/components/header/header";
 import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
-import { Tab_Analyse } from "@/pagesAndTabs/analyse";
+import { Page_Analyse } from "@/pagesAndTabs/analyse";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
@@ -18,20 +18,20 @@ export default function Home() {
   const [profiles, setProfiles] = useState();
   const [profileID, setProfileID] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
-      .then(doc => {
+      .then((doc) => {
         if (doc.exists) {
           setProfiles(doc.data());
           setLoaded(true);
         } else {
-          console.log('Document not found')
+          console.log("Document not found");
         }
       })
-      .catch(() => console.log('Error'));
-    }, [])
+      .catch(() => console.log("Error"));
+  }, []);
 
-    useEffect(() => {
+  useEffect(() => {
       profileID !== null && FirestoreProfileService.getProfile(profileID)
       .then(doc => {
         if (doc.exists) {
@@ -65,9 +65,13 @@ export default function Home() {
       }
       {currentPage === "User" && <Page_User currentTab={currentTab}/>}
       {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
-      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && <Tab_Profiel currentProfile={currentProfile} setCurrentProfile={setCurrentProfile} dataLoaded={dataLoaded}/>}
+      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && 
+        <Tab_Profiel
+          currentProfile={currentProfile}
+          dataLoaded={dataLoaded}
+        />}
       {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
-      {currentPage === "Student" && currentTab === "Analyse" && <Tab_Analyse />}
+      {currentPage === "Analyse" && <Page_Analyse />}
     </main>
   );
 }

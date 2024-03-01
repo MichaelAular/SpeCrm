@@ -6,7 +6,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export function DropdownMultiple({ input, options, title }) {
+export function DropdownMultiple({
+    input,
+    name,
+    options,
+    title,
+  }) {
   const [personName, setPersonName] = useState(input ? input.split(',') : ['none']);
   const handleChange = (event) => {
     event.target.value[0] === 'none' && event.target.value.shift()
@@ -16,18 +21,16 @@ export function DropdownMultiple({ input, options, title }) {
   };
 
   return (
-    <FormControl
-      className="dropdown"
-      variant="standard"
-    >
+    <FormControl className="dropdown" variant="standard">
       <Select
+      name={name}
       multiple
-        className="select"
-        value={personName}
-        onChange={handleChange}
-        disableUnderline
+      className="select"
+      value={personName}
+      onChange={handleChange}
+      disableUnderline
       >
-        <MenuItem value="none" disabled >
+        <MenuItem value="none" disabled>
           <em className="noneSelected">
             selecteer {title}
           </em>

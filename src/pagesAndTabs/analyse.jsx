@@ -1,7 +1,7 @@
 import styles from "../app/page.module.scss"
 import { FormElement } from "@/components/formElement/formElement";
 
-export function Tab_Analyse() {
+export function Page_Analyse() {
   return (
     <main className={styles.main}>
       <a className={styles.textContainer}>

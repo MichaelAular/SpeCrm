@@ -9,7 +9,11 @@ import { Incident } from "../incident/incident";
 import { Modal } from "../modal/modal";
 import { v4 as uuidv4 } from "uuid";
 
-export function FormElement({ elementTitle, elementBars, elementArray }) {
+export function FormElement({
+  elementArray,
+  elementBars,
+  elementTitle,
+}) {
   const [editAandacht, setEditAandacht] = useState(false);
   const [editIncident, setEditIncident] = useState(false);
   const [elementHovered, setElementHovered] = useState(false);
@@ -29,6 +33,7 @@ export function FormElement({ elementTitle, elementBars, elementArray }) {
         <div className="titlebarButtonContainer">
           {(elementTitle === "incident registratie" || elementTitle === "aandachtspunten") && (
             <button
+              type='button'
               className="titlebarButton editButton"
               onClick={() => {
                 elementTitle === "incident registratie" && setEditIncident(true)
@@ -45,6 +50,7 @@ export function FormElement({ elementTitle, elementBars, elementArray }) {
             </button>
           )}
           <button
+            type='button'
             className="titlebarButton arrowButton"
             style={{transform: elementOpen && `rotate(180deg) translateY(4px)`}}
             onClick={() => {setElementOpen(!elementOpen)}}
@@ -59,19 +65,17 @@ export function FormElement({ elementTitle, elementBars, elementArray }) {
           </button>
         </div>
       </div>
-      {elementBars &&
+      { elementBars &&
         elementBars.map((i) => (
           <Bar
-            key={uuidv4()}
-            title={i.title}
             input={i.input}
-            type={i.type}
+            key={uuidv4()}
+            name={i.name}
             options={i.options}
-            currentProfile={i.currentProfile}
-            setChange={i.setChange}
-            add={i.add}
+            title={i.title}
+            type={i.type}
           />
-        ))
+          ))
       }
       { elementArray && elementTitle === "incident registratie" &&
         elementArray.map((incident) => <Incident key={uuidv4()} incident={incident}/>)

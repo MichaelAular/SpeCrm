@@ -60,7 +60,7 @@ export function Header({
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
           {dataLoaded && headerBtn( "Studenten" )}
-          {/* {dataLoaded && headerBtn( "Analyse" )} */}
+          {dataLoaded && headerBtn( "Analyse" )}
         </div>
 
         <div className="headerSide" style={{
@@ -75,55 +75,52 @@ export function Header({
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
           />}
-          {/* {currentPage === "Student" && ( */}
-              <button
-                type="submit"
-                className="headerBtn saveBtn"
-                onClick={updateProfile}
-                onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
-                onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
-                style={{
-                  pointerEvents: currentPage !== "Student" && "none",
-                  opacity: currentPage !== "Student" && .2,
-                }}
-              >
-                <SaveIcon
-                  className="saveBtn"
-                  color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
-                  size="24"
-                />
-              </button>
-          {/* )} */}
+          <button
+            type="submit"
+            className="headerBtn saveBtn"
+            onClick={updateProfile}
+            onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
+            onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
+            style={{
+              pointerEvents: currentPage !== "Student" && "none",
+              opacity: currentPage !== "Student" && .2,
+            }}
+          >
+            <SaveIcon
+              className="saveBtn"
+              color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
+              size="24"
+            />
+          </button>
 
-           <button
-              className="headerBtn userBtn"
-              onClick={showUser}
-              onMouseEnter={() => {setUserBtnHovered(true)}}
-              onMouseLeave={() => {setUserBtnHovered(false)}}
-              style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
-            >
-              <UserIcon
-                className="userBtn"
-                color={
-                  userBtnHovered === true || currentPage === "User" ? "--secundair" : "--white07"}
-                size="24"
-             />
-            </button>
+          <button
+            className="headerBtn userBtn"
+            onClick={showUser}
+            onMouseEnter={() => {setUserBtnHovered(true)}}
+            onMouseLeave={() => {setUserBtnHovered(false)}}
+            style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
+          >
+            <UserIcon
+              className="userBtn"
+              color={
+                userBtnHovered === true || currentPage === "User" ? "--secundair" : "--white07"}
+              size="24"
+           />
+          </button>
+          <button
+            className="headerBtn logOutBtn"
+            onClick={()=>{console.log("Log Out")}}
+            onMouseEnter={() => {setLogOutBtnHovered(true)}}
+            onMouseLeave={() => {setLogOutBtnHovered(false)}}
+          >
+            <LogOutIcon
+              className="logOutBtn"
+              color={logOutBtnHovered=== true ?  "rgb(var(--secundair))" : "rgb(var(--white07))"}
+             size="22"
+           />
+          </button>
 
-            <button
-              className="headerBtn logOutBtn"
-              onClick={()=>{console.log("Log Out")}}
-              onMouseEnter={() => {setLogOutBtnHovered(true)}}
-              onMouseLeave={() => {setLogOutBtnHovered(false)}}
-            >
-              <LogOutIcon
-                className="logOutBtn"
-                color={logOutBtnHovered=== true ?  "rgb(var(--secundair))" : "rgb(var(--white07))"}
-               size="22"
-             />
-            </button>
-
-          </div>
+        </div>
       </div>
 
       { currentPage === "Student" &&
@@ -140,7 +137,7 @@ export function Header({
         modalOpen={saveModal}
         setModalOpen={setSaveModal}
         title="Save"
-        input={<Save/>}
+        input={<Save setModalOpen={setSaveModal}/>}
       />
     </div>
   );

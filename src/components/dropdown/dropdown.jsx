@@ -5,7 +5,12 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-export function Dropdown({ input, options, title }) {
+export function Dropdown({
+    input,
+    name,
+    options,
+    title,
+  }) {
   const [selectValue, setSelectValue] = useState(input ? input : 'none')
   const handleChange = (event) => {setSelectValue(event.target.value)};
 
@@ -13,8 +18,10 @@ export function Dropdown({ input, options, title }) {
     <FormControl
       className="dropdown"
       variant="standard"
+      name={title}
     >
       <Select
+        name={name}
         className="select"
         value={selectValue}
         onChange={handleChange}

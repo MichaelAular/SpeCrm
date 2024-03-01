@@ -1,53 +1,35 @@
 import "./bar.scss";
-import React, { useState } from "react";
-import { Age } from "../age/age";
 import { Dropdown } from "../dropdown/dropdown";
 import { DropdownMultiple } from "../dropdown/dropdown_multiple";
 import { Datepicker } from "../datePicker/datePicker";
 import { useCapitalize } from "@/hooks/capitalize";
 import { AutoComplete } from "../autocomplete/autocomplete";
 
-// TODO: Set input as values, not placeholders and catch onChange events
-// TODO: Save changes to profile object
-
-export function Bar({ title, input, type, options, setChange, currentProfile, add }) {
-
-  const input_Age = <Age input={input}/>;
-  const input_Date = <Datepicker input={input}/>;
-  const input_Dropdown = <Dropdown options={options} input={input} title={title}/>;
-  const input_Dropdown_Boolean = <Dropdown options={["ja", "nee"]} input={input === true ? "ja" : "nee"} title={title}/>;
-  const input_Dropdown_Multiple = <DropdownMultiple options={options} input={input} title={title}/>;
-  const input_Empty = <input className="inputEmpty" placeholder={`vul ${title} in...`} />;
-  const input_String = <input className="inputGiven" placeholder={input} />
-  const input_String_auto= <div className="autoContainer"><AutoComplete options={options} input={input} multi={false} fs={false} /></div>
-  const input_String_auto_mfs= <div className="autoContainer"><AutoComplete options={options} input={input} multi={true} fs={true}/></div>
-  const input_String_FH =()=> {
-    const [inputString, setInputString] = useState(false);
-    return (
-      inputString ? <input className="inputEmpty" placeholder={input} /> :
-      <div className="inputGiven" onClick={()=>setInputString(true)}>
-        {input}
-      </div>
-    );
-  }
-
-  // const input_TestString = <input className="inputGiven" value={input} onChange={(e) => setChange(...currentProfile, <add>: e.target.value)}/>
+export function Bar({
+  input,
+  name,
+  options,
+  title,
+  type,
+}) {
 
   return (
-    <div className="bar" style={{maxHeight: (type === "string_FH" || type === "string_auto" || type === "string_auto_mfs" ) && input && "none"}}>
+    <div
+      className="bar"
+      style={{maxHeight: (type === "string_FH" || type === "string_auto" || type === "string_auto_mfs") && input && "none"}}
+    >
       <h5 className="barTitle">{useCapitalize(title)}</h5>
-      {type === "age" && input && input_Age}
-      {type === "date" && input && input_Date}
-      {type === "dropdown" && input_Dropdown}
-      {type === "dropdown_boolean" && input_Dropdown_Boolean}
-      {type === "dropdown_multiple" && input_Dropdown_Multiple}
-      {type === "string" && input &&  input_String}
-      {type === "string" && !input && input_Empty}
-      {type === "string_auto" && input && input_String_auto}
-      {type === "string_auto_mfs" && input && input_String_auto_mfs}
-      {type === "string_FH" && input && input_String_FH()}
 
-      {/* {type === "testString" && input &&  input_TestString} */}
+      { type === "date" && input && <Datepicker input={input} name={name} /> }
+      { type === "dropdown" && <Dropdown options={options} input={input} title={title} name={name}/> }
+      { type === "dropdown_boolean" && <Dropdown options={["ja", "nee"]} input={input === true ? "ja" : "nee"} title={title} name={name} /> }
+      { type === "dropdown_multiple" && <DropdownMultiple options={options} input={input} title={title} name={name}/> }
+      { type === "string" && !input && <input className="inputEmpty" placeholder={`vul ${title} in...`} name={name} /> }
+      { type === "string" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
+      { type === "string_auto" && input &&  <AutoComplete options={options} input={input} multi={false} fs={false} name={name} /> }
+      { type === "string_auto_mfs" && <AutoComplete options={options} input={input} multi={true} fs={true} /> }
+      { type === "string_FH" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
+      { type === "string_noInput" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
     </div>
   );
 }

@@ -3,30 +3,22 @@ import React, { useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 // import { db } from "@/firebase";
 
-export function Save() {
+export function Save({setModalOpen}) {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
-
-  function writeUserData(userId, name, email, imageUrl) {
-    const db = getDatabase();
-    // set(ref(db, 'users/' + userId), {
-    //   username: name,
-    //   email: email,
-    //   profile_picture : imageUrl
-    // });
-  }
-
   const clickedYes =()=> {
     console.log("save")
-    writeUserData()
+    setModalOpen(false)
   }
   const clickedNo =()=> {
     console.log("don't save")
+    setModalOpen(false)
   }
 
   const saveButton = (input, state, setState, handleClick) => {
     return (
       <button
+        type="submit"
         className="saveButton"
         style={{
             color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
