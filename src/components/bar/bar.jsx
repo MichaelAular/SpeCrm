@@ -29,7 +29,7 @@ export function Bar({
       { type === "string_auto" && input &&  <AutoComplete options={options} input={input} multi={false} fs={false} name={name} /> }
       { type === "string_auto_mfs" && <AutoComplete options={options} input={input} multi={true} fs={true} /> }
       { type === "string_FH" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
-      { type === "string_noInput" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
+      { type === "string_noInput" && input && <input className="inputGiven" defaultValue={input} name={name} readOnly/> }
     </div>
   );
 }

@@ -13,7 +13,7 @@ export function Datepicker({ input, name }) {
         dateFormat="dd-MM-yyyy"
         placeholderText="selecteer datum"
         name={name}
-        onChange={(newDate) => setStartDate(newDate.getTime())}
+        onChange={newDate => setStartDate(newDate.getTime())}
       />
   );
 }

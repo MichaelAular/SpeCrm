@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import { Spinner } from "@/components/spinner/spinner";
 import options from "../../dropdownOptions.json";
@@ -6,41 +6,47 @@ import Skeleton from "@mui/material/Skeleton";
 import styles from "../app/page.module.scss";
 
 export function Tab_Profiel({ currentProfile, dataLoaded }) {
-  const [formJson, setFormJson] = useState();
-  const [age, setAge] = useState();
-  const [birthDate, setBirthDate] = useState(new Date(currentProfile.birthDate.toDate()))
- 
-  const dateFormatter =(input)=> {
+  var formJson;
+
+  const dateFormatter = (input) => {
     const formattedDays = input.split(" ")[0].split("-");
-    const convertedDate =  new Date(formattedDays[2], formattedDays[1] - 1, formattedDays[0]).getTime();
-    return convertedDate
-  }
+    const convertedDate = new Date(
+      formattedDays[2],
+      formattedDays[1] - 1,
+      formattedDays[0]
+      ).getTime();
+      return convertedDate;
+    };
 
-  const getAge =(input, source)=> {
-    const epoch =  source === "fromForm" ? dateFormatter(input): input;
-    const other_date = new Date(epoch).getTime();
-    const difference = Math.abs(new Date().getTime() - other_date);
-    const days = Math.abs(difference / (1000 * 3600 * 24));
-    const years = Math.floor(days / 365.25);
-    return years;
-  }
+    const getAge = (input, source) => {
+      /// check epoch!! nog aanpassen!
+      const epoch = source === "epoch" ? dateFormatter(input) : input;
+      const other_date = new Date(epoch).getTime();
+      const difference = Math.abs(new Date().getTime() - other_date);
+      const days = Math.abs(difference / (1000 * 3600 * 24));
+      const years = Math.floor(days / 365.25);
+      return years;
+    };
 
-  useEffect(()=>{
-    setAge(formJson === undefined ? getAge(new Date(currentProfile.birthDate.toDate()), "current") : getAge(formJson.birthDate, "fromForm"));
-    formJson && console.log("formJson date:", formJson.birthDate);
-    formJson && setBirthDate(dateFormatter(formJson.birthDate));
-  },[formJson]);
+  const [age, setAge] = useState(getAge(currentProfile.birthDate.toDate(), "date"));
+  const [birthDate, setBirthDate] = useState(new Date(currentProfile.birthDate.toDate()));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    setFormJson(Object.fromEntries(formData.entries()));
-    console.log("formJson:", formJson);
+    formJson = Object.fromEntries(formData.entries());
+    setAge(getAge(formJson.birthDate, "epoch"));
+    setBirthDate(dateFormatter(formJson.birthDate));
+    console.log("formJson:", formJson)
   };
 
   return (
-    <form className="tabProfielContainer" method="post" onSubmit={handleSubmit}>
+    <form
+      className="tabProfielContainer"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <div className={styles.textContainer}>
         <h1 className="pageTitle">profielschets</h1>
       </div>
@@ -146,31 +152,31 @@ export function Tab_Profiel({ currentProfile, dataLoaded }) {
                 {
                   title: "telefoon vast",
                   input: currentProfile.family.contactDetails.phoneNoHome,
-                  name: "contactDetails.phoneNoHome",
+                  name: "family.contactDetails.phoneNoHome",
                   type: "string",
                 },
                 {
                   title: "telefoon mobiel",
                   input: currentProfile.family.contactDetails.phoneNoMobile,
-                  name: "contactDetails.phoneNoMobile",
+                  name: "family.contactDetails.phoneNoMobile",
                   type: "string",
                 },
                 {
                   title: "telefoon bij nood",
                   input: currentProfile.family.contactDetails.phoneNoEmergency,
-                  name: "contactDetails.phoneNoEmergency",
+                  name: "family.contactDetails.phoneNoEmergency",
                   type: "string",
                 },
                 {
                   title: "nood contactpersoon",
                   input: currentProfile.family.contactDetails.name,
-                  name: "contactDetails.name",
+                  name: "family.contactDetails.name",
                   type: "string",
                 },
                 {
                   title: "nood e-mailadres",
                   input: currentProfile.family.contactDetails.email,
-                  name: "contactDetails.email",
+                  name: "family.contactDetails.email",
                   type: "string",
                 },
                 {

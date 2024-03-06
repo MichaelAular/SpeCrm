@@ -18,7 +18,6 @@ export function Save({setModalOpen}) {
   const saveButton = (input, state, setState, handleClick) => {
     return (
       <button
-        type="submit"
         className="saveButton"
         style={{
             color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
