@@ -4,40 +4,24 @@ import { Spinner } from "@/components/spinner/spinner";
 import options from "../../dropdownOptions.json";
 import Skeleton from "@mui/material/Skeleton";
 import styles from "../app/page.module.scss";
+import { useDateFormatter } from "@/hooks/dateformatter";
+import { useGetAge } from "@/hooks/getAge";
 
 export function Tab_Profiel({ currentProfile, dataLoaded }) {
   var formJson;
-
-  const dateFormatter = (input) => {
-    const formattedDays = input.split(" ")[0].split("-");
-    const convertedDate = new Date(
-      formattedDays[2],
-      formattedDays[1] - 1,
-      formattedDays[0]
-      ).getTime();
-      return convertedDate;
-    };
-
-    const getAge = (input, source) => {
-      /// check epoch!! nog aanpassen!
-      const epoch = source === "epoch" ? dateFormatter(input) : input;
-      const other_date = new Date(epoch).getTime();
-      const difference = Math.abs(new Date().getTime() - other_date);
-      const days = Math.abs(difference / (1000 * 3600 * 24));
-      const years = Math.floor(days / 365.25);
-      return years;
-    };
-
-  const [age, setAge] = useState(getAge(currentProfile.birthDate.toDate(), "date"));
+  const [age, setAge] = useState(useGetAge(currentProfile.birthDate.toDate(), "timestamp"));
   const [birthDate, setBirthDate] = useState(new Date(currentProfile.birthDate.toDate()));
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
+
+    e.preventDefault();
     formJson = Object.fromEntries(formData.entries());
-    setAge(getAge(formJson.birthDate, "epoch"));
-    setBirthDate(dateFormatter(formJson.birthDate));
+
+    setAge(useGetAge(formJson.birthDate, "date"));
+    setBirthDate(useDateFormatter(formJson.birthDate));
+
     console.log("formJson:", formJson)
   };
 
