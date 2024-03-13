@@ -1,5 +1,6 @@
 import "./header.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { LogOutIcon } from "@/assets/icons/logOut";
 import { Modal } from "../modal/modal";
 import { Save } from "../save/save";
 import { SaveIcon } from "@/assets/icons/save";
@@ -7,20 +8,22 @@ import { Searchbar } from "../searchbar/searchbar";
 import { TabHeader } from "../tabMenu/tabHeader";
 import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
-import { LogOutIcon } from "@/assets/icons/logOut";
-
 import { useWindowSize } from "@/hooks/windowSize";
 
 export function Header({
     currentPage,
     currentTab,
+    dataLoaded,
+    formJson,
+    profileID,
     profiles,
     setCurrentPage,
     setCurrentTab,
     setProfileID,
-    profileID,
-    dataLoaded
   }) {
+    useEffect(()=> {
+      console.log("formJson in header:", formJson)
+    },[formJson])
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
   const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);

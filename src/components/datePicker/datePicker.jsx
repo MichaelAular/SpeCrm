@@ -6,6 +6,14 @@ import "react-datepicker/dist/react-datepicker.css";
 export function Datepicker({ input, name }) {
   const [startDate, setStartDate] = useState(new Date(input));
 
+  const setForm = () => {
+    let form= document.getElementById("myForm");
+    if (form) {
+      console.log("form:", form);
+        form:submit
+    }
+  }
+
   return (
       <DatePicker
         className="datePicker"
@@ -13,7 +21,12 @@ export function Datepicker({ input, name }) {
         dateFormat="dd-MM-yyyy"
         placeholderText="selecteer datum"
         name={name}
-        onChange={newDate => setStartDate(newDate.getTime())}
+        onChange={
+          newDate => {
+            setStartDate(newDate.getTime())
+            setForm()
+          }
+        }
       />
   );
 }

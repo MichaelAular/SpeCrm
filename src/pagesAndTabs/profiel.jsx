@@ -1,36 +1,18 @@
-import React, {useState} from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import { Spinner } from "@/components/spinner/spinner";
 import options from "../../dropdownOptions.json";
 import Skeleton from "@mui/material/Skeleton";
 import styles from "../app/page.module.scss";
-import { useDateFormatter } from "@/hooks/dateformatter";
-import { useGetAge } from "@/hooks/getAge";
 
-export function Tab_Profiel({ currentProfile, dataLoaded }) {
-  var formJson;
-  const [age, setAge] = useState(useGetAge(currentProfile.birthDate.toDate(), "timestamp"));
-  const [birthDate, setBirthDate] = useState(new Date(currentProfile.birthDate.toDate()));
-
-  const handleSubmit = (e) => {
-    const form = e.target;
-    const formData = new FormData(form);
-
-    e.preventDefault();
-    formJson = Object.fromEntries(formData.entries());
-
-    setAge(useGetAge(formJson.birthDate, "date"));
-    setBirthDate(useDateFormatter(formJson.birthDate));
-
-    console.log("formJson:", formJson)
-  };
+export function Tab_Profiel({
+  age,
+  birthDate,
+  currentProfile,
+  dataLoaded,
+}) {
 
   return (
-    <form
-      className="tabProfielContainer"
-      method="post"
-      onSubmit={handleSubmit}
-    >
+    <div className="profileTabContainer">
       <div className={styles.textContainer}>
         <h1 className="pageTitle">profielschets</h1>
       </div>
@@ -215,8 +197,7 @@ export function Tab_Profiel({ currentProfile, dataLoaded }) {
             />
           </div>
         )}
-
-        {dataLoaded && (
+          {dataLoaded && (
           <div className={styles.pageCollumn}>
             <FormElement
               elementTitle="gegevens school / bijles"
@@ -320,11 +301,10 @@ export function Tab_Profiel({ currentProfile, dataLoaded }) {
             />
           </div>
         )}
-        {!dataLoaded && (
-          <Skeleton variant="rectangular" width={600} height={200} />
-        )}
+
+        {!dataLoaded && <Skeleton variant="rectangular" width={600} height={200} />}
         {!dataLoaded && <Spinner />}
       </main>
-    </form>
+      </div>
   );
 }

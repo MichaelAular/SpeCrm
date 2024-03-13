@@ -9,6 +9,8 @@ import { Page_Analyse } from "@/pagesAndTabs/analyse";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
+import { useGetAge } from "@/hooks/getAge";
+import { useDateFormatter } from "@/hooks/dateformatter";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("Studenten");
@@ -17,6 +19,17 @@ export default function Home() {
   const [dataLoaded, setLoaded] = useState(false);
   const [profiles, setProfiles] = useState();
   const [profileID, setProfileID] = useState(null);
+  const [age, setAge] = useState(null);
+  const [birthDate, setBirthDate] = useState(null);
+  const [formJson, setFormJson] = useState(null);
+
+  const handleSubmit = (e) => {
+    const form = e.target;
+    const formData = new FormData(form);
+    e.preventDefault();
+    setFormJson(Object.fromEntries(formData.entries()));
+    console.log("*** NOW OVERWRITE FB WITH FORMJSON!! ***")
+  };
 
   useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
@@ -30,6 +43,16 @@ export default function Home() {
       })
       .catch(() => console.log("Error"));
   }, []);
+
+  useEffect(()=>{
+    formJson != null && setAge(useGetAge(formJson.birthDate, "date"));
+    formJson != null && setBirthDate(useDateFormatter(formJson.birthDate));
+  },[formJson])
+
+  useEffect(()=>{
+      currentProfile != null && setAge(useGetAge(currentProfile.birthDate.toDate(), "timestamp"))
+      currentProfile != null && setBirthDate(new Date(currentProfile.birthDate.toDate()))
+  },[currentProfile])
 
   useEffect(() => {
       profileID !== null && FirestoreProfileService.getProfile(profileID)
@@ -54,24 +77,33 @@ export default function Home() {
         setProfileID={setProfileID}
         profileID={profileID}
         dataLoaded={dataLoaded}
+        formJson={formJson}
       />
-      {currentPage === "Studenten" &&
-        <Page_Students
-          profiles={profiles}
-          setProfileID={setProfileID}
-          setCurrentPage={setCurrentPage}
-          setCurrentTab={setCurrentTab}
-        />
-      }
-      {currentPage === "User" && <Page_User currentTab={currentTab}/>}
-      {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
-      {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null && 
-        <Tab_Profiel
-          currentProfile={currentProfile}
-          dataLoaded={dataLoaded}
-        />}
-      {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
-      {currentPage === "Analyse" && <Page_Analyse />}
+      <form
+        className="tabProfielContainer"
+        method="post"
+        onSubmit={handleSubmit}
+      >
+        {currentPage === "Studenten" &&
+          <Page_Students
+            profiles={profiles}
+            setProfileID={setProfileID}
+            setCurrentPage={setCurrentPage}
+            setCurrentTab={setCurrentTab}
+          />
+        }
+        {currentPage === "User" && <Page_User currentTab={currentTab}/>}
+        {currentPage === "Student" && currentTab === "Evaluatie" && <Tab_Evaluatie />}
+        {currentPage === "Student" && currentTab === "Profielschets" && currentProfile !== null &&
+          <Tab_Profiel
+            currentProfile={currentProfile}
+            dataLoaded={dataLoaded}
+            age={age}
+            birthDate={birthDate}
+          />}
+        {currentPage === "Student" && currentTab === "Voortgang" && <Tab_Voortgang />}
+        {currentPage === "Analyse" && <Page_Analyse />}
+      </form>
     </main>
   );
 }
