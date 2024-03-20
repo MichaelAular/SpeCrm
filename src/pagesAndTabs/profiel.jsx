@@ -11,6 +11,8 @@ export function Tab_Profiel({
   dataLoaded,
 }) {
 
+  console.log("currentProfile in profiel:", currentProfile)
+
   return (
     <div className="profileTabContainer">
       <div className={styles.textContainer}>
@@ -92,7 +94,7 @@ export function Tab_Profiel({
                 },
                 {
                   title: "e-mailadres ouder",
-                  input: currentProfile.family.parents[0].email,
+                  input: currentProfile.family.parents.email,
                   name: "family.parents.email",
                   type: "string",
                 },

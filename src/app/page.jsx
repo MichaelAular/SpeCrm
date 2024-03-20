@@ -1,6 +1,6 @@
 "use client";
 import "./page"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import * as FirestoreProfileService from '../services/firebaseProfiles';
 import { Header } from "@/components/header/header";
 import { Page_User } from "@/pagesAndTabs/user";
@@ -14,22 +14,16 @@ import { useDateFormatter } from "@/hooks/dateformatter";
 import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState("Studenten");
-  const [currentTab, setCurrentTab] = useState(null);
-  const [currentProfile, setCurrentProfile] = useState(null);
-  const [dataLoaded, setLoaded] = useState(false);
-  const [profiles, setProfiles] = useState();
-  const [profileID, setProfileID] = useState(null);
   const [age, setAge] = useState(null);
   const [birthDate, setBirthDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState("Studenten");
+  const [currentProfile, setCurrentProfile] = useState(null);
+  const [currentTab, setCurrentTab] = useState(null);
+  const [dataLoaded, setLoaded] = useState(false);
   const [formJson, setFormJson] = useState(null);
-
-  const handleSubmit = (e) => {
-    const form = e.target;
-    const formData = new FormData(form);
-    e.preventDefault();
-    setFormJson(Object.fromEntries(formData.entries()));
-  };
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+  const [profileID, setProfileID] = useState(null);
+  const [profiles, setProfiles] = useState();
 
   useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
@@ -47,13 +41,14 @@ export default function Home() {
   useEffect(()=>{
     formJson != null && setAge(useGetAge(formJson.birthDate, "date"));
     formJson != null && setBirthDate(useDateFormatter(formJson.birthDate));
-    formJson != null && useOverwriteCurrentProfile(currentProfile, formJson)
-  },[formJson])
+    formJson != null && setCurrentProfile(useOverwriteCurrentProfile(currentProfile, formJson))
+    forceUpdate()
+  },[formJson]);
 
   useEffect(()=>{
       currentProfile != null && setAge(useGetAge(currentProfile.birthDate.toDate(), "timestamp"))
       currentProfile != null && setBirthDate(new Date(currentProfile.birthDate.toDate()))
-  },[currentProfile])
+  },[currentProfile]);
 
   useEffect(() => {
       profileID !== null && FirestoreProfileService.getProfile(profileID)
@@ -65,7 +60,14 @@ export default function Home() {
         }
       })
       .catch(() => console.log('Error'));
-    }, [profileID])
+    }, [profileID]);
+
+  const handleSubmit = (e) => {
+    const form = e.target;
+    const formData = new FormData(form);
+    e.preventDefault();
+    setFormJson(Object.fromEntries(formData.entries()));
+  };
 
   return (
     <main>
