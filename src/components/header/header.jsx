@@ -13,6 +13,7 @@ import { useWindowSize } from "@/hooks/windowSize";
 export function Header({
     currentPage,
     currentTab,
+    currentProfile,
     dataLoaded,
     formJson,
     profileID,
@@ -21,9 +22,10 @@ export function Header({
     setCurrentTab,
     setProfileID,
   }) {
-    useEffect(()=> {
-      console.log("formJson in header:", formJson)
-    },[formJson])
+    // useEffect(()=> {
+    //   console.log("formJson in header:", formJson)
+    //   console.log(currentProfile);
+    // },[formJson])
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
   const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);

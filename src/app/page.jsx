@@ -11,6 +11,7 @@ import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 import { useGetAge } from "@/hooks/getAge";
 import { useDateFormatter } from "@/hooks/dateformatter";
+import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("Studenten");
@@ -28,7 +29,6 @@ export default function Home() {
     const formData = new FormData(form);
     e.preventDefault();
     setFormJson(Object.fromEntries(formData.entries()));
-    console.log("*** NOW OVERWRITE FB WITH FORMJSON!! ***")
   };
 
   useEffect(() => {
@@ -47,6 +47,7 @@ export default function Home() {
   useEffect(()=>{
     formJson != null && setAge(useGetAge(formJson.birthDate, "date"));
     formJson != null && setBirthDate(useDateFormatter(formJson.birthDate));
+    formJson != null && useOverwriteCurrentProfile(currentProfile, formJson)
   },[formJson])
 
   useEffect(()=>{
@@ -71,6 +72,7 @@ export default function Home() {
       <Header
         currentPage={currentPage}
         currentTab={currentTab}
+        currentProfile={currentProfile}
         setCurrentPage={setCurrentPage}
         setCurrentTab={setCurrentTab}
         profiles={profiles}

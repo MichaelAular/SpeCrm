@@ -93,7 +93,7 @@ export function Tab_Profiel({
                 {
                   title: "e-mailadres ouder",
                   input: currentProfile.family.parents[0].email,
-                  name: "family.parents[0].email",
+                  name: "family.parents.email",
                   type: "string",
                 },
                 {
