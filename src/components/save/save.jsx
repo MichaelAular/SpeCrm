@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 // import { db } from "@/firebase";
 
-export function Save({setModalOpen}) {
+export function Save({setModalOpen, currentProfile}) {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
   const clickedYes =()=> {
-    console.log("save")
+    console.log("save:", currentProfile)
     setModalOpen(false)
   }
   const clickedNo =()=> {

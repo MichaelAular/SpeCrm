@@ -15,17 +15,13 @@ export function Header({
     currentTab,
     currentProfile,
     dataLoaded,
-    formJson,
     profileID,
     profiles,
     setCurrentPage,
     setCurrentTab,
     setProfileID,
   }) {
-    // useEffect(()=> {
-    //   console.log("formJson in header:", formJson)
-    //   console.log(currentProfile);
-    // },[formJson])
+
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
   const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);
@@ -142,8 +138,9 @@ export function Header({
         modalOpen={saveModal}
         setModalOpen={setSaveModal}
         title="Save"
-        input={<Save setModalOpen={setSaveModal}/>}
+        input={<Save setModalOpen={setSaveModal} currentProfile={currentProfile}/>}
       />
     </div>
   );
 }
+ 

@@ -81,7 +81,6 @@ export default function Home() {
         setProfileID={setProfileID}
         profileID={profileID}
         dataLoaded={dataLoaded}
-        formJson={formJson}
       />
       <form
         className="tabProfielContainer"
