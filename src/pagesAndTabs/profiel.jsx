@@ -11,8 +11,6 @@ export function Tab_Profiel({
   dataLoaded,
 }) {
 
-  console.log("currentProfile in profiel:", currentProfile)
-
   return (
     <div className="profileTabContainer">
       <div className={styles.textContainer}>

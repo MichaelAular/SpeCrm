@@ -1,6 +1,7 @@
 import "./bar.scss";
 import { Dropdown } from "../dropdown/dropdown";
 import { DropdownMultiple } from "../dropdown/dropdown_multiple";
+import { DropdownBoolean } from "../dropdown/dropdown_boolean";
 import { Datepicker } from "../datePicker/datePicker";
 import { useCapitalize } from "@/hooks/capitalize";
 import { AutoComplete } from "../autocomplete/autocomplete";
@@ -22,7 +23,7 @@ export function Bar({
 
       { type === "date" && input && <Datepicker input={input} name={name} /> }
       { type === "dropdown" && <Dropdown options={options} input={input} title={title} name={name}/> }
-      { type === "dropdown_boolean" && <Dropdown options={["ja", "nee"]} input={input === true ? "ja" : "nee"} title={title} name={name} /> }
+      { type === "dropdown_boolean" && <DropdownBoolean options={["ja", "nee"]} input={(input === true || input === "ja") ? "ja" : "nee"} title={title} name={name} /> }
       { type === "dropdown_multiple" && <DropdownMultiple options={options} input={input} title={title} name={name}/> }
       { type === "string" && !input && <input className="inputEmpty" placeholder={`vul ${title} in...`} name={name} /> }
       { type === "string" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
