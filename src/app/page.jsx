@@ -21,8 +21,13 @@ export default function Home() {
   const [dataLoaded, setLoaded] = useState(false);
   const [profileID, setProfileID] = useState(null);
   const [profiles, setProfiles] = useState();
-  const [firstRun, setFirstRun] = useState(true);
   // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  const converteDate =(dateString)=> {
+    let dateParts = dateString.split("-");
+    let dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    return dateObject.toString();
+  }
 
   useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
@@ -51,13 +56,12 @@ export default function Home() {
   }, [profileID]);
 
    useEffect(() => {
-     const update = (e) => {
-        // preventDefault()
-        setFirstRun(false)
+     const update = () => {
+      console.log(currentProfile.birthDate.toDate())
         setBirthDate(new Date(currentProfile.birthDate.toDate()));
         setAge(useGetAge(currentProfile.birthDate.toDate(), "timestamp"));
       }
-      currentProfile && firstRun && update();
+      currentProfile && update();
     }, [currentProfile]);
 
   const handleSubmit = (e, update, preventDef) => {
@@ -67,7 +71,12 @@ export default function Home() {
 
     preventDef && e.preventDefault();
     if (e.key === "Tab" || update === true) {
-      newFormObject.birthDate && setAge(newAge)
+      const update =()=> {
+        setAge(newAge)
+        let newDate = converteDate(newFormObject.birthDate)
+        setBirthDate(newDate)
+      }
+      newFormObject.birthDate && update();
       setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
     }
 
