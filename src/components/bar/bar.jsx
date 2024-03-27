@@ -20,7 +20,6 @@ export function Bar({
       style={{maxHeight: (type === "string_FH" || type === "string_auto" || type === "string_auto_mfs") && input && "none"}}
     >
       <h5 className="barTitle">{useCapitalize(title)}</h5>
-
       { type === "date" && input && <Datepicker input={input} name={name} /> }
       { type === "dropdown" && <Dropdown options={options} input={input} title={title} name={name}/> }
       { type === "dropdown_boolean" && <DropdownBoolean options={["ja", "nee"]} input={(input === true || input === "ja") ? "ja" : "nee"} title={title} name={name} /> }
@@ -30,7 +29,7 @@ export function Bar({
       { type === "string_auto" && input &&  <AutoComplete options={options} input={input} multi={false} fs={false} name={name} /> }
       { type === "string_auto_mfs" && <AutoComplete options={options} input={input} multi={true} fs={true} /> }
       { type === "string_FH" && input && <input className="inputGiven" defaultValue={input} name={name} /> }
-      { type === "string_noInput" && input && <input className="inputGiven" defaultValue={input} name={name} readOnly/> }
+      { type === "string_readOnly" && input && <input className="inputGiven" defaultValue={input} name={name} readOnly/> }
     </div>
   );
 }

@@ -58,7 +58,7 @@ export function Tab_Profiel({
                   title: "leeftijd",
                   input: age,
                   name: "age",
-                  type: "string_noInput",
+                  type: "string_readOnly",
                 },
                 {
                   title: "straatnaam",
