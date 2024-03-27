@@ -21,7 +21,6 @@ export default function Home() {
   const [dataLoaded, setLoaded] = useState(false);
   const [profileID, setProfileID] = useState(null);
   const [profiles, setProfiles] = useState();
-  // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const converteDate =(dateString)=> {
     let dateParts = dateString.split("-");
@@ -57,7 +56,6 @@ export default function Home() {
 
    useEffect(() => {
      const update = () => {
-      console.log(currentProfile.birthDate.toDate())
         setBirthDate(new Date(currentProfile.birthDate.toDate()));
         setAge(useGetAge(currentProfile.birthDate.toDate(), "timestamp"));
       }
@@ -68,7 +66,6 @@ export default function Home() {
     const formData = new FormData(document.getElementById("form"));
     const newFormObject = Object.fromEntries(formData.entries());
     const newAge = newFormObject.birthDate ? useGetAge(newFormObject.birthDate) : null;
-
     preventDef && e.preventDefault();
     if (e.key === "Tab" || update === true) {
       const update =()=> {
@@ -79,8 +76,8 @@ export default function Home() {
       newFormObject.birthDate && update();
       setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
     }
-
   };
+
   return (
     <main>
       <Header
