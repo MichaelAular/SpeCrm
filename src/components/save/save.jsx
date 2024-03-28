@@ -21,7 +21,7 @@ export function Save({setModalOpen, currentProfile}) {
         className="saveButton"
         style={{
             color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
-            backgroundColor: state === true && input === "yes" ? "rgb(var(--danger)" :
+            backgroundColor: state === true && input === "yes" ? "rgb(var(--secundair)" :
             state === true && input === "no" ? "rgb(var(--white00)" :
             "rgb(var(--TextOnWhite)"
         }}
