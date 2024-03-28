@@ -174,8 +174,6 @@ export function BasicTable({
               <TableCell >{row.lastName}</TableCell>
             </TableRow>
           ))}
-
-          {/* {rows().map((row) => TR(row))} */}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />

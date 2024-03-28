@@ -41,7 +41,6 @@ export function AutoComplete({
   };
 
   return (
-    
     <Autocomplete
       disableClearable
       freeSolo={fs}
