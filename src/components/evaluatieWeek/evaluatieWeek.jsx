@@ -1,19 +1,26 @@
-import "./evaluatieWeek.scss"
+import "./evaluatieWeek.scss";
+import React, { useState } from "react";
+import { DropdownMultiple } from "../dropdown/dropdown_multiple";
+import { Dropdown } from "../dropdown/dropdown";
 
-export function EvaluatieWeek({weekNr}) {
-    return (
-        <div className="weekContainer prevent-select ">
-            <div className="weekNr">
-                Week {weekNr}
-            </div>
-            <div className="weekDaysContainer">
-                <div className="weekDay">MA</div>
-                <div className="weekDay">DI</div>
-                <div className="weekDay">WO</div>
-                <div className="weekDay">DO</div>
-                <div className="weekDay">VR</div>
-                <div className="weekDay">ZA</div>
-            </div>
-        </div>
-    )
+export function EvaluatieWeek({ setWeek, setYear, week, year }) {
+    const options=[
+        "week 1",
+        "week 2",
+        "week 3",
+        "week 4",
+        "week 5",
+        "week 6",
+    ]
+
+  return (
+    <div className="weekContainer prevent-select">
+      <Dropdown
+        options={options}
+        input={week}
+        title={"week"}
+        name="week"
+      />
+    </div>
+  );
 }
