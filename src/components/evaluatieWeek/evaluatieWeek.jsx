@@ -1,6 +1,5 @@
 import "./evaluatieWeek.scss";
 import React, { useState } from "react";
-import { DropdownMultiple } from "../dropdown/dropdown_multiple";
 import { Dropdown } from "../dropdown/dropdown";
 
 export function EvaluatieWeek({ setWeek, setYear, week, year }) {

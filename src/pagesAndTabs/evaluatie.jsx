@@ -4,7 +4,7 @@ import { EvaluatieInput } from "@/components/evaluatieInput/evaluatieInput";
 import { EvaluatieWeek } from "@/components/evaluatieWeek/evaluatieWeek";
 
 export function Tab_Evaluatie() {
-  const [week, setWeek] = useState(1)
+  const [week, setWeek] = useState("week 1")
   const [year, setYear] = useState(2024)
 
   return (

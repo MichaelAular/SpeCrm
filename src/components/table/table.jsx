@@ -1,39 +1,30 @@
 import "./table.scss";
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import Paper from "@mui/material/Paper";
+import PropTypes from "prop-types";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
+import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import TableHead from "@mui/material/TableHead";
-import mockup from "../../../mockup.json";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0);
-  };
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1);
-  };
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1);
-  };
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
+  const handleFirstPageButtonClick = (event) => { onPageChange(event, 0) };
+  const handleBackButtonClick = (event) => { onPageChange(event, page - 1) };
+  const handleNextButtonClick = (event) => { onPageChange(event, page + 1) };
+  const handleLastPageButtonClick = (event) => { onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1)) };
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
@@ -90,8 +81,8 @@ export function BasicTable({
   setCurrentTab,
   setProfileID,
 }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   const handleChangePage = (event, newPage) => {
@@ -101,42 +92,18 @@ export function BasicTable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const createData = (bsn, firstName, lastName) => {
-    return { bsn, firstName, lastName };
+  const createData = (id, firstName, lastName, birthDate) => {
+    return { id, firstName, lastName, birthDate };
   };
   const rows = () => {
     let rowArray = [];
-    // mockup.map((student) => {
     profiles.list.map((student) => {
-      rowArray.push(
-        createData(student.id, student.firstName, student.lastName)
-      );
+      const newDate = (student.birthDate.toDate()).toDateString();
+      const splitDate = newDate.split(" ");
+      const birthDate = splitDate[2] +" "+ splitDate[1] +" "+ splitDate[3];
+      rowArray.push( createData(student.id, student.firstName, student.lastName, birthDate ));
     });
     return rowArray;
-  };
-
-  const TR = (row) => {
-    const [hovered, setHovered] = useState(false);
-    return (
-      <TableRow
-        key={row.bsn}
-        sx={{
-          backgroundColor: hovered && "rgb(var(--white09))",
-          cursor: "pointer",
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={() => {
-          setProfileID(row.bsn);
-          setCurrentPage("Analyse");
-          setCurrentTab("Profielschets");
-        }}
-      >
-        <TableCell align="left">{row.bsn}</TableCell>
-        <TableCell align="right">{row.firstName}</TableCell>
-        <TableCell align="right">{row.lastName}</TableCell>
-      </TableRow>
-    );
   };
 
   return (
@@ -150,30 +117,33 @@ export function BasicTable({
       >
         <TableHead>
             <TableRow>
-              <TableCell>BSN</TableCell>
               <TableCell>Voornaam</TableCell>
               <TableCell>Achternaam</TableCell>
+              <TableCell>Geboortedatum</TableCell>
             </TableRow>
           </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? rows().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map((row) => (
+          ).map((row) => {
+            console.log
+            return (
             <TableRow
-              key={row.bsn}
+              key={row.id}
               sx={{ cursor: "pointer" }}
               onClick={() => {
-                setProfileID(row.bsn);
+                setProfileID(row.id);
                 setCurrentPage("Analyse");
                 setCurrentTab("Profielschets");
               }}
             >
-              <TableCell >{row.bsn}</TableCell>
               <TableCell >{row.firstName}</TableCell>
               <TableCell >{row.lastName}</TableCell>
+              <TableCell >{row.birthDate}</TableCell>
             </TableRow>
-          ))}
+          )}
+          )}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
