@@ -6,6 +6,7 @@
   padding-top: 0rem;
   min-height: 100vh;
 }
+
 .mainCentered {
   display: flex;
   flex-direction: column;
@@ -28,11 +29,10 @@
   position: relative;
   margin-top: 6rem;
   margin-bottom: 20px;
-  // min-width: 350px;
   text-align: justify;
-  width: Calc(100% - 4rem);
+  width: calc(100% - 4rem);
   left: 50%;
-  transform: (translateX(-50%));
+  transform: translateX(-50%);
   background-color: yellow;
 }
 
@@ -46,7 +46,7 @@
   margin-bottom: 20px;
 }
 
-@media (min-width: 1201px) {
+@media (max-width: 1201px) {
   .main {
     padding: 2rem;
     padding-top: 0rem;
@@ -60,4 +60,4 @@
     padding-top: 1.5rem;
     background-color: red;
   }
-}
+}/*# sourceMappingURL=page.module.css.map */

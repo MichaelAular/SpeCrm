@@ -1,0 +1,19 @@
+.saveContainer {
+  text-align: center;
+  font-size: 14px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px;
+}
+
+.saveButton {
+  width: 50px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}/*# sourceMappingURL=save.css.map */

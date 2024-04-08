@@ -1,0 +1,42 @@
+.formElement {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  min-width: 350px;
+  border: 1px solid rgb(var(--TextOnWhite));
+  border-radius: 3px;
+  padding-bottom: 15px;
+  box-shadow: inset 2px -2px 6px rgb(var(--white03));
+}
+
+.elementTitle {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(var(--TextOnWhite));
+  color: rgb(var(--white06));
+  text-transform: uppercase;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 10px;
+}
+
+.titlebarButtonContainer {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+}
+
+.titlebarButton {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.addContainter {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=formElement.css.map */

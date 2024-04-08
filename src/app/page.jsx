@@ -1,6 +1,6 @@
 "use client";
 import "./page";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import * as FirestoreProfileService from "../services/firebaseProfiles";
 import { Header } from "@/components/header/header";
 import { Page_User } from "@/pagesAndTabs/user";

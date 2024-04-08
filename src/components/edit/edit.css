@@ -1,0 +1,15 @@
+.editContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editIncidentContainer {
+  display: flex;
+}
+
+.trashBtn, .addBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}/*# sourceMappingURL=edit.css.map */

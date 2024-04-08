@@ -1,0 +1,17 @@
+.datePicker {
+  width: 100%;
+}
+
+.datePicker::-moz-placeholder {
+  font-style: italic;
+  color: rgb(var(--white02));
+}
+
+.datePicker::placeholder {
+  font-style: italic;
+  color: rgb(var(--white02));
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle {
+  left: -10px !important;
+}/*# sourceMappingURL=datePicker.css.map */

@@ -1,0 +1,17 @@
+.evaluatieInputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  height: 100%;
+}
+
+.optie {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  padding: 6px;
+  background-color: rgb(var(--TextOnWhite));
+  color: rgb(var(--white07));
+  border: 1px solid rgb(var(--white00));
+  border-radius: 3px;
+}/*# sourceMappingURL=evaluatieInput.css.map */
