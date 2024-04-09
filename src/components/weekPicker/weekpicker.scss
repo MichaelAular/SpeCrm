@@ -1,10 +1,11 @@
 .currentDate{
     position: relative;
-    display: block;
+    display: inline-block;
     width: auto;
     color: rgb(var(--TextOnWhite));
     font-size: 16px;
     font-weight: 600;
-    margin-left: 50%;
-    transform: translate(-54px, 5px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
