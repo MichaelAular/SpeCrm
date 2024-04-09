@@ -66,7 +66,7 @@ export function WeekPicker({value, setValue}) {
     position: "relative",
     backgroundColor: "rgb(var(--white04))",
     borderRadius: "5px",
-    height: !hoveredElement ? "30px" : "290px",
+    height: !hoveredElement ? "30px" : "370px",
     width: "340px",
     paddingTop: "0px",
     transitionDuration: ".3s",

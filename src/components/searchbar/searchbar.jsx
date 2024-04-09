@@ -30,7 +30,7 @@ export function Searchbar({
         setCurrentTab={setCurrentTab}
         type="header"
         label="student"
-        />
+      />
     </div>
   );
 }
