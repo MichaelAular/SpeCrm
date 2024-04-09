@@ -28,12 +28,14 @@
   position: relative;
   margin-top: 6rem;
   margin-bottom: 20px;
-  // min-width: 350px;
-  text-align: justify;
+  max-width: 800px;
+  border-radius: 3px;
+  // padding-left: 15px;
   width: Calc(100% - 4rem);
   left: 50%;
   transform: (translateX(-50%));
-  background-color: yellow;
+  // background-color: rgb(var(--white06));
+  color: rgb(var(--TextOnWhite));
 }
 
 .pageCollumn {
@@ -54,10 +56,12 @@
     align-items: flex-start;
     gap: 20px;
   }
+  .textContainer {
+    max-width: none;
+  }
 }
 @media (max-width: 700px) {
   .textContainer {
-    padding-top: 1.5rem;
-    background-color: red;
+    margin-top: 8rem;
   }
 }
