@@ -9,7 +9,6 @@ export function Searchbar({
   setCurrentTab,
  }) {
   let options = [];
-  let input = null;
 
   for (let i = 0; i < profiles.list.length; i++) {
     options.push({
@@ -22,7 +21,7 @@ export function Searchbar({
     <div className="searchbarContainer">
       <AutoComplete
         options={options.map((option) => option.label)}
-        input={input}
+        input={null}
         fullOptions={options}
         setProfileID={setProfileID}
         profileID={profileID}
