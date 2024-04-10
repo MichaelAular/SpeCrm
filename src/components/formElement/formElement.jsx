@@ -80,21 +80,26 @@ export function FormElement({
       { elementArray && elementTitle === "incident registratie" &&
         elementArray.map((incident) => <Incident key={uuidv4()} incident={incident}/>)
       }
+      { elementArray && elementTitle === "incident registratie" &&
+        <Modal
+          modalOpen={editIncident}
+          setModalOpen={setEditIncident}
+          title="Edit Incidenten"
+          input={<Edit elementArray={elementArray} type="incident"/>}
+        />
+      }
+
       { elementArray && elementTitle === "aandachtspunten" &&
         elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
       }
-          <Modal
-            modalOpen={editIncident}
-            setModalOpen={setEditIncident}
-            title="Edit Incidenten"
-            input={<Edit elementArray={elementArray} type="incident"/>}
-          />
-          <Modal
-            modalOpen={editAandacht}
-            setModalOpen={setEditAandacht}
-            title="Edit Aandachtspunten"
-            input={<Edit elementArray={elementArray} type="aandacht"/>}
-          />
+      { elementArray && elementTitle === "aandachtspunten" &&
+        <Modal
+          modalOpen={editAandacht}
+          setModalOpen={setEditAandacht}
+          title="Edit Aandachtspunten"
+          input={<Edit elementArray={elementArray} type="aandacht"/>}
+        />
+      }
     </div>
   );
 }
