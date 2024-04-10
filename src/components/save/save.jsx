@@ -7,7 +7,7 @@ export function Save({setModalOpen, currentProfile}) {
   const [noButton, setNoButton] = useState(false);
   const clickedYes =()=> {
     console.log("save:", currentProfile);
-    // FirestoreProfileService.updateProfile(currentProfile);
+    FirestoreProfileService.updateProfile(currentProfile);
     setModalOpen(false);
   }
   const clickedNo =()=> {
