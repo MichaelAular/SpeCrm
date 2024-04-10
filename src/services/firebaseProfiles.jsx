@@ -14,10 +14,13 @@ export const getProfile = (profileId) => {
 
 // Add new profile to Firestore Database
 export const addProfile = async (data) => {
-    const id = data.firstName + data.lastName;
     try {
+        const docRef = doc(db, "profiles")
+        const id = docRef.id;
+        data.id = id;
         updateProfileList(data);
-        const docRef = await setDoc(doc(db, "profiles", id), data);
+        doc(db, "profiles", id)
+        await setDoc(docRef, data);
         console.log("Document written with ID: ", docRef.id);
     } catch (data) {
         console.error("Error adding document: ", data);
@@ -26,12 +29,12 @@ export const addProfile = async (data) => {
 
 // Update excisting profile to Firestore Database
 export const updateProfile = async (data) => {
-    //TODO: Update profilelist if name changed.
+    await updateProfileList(data);
     try {
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
         const docRef = await updateDoc(profileRef, data);
-        // console.log("Document updated with ID: ", docRef.id);
+        //console.log("Document updated with ID: ", docRef.id);
     } catch (data) {
         console.error("Error updating document: ", data);
     }
@@ -40,19 +43,21 @@ export const updateProfile = async (data) => {
 // Update profile name list to Firestore Database
 export const updateProfileList = async (profile) => {
     const item = {
-        id: profile.firstName + profile.lastName,
+        id: profile.id,
         firstName: profile.firstName,
-        lastName: profile.lastName
+        lastName: profile.lastName,
+        birthDate: profile.birthDate
     }
     const profileListDoc = await getDoc(doc(db, 'profiles', 'All'));
     try {
         const profileList = profileListDoc.data();
-        profileList.list.push(item)
+        let filter = profileList.list.filter(u => ![profile.id].includes(u.id));
+        filter.push(item);
+        profileList.list = filter;
         // Sort alphabetically by firstName
         profileList.list.sort((a, b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0));
         console.log(profileList)
         await updateDoc(doc(db, 'profiles', 'All'), profileList);
-        console.log("Document updated with ID: ", docRef.id);
         return item;
     } catch (data) {
         console.error("Error updating document: ", data);

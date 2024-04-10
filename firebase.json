@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "spe-dashboard",
-    "public": "public",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
