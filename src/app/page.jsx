@@ -51,6 +51,7 @@ export default function Home() {
             console.log("Document not found");
           }
         })
+
         .catch(() => console.log("Error"));
   }, [profileID]);
 
@@ -75,6 +76,7 @@ export default function Home() {
       }
       newFormObject.birthDate && update();
       setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
+      // console.log("newFormObject", newFormObject)
     }
   };
 

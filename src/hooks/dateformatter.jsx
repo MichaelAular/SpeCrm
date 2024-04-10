@@ -4,6 +4,6 @@ export function useDateFormatter(input) {
       formattedDays[2],
       formattedDays[1] - 1,
       formattedDays[0]
-      ).getTime();
-      return convertedDate;
+      );
+      return convertedDate.getTime();
     };

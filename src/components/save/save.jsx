@@ -1,14 +1,14 @@
 import "./save.scss";
 import React, { useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
-// import { db } from "@/firebase";
+import * as FirestoreProfileService from "../../services/firebaseProfiles";
 
 export function Save({setModalOpen, currentProfile}) {
   const [yesButton, setYesButton] = useState(false);
   const [noButton, setNoButton] = useState(false);
   const clickedYes =()=> {
-    console.log("save:", currentProfile)
-    setModalOpen(false)
+    console.log("save:", currentProfile);
+    FirestoreProfileService.updateProfile(currentProfile);
+    setModalOpen(false);
   }
   const clickedNo =()=> {
     console.log("don't save")

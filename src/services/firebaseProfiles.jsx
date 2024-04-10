@@ -31,7 +31,7 @@ export const updateProfile = async (data) => {
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
         const docRef = await updateDoc(profileRef, data);
-        console.log("Document updated with ID: ", docRef.id);
+        // console.log("Document updated with ID: ", docRef.id);
     } catch (data) {
         console.error("Error updating document: ", data);
     }
