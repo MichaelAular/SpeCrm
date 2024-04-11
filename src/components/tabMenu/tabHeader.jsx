@@ -1,6 +1,7 @@
 import "./tabMenu.scss";
 
 export function TabHeader({ currentTab, setCurrentTab }) {
+
   const tab = (title) => {
     return (
       <div
@@ -20,6 +21,7 @@ export function TabHeader({ currentTab, setCurrentTab }) {
       </div>
     );
   };
+
   return (
     <div className="tabMenuContainer">
       {tab("Profielschets")}

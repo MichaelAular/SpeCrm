@@ -1,12 +1,31 @@
 .currentDate{
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     height: 30px;
     color: rgb(var(--TextOnWhite));
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.currentDateButton {
+    border: none;
+    background-color: transparent;
+    color:rgb(var(--TextOnWhite));
+    border-radius: 50%;
+    height: 25px;
+    margin-left: 30px;
+    margin-right: 30px;
+    transition-duration: .1s;
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(var(--white05));
+        color: rgb(var(--secundair))
+    }
+}
+.currentDateText{
     align-content: center;
-    margin-left:30px;
 }
 
 .css-1bixp4x-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
@@ -32,8 +51,18 @@
         content: "";
         display: flex;
         position: relative;
-        height: 100%;
+        height: 80%;
+        width: 80%;
+        transform: translate(10%, 10%);
         background-color: rgba(var(--secundair), 0.2);
         border-radius: 50%;
     }
+}
+
+.MuiDateCalendar-root {
+    background-color: rgb(var(--white08));
+    border-radius: 3px;
+    height: 330px !important;
+    width: Calc(100% - 12px) !important;
+    box-shadow: inset -2px -2px 4px rgb(var(--white03)), inset 2px 2px 4px rgb(var(--white07));
 }
