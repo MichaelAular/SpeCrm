@@ -8,6 +8,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { useWindowSize } from "@/hooks/windowSize";
 
 const CustomPickersDay = styled(PickersDay, {
   shouldForwardProp: (prop) => prop !== "isSelected" && prop !== "isHovered",
@@ -62,6 +63,7 @@ function Day(props) {
 }
 
 export function WeekPicker({value, setValue}) {
+  const size = useWindowSize();
   const [hoveredElement, setHoveredElement] = useState(false);
   const [hoveredDay, setHoveredDay] = useState(null);
   const style={
@@ -69,9 +71,8 @@ export function WeekPicker({value, setValue}) {
     backgroundColor: "rgb(var(--white04))",
     borderRadius: "5px",
     height: !hoveredElement ? "30px" : "370px",
-    width: "350px",
+    width: size.width > 700 ? "350px" : "300px",
     paddingTop: "0px",
-    transitionDuration: ".1s",
     boxShadow: "-5px 5px 7px rgba(var(--TextOnWhite), 0.15)",
     overflow: "hidden"
     }
@@ -97,7 +98,7 @@ export function WeekPicker({value, setValue}) {
     >
        <span className="currentDate">
         {weekButton("prev")}
-        <div className="currentDateText">Week {dayjs(value).week()} {value.$y}</div>
+        <div className="currentDateText">Week{dayjs(value).week()} {value.$y}</div>
         {weekButton("next")}
         </span>
     <LocalizationProvider
@@ -109,7 +110,7 @@ export function WeekPicker({value, setValue}) {
         }}
     >
       <DateCalendar
-        displayWeekNumber
+        displayWeekNumber={size.width > 700 ? true : false}
         value={value}
         onChange={(newValue) => setValue(newValue)}
         showDaysOutsideCurrentMonth

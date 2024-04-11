@@ -17,10 +17,11 @@ export function Tab_Evaluatie() {
         <h1 className="pageTitle" >Evaluatie</h1>
       </div>
       <main className={styles.evaluatieScheme}>
+        <div className="weekPickerContainer">
         <WeekPicker
           value={value}
           setValue={setValue}
-        />
+        /></div>
         {/* <EvaluatieInput /> */}
       </main>
     </div>
