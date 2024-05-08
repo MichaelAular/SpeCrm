@@ -17,6 +17,8 @@ import TableFooter from "@mui/material/TableFooter";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { AddIcon } from "@/assets/icons/add";
+import { addProfile } from "@/services/firebaseProfiles";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -152,6 +154,20 @@ export function BasicTable({
         </TableBody>
         <TableFooter>
           <TableRow>
+            <TableCell>
+              <button
+                className="headerBtn prevent-select"
+                onClick={() => {
+                  addProfile()
+                }}
+              >
+                <AddIcon
+                  color={"--white07"}
+                  size="18"
+                />
+                <span style={{ color: "black", padding: "0 10px"}}>leerling toevoegen</span>
+              </button>
+            </TableCell>
             <TablePagination
               rowsPerPageOptions={[10, 25, 100]}
               colSpan={3}
