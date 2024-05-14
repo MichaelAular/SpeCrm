@@ -1,6 +1,5 @@
 import "./weekpicker.scss";
 import React, { useState } from "react";
-import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -69,8 +68,11 @@ export function WeekPicker({value, setValue}) {
   const style={
     position: "relative",
     backgroundColor: "rgb(var(--white04))",
-    borderRadius: "5px",
+    borderRadius: "5px 5px 0px 0px",
     height: !hoveredElement ? "30px" : "370px",
+    margin: "0px auto",
+    marginBottom: !hoveredElement ? "0px" : "-340px",
+    zIndex: 1,
     width: size.width > 700 ? "350px" : "300px",
     paddingTop: "0px",
     boxShadow: "-5px 5px 7px rgba(var(--TextOnWhite), 0.15)",
@@ -98,7 +100,7 @@ export function WeekPicker({value, setValue}) {
     >
        <span className="currentDate">
         {weekButton("prev")}
-        <div className="currentDateText">Week{dayjs(value).week()} {value.$y}</div>
+        <div className="currentDateText">Week{value.week()} {value.$y}</div>
         {weekButton("next")}
         </span>
     <LocalizationProvider
@@ -112,7 +114,7 @@ export function WeekPicker({value, setValue}) {
       <DateCalendar
         displayWeekNumber={size.width > 700 ? true : false}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => setValue(newValue.locale("nl"))}
         showDaysOutsideCurrentMonth
         slots={{ day: Day }}
         slotProps={{

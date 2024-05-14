@@ -6,7 +6,7 @@ import { Header } from "@/components/header/header";
 import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
 import { Page_Analyse } from "@/pagesAndTabs/analyse";
-import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
+import { Tab_Evaluatie } from "@/pagesAndTabs/evaluaties";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 import { useGetAge } from "@/hooks/getAge";

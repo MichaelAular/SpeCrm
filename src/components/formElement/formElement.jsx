@@ -6,6 +6,7 @@ import { Bar } from "../bar/bar";
 import { Edit } from "../edit/edit";
 import { EditIcon } from "@/assets/icons/edit";
 import { Incident } from "../incident/incident";
+import { Evaluatie } from "../evaluatie/evaluatie";
 import { Modal } from "../modal/modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -49,20 +50,22 @@ export function FormElement({
               />
             </button>
           )}
-          <button
-            type='button'
-            className="titlebarButton arrowButton"
-            style={{transform: elementOpen && `rotate(180deg) translateY(4px)`}}
-            onClick={() => {setElementOpen(!elementOpen)}}
-            onMouseEnter={() => {setElementHovered(true)}}
-            onMouseLeave={() => {setElementHovered(false)}}
-          >
-            <ArrowUpIcon
-              className="arrowUpIcon"
-              color={elementHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
-              size="16"
-            />
-          </button>
+          {(elementTitle !== "evaluatie") &&
+            <button
+              type='button'
+              className="titlebarButton arrowButton"
+              style={{ transform: elementOpen && `rotate(180deg) translateY(4px)` }}
+              onClick={() => { setElementOpen(!elementOpen) }}
+              onMouseEnter={() => { setElementHovered(true) }}
+              onMouseLeave={() => { setElementHovered(false) }}
+            >
+              <ArrowUpIcon
+                className="arrowUpIcon"
+                color={elementHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
+                size="16"
+              />
+            </button>
+          }
         </div>
       </div>
       { elementBars &&
@@ -88,6 +91,12 @@ export function FormElement({
           input={<Edit elementArray={elementArray} type="incident"/>}
         />
       }
+
+      <div>
+        {elementArray && elementTitle === "evaluatie" &&
+          elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
+        }
+      </div>
 
       { elementArray && elementTitle === "aandachtspunten" &&
         elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
