@@ -30,8 +30,8 @@ export const updateProfile = async (data) => {
     try {
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
-        const docRef = await updateDoc(profileRef, data);
-        // console.log("Document updated with ID: ", docRef.id);
+        await updateDoc(profileRef, data);
+        updateProfileList(data);
     } catch (data) {
         console.error("Error updating document: ", data);
     }
@@ -48,7 +48,12 @@ export const updateProfileList = async (profile) => {
     const profileListDoc = await getDoc(doc(db, 'profiles', 'All'));
     try {
         const profileList = profileListDoc.data();
-        profileList.list.push(item)
+        const i = profileList.list.findIndex(e => e.id === profile.id);
+        if (i > -1) {
+            profileList.list[i] = item;
+        } else {
+            profileList.list.push(item);
+        }
         // Sort alphabetically by firstName
         profileList.list.sort((a, b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0));
         console.log(profileList)
