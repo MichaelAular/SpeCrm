@@ -1,5 +1,6 @@
 import "./header.scss";
 import React, { useState, useEffect } from "react";
+import { signOut } from "@/app/auth";
 import { LogOutIcon } from "@/assets/icons/logOut";
 import { Modal } from "../modal/modal";
 import { Save } from "../save/save";
@@ -110,7 +111,7 @@ export function Header({
           </button>
           <button
             className="headerBtn logOutBtn"
-            onClick={()=>{console.log("Log Out")}}
+            onClick={()=>{signOut()}}
             onMouseEnter={() => {setLogOutBtnHovered(true)}}
             onMouseLeave={() => {setLogOutBtnHovered(false)}}
           >

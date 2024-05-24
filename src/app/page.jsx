@@ -2,7 +2,9 @@
 import "./page";
 import React, { useState, useEffect } from "react";
 import * as FirestoreProfileService from "../services/firebaseProfiles";
+import { useUser } from "@/app/auth";
 import { Header } from "@/components/header/header";
+import { Page_Login } from "@/pagesAndTabs/login";
 import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
 import { Page_Analyse } from "@/pagesAndTabs/analyse";
@@ -15,18 +17,27 @@ import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
 export default function Home() {
   const [age, setAge] = useState(null);
   const [birthDate, setBirthDate] = useState(null);
-  const [currentPage, setCurrentPage] = useState("Studenten");
+  const [currentPage, setCurrentPage] = useState("");
   const [currentProfile, setCurrentProfile] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
   const [dataLoaded, setLoaded] = useState(false);
   const [profileID, setProfileID] = useState(null);
   const [profiles, setProfiles] = useState();
+  const user = useUser();
 
   const converteDate =(dateString)=> {
     let dateParts = dateString.split("-");
     let dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
     return dateObject.toString();
   }
+
+  useEffect(() => {
+    if (user != null) {
+      setCurrentPage("Studenten");
+    } else {
+      setCurrentPage("Login");
+    }
+  }, [user]);
 
   useEffect(() => {
     FirestoreProfileService.fetchProfileNameList()
@@ -102,6 +113,9 @@ export default function Home() {
         onMouseDown={(e) => handleSubmit(e, true, false)}
         onMouseOut={(e) => handleSubmit(e, true, false)}
       >
+        {currentPage === "Login" && (
+          <Page_Login/>
+        )}
         {currentPage === "Studenten" && (
           <Page_Students
             profiles={profiles}

@@ -2,6 +2,8 @@ import styles from "../app/page.module.scss";
 import { Employee_naw } from "@/components/employee_naw/employee_naw";
 
 export function Page_User({ currentTab }) {
+  const uid = sessionStorage.getItem('user');
+  console.log(uid);
 
   return (
     <div>
