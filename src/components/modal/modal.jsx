@@ -21,6 +21,7 @@ export function Modal({ modalOpen, setModalOpen, title, input, noShade }) {
         <div className="modalTitleBar">
           <h3>{title}</h3>
           <button
+            type="button"
             onClick={()=>{setModalOpen(false)}}
             className="closeBtn"
             onMouseEnter={()=>{setCloseBtnHovered(true)}}

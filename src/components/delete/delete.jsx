@@ -17,6 +17,7 @@ export function Delete({ setDeleteOpen, type }) {
   const deleteButton = (input, state, setState, handleClick) => {
     return (
       <button
+        type="button"
         className="deleteBtn"
         style={{
             color: "rgb(var(--white07)",

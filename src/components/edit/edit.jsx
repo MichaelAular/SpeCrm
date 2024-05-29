@@ -30,6 +30,7 @@ export function Edit({ elementArray, type}) {
     return (
       <div key={uuidv4()} className="editIncidentContainer" >
           <button
+            type="button"
             className="trashBtn"
             onClick={()=>{handleClickDelete(type)}}
           >
@@ -45,6 +46,7 @@ export function Edit({ elementArray, type}) {
     <div className="editContainer">
       {elementArray && elementArray.map((i) => editIncident(i))}
       <button
+            type="button"
         className="addBtn"
         onClick={()=>  {handleClickAdd(type)}}
         onMouseEnter={()=> {setAddHovered(true)}}

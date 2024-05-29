@@ -19,6 +19,7 @@ export function EditIncident({ elementArray }) {
       <div key={uuidv4()}>
         <div className="editIncidentContainer" >
           <button
+            type="button"
             className="trashBtn"
             onClick={()=>{setDeleteOpen(true)}}
           >
@@ -43,6 +44,7 @@ export function EditIncident({ elementArray }) {
     <div className="editContainer">
       {elementArray && elementArray.map((incident) => editIncident(incident))}
       <button
+        type="button"
         className="addBtn"
         onClick={()=> {setAddOpen(true)}}
         onMouseEnter={()=> {setAddHovered(true)}}
