@@ -3,15 +3,12 @@ import React, { useState } from "react";
 import options from "../../../dropdownOptions.json";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
-import { useLeadingZero } from "@/hooks/leadingZero";
+import dayjs from "dayjs";
 
 export function Incident({ incident }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
-  const date = new Date(incident.date.toDate());
-  const year = date.getFullYear();
-  const month = useLeadingZero((date.getMonth() + 1), 2);
-  const day = useLeadingZero(date.getDate(), 2);
+  const dateObj = dayjs(incident.date.toDate()).locale('nl');
 
   return (
     <div
@@ -25,10 +22,11 @@ export function Incident({ incident }) {
         <h6
           style={{color: incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}}
         >
-          {day}-{month}-{year}
+          {dateObj.format('DD-MM-YYYY')}
         </h6>
         <div className="incidentButtonContainer">
           <button
+            type="button"
             className="titlebarButton"
             style={{transform: incidentOpen && `rotate(180deg) translateY(6px)`}}
             onClick={() => {setIncidentOpen(!incidentOpen)}}

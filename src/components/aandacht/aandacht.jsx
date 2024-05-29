@@ -2,15 +2,12 @@ import "./aandacht.scss";
 import React, { useState } from "react";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
-import { useLeadingZero } from "@/hooks/leadingZero";
+import dayjs from "dayjs";
 
 export function Aandacht({ punt }) {
   const [aandachtOpen, setAandachtOpen] = useState(false);
   const [aandachtHovered, setAandachtHovered] = useState(false);
-  const date = new Date(punt.date.toDate());
-  const year = date.getFullYear();
-  const month = useLeadingZero((date.getMonth() + 1), 2);
-  const day = useLeadingZero(date.getDate(), 2);
+  const dateObj = dayjs(punt.date.toDate()).locale('nl');
 
   return (
     <div
@@ -22,10 +19,11 @@ export function Aandacht({ punt }) {
     >
       <div className="aandachtHeader">
         <h6 style={{color: aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}} >
-          {day}-{month}-{year}
+          {dateObj.format('DD-MM-YYYY')}
         </h6>
         <div className="aandachtButtonContainer">
           <button
+            type="button"
             className="titlebarButton"
             style={{transform: aandachtOpen && `rotate(180deg) translateY(6px)`}}
             onClick={() => {setAandachtOpen(!aandachtOpen)}}
