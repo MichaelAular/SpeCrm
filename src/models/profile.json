@@ -1,66 +1,75 @@
 {
    "id": "",
    "firstName": "",
-   "nickName": "",
-   "lastname": "",
+   "lastName": "",
+   "nickname": "",
+   "birthDate": "",
    "sex": "",
-   "birthDate": "2000-01-01T00:00:00.000Z",
-   "address": {
-      "street": "",
-      "streetNo": "",
-      "postalCode": "",
-      "district": "",
-      "city": ""
-   },
-   "countryOfBirth": "",
    "nationality": "",
+   "countryOfBirth": "",
    "languages": "",
    "email": "",
+   "bsn": 0,
+   "address": {
+     "street": "",
+     "streetNo": "",
+     "postalCode": "",
+     "city": ""
+   },
    "family": {
-      "parents": [
-         {
-            "email": "",
-            "firstName": "",
-            "lastName": "",
-            "type": ""
-         }
-      ],
-      "contactDetails": {
-         "name": "",
-         "email": "",
-         "phoneNoHome": "",
-         "phoneNoMobile": "",
-         "phoneNoEmergency": ""
-      },
-      "incomeClass": "",
-      "benefits": false,
-      "noOfChildren": 0
+     "parents": {
+       "0": {
+         "firstName": "",
+         "lastName": "",
+         "type": "",
+         "countryOfBirth": "",
+         "email": ""
+       },
+       "email": ""
+     },
+     "benefits": true,
+     "contactDetails": {
+       "name": "",
+       "phoneNoMobile": "",
+       "phoneNoHome": "",
+       "phoneNoEmergency": "",
+       "email": ""
+     },
+     "incomeClass": "",
+     "noOfChildren": ""
    },
-   "equipment": {
-      "smartphone": false,
-      "tablet": false,
-      "laptop": false
+   "school": {
+     "name": "",
+     "type": "",
+     "fieldOfStudy": "",
+     "schoolYear": "",
+     "preliminaryAdvice": "",
+     "preliminaryAdvise": "",
+     "specialEducation": "",
+     "citoScore": "",
+     "rapportCopy": "",
+     "raportCopy": "",
+     "address": {
+       "street": "",
+       "streetNo": "",
+       "postalCode": "",
+       "city": ""
+     }
    },
-   "cityPass": false,
-   "libraryPass": false,
-   "ownRoom": false,
+   "cityPass": "",
+   "libraryPass": "",
    "lessonSchedule": "",
    "afterSchoolActivities": "",
-   "school": {
-      "name": "",
-      "type": "",
-      "address": {
-         "street": "",
-         "streetNo": "",
-         "postalCode": "",
-         "city": ""
-      },
-      "preliminaryAdvise": "",
-      "rapportCopy": "",
-      "specialEducation": false,
-      "fieldOfStudy": "",
-      "citoScore": "",
-      "schoolYear": ""
-   },
-   "incidents": []
+   "medicinesUsed": "",
+   "knownIllnessess": "",
+   "allergies": "",
+   "ownRoom": "",
+   "attentionPoints": [],
+   "incidents": [],
+   "equipment": {
+     "smartphone": "",
+     "tablet": "",
+     "lessonMaterial": "",
+     "laptop": ""
+   }
 }

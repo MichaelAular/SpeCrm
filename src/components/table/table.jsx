@@ -18,7 +18,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { AddIcon } from "@/assets/icons/add";
-import { addProfile } from "@/services/firebaseProfiles";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -158,7 +157,9 @@ export function BasicTable({
               <button
                 className="headerBtn prevent-select"
                 onClick={() => {
-                  addProfile()
+                  setProfileID("new_user");
+                  setCurrentPage("Analyse");
+                  setCurrentTab("Profielschets");
                 }}
               >
                 <AddIcon

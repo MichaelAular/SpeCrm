@@ -17,6 +17,7 @@ export function AutoComplete({
   setCurrentTab,
   setProfileID,
   type,
+  required
 }) {
   const [value, setValue] = useState(input);
   const [inputValue, setInputValue] = useState("");
@@ -38,9 +39,8 @@ export function AutoComplete({
   }, [profileID]);
 
   const useEffectChange = () => {
-    for (let i = 0; i < fullOptions.length; i++) {
-      fullOptions[i].id === profileID && handleChange(fullOptions[i].label)
-    }
+    const matchingOption = fullOptions.find(option => option.id === profileID);
+    handleChange(matchingOption ? matchingOption.label : "Nieuwe leerling"); 
   };
 
   return (
@@ -53,6 +53,7 @@ export function AutoComplete({
       freeSolo={fs}
       multiple={multi}
       disableClearable
+      required={required}
       renderOption={(props, option) => (
         <li
           {...props}

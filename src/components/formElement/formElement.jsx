@@ -74,6 +74,7 @@ export function FormElement({
             options={i.options}
             title={i.title}
             type={i.type}
+            required={i.required}
           />
           ))
       }

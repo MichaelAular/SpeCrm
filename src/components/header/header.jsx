@@ -1,8 +1,6 @@
 import "./header.scss";
 import React, { useState, useEffect } from "react";
 import { LogOutIcon } from "@/assets/icons/logOut";
-import { Modal } from "../modal/modal";
-import { Save } from "../save/save";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
 import { TabHeader } from "../tabMenu/tabHeader";
@@ -13,7 +11,6 @@ import { useWindowSize } from "@/hooks/windowSize";
 export function Header({
     currentPage,
     currentTab,
-    currentProfile,
     dataLoaded,
     profileID,
     profiles,
@@ -23,11 +20,9 @@ export function Header({
   }) {
 
   const [saveBtnHovered, setSaveBtnHovered] = useState(false);
-  const [saveModal, setSaveModal] = useState(false);
   const [userBtnHovered, setUserBtnHovered] = useState(false);
   const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
   const size = useWindowSize();
-  const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {
     setCurrentPage("User")
     setCurrentTab("NAW")
@@ -78,8 +73,8 @@ export function Header({
           />}
           <button
             type="submit"
+            form="form"
             className="headerBtn saveBtn"
-            onClick={updateProfile}
             onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
             onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
             style={{
@@ -134,12 +129,6 @@ export function Header({
         <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>
       }
-      <Modal
-        modalOpen={saveModal}
-        setModalOpen={setSaveModal}
-        title="Save"
-        input={<Save setModalOpen={setSaveModal} currentProfile={currentProfile}/>}
-      />
     </div>
   );
 }
