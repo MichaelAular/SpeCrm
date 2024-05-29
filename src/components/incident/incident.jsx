@@ -18,7 +18,10 @@ export function Incident({ incident }) {
         overflow: incidentOpen ? "visible" : "hidden",
       }}
     >
-      <div className="incidentHeader">
+      <div className="incidentHeader"
+            onClick={() => {setIncidentOpen(!incidentOpen)}}
+            onMouseEnter={() => {setIncidentHovered(true)}}
+            onMouseLeave={() => {setIncidentHovered(false)}}>
         <h6
           style={{color: incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}}
         >
@@ -29,9 +32,6 @@ export function Incident({ incident }) {
             type="button"
             className="titlebarButton"
             style={{transform: incidentOpen && `rotate(180deg) translateY(6px)`}}
-            onClick={() => {setIncidentOpen(!incidentOpen)}}
-            onMouseEnter={() => {setIncidentHovered(true)}}
-            onMouseLeave={() => {setIncidentHovered(false)}}
           >
             <ArrowUpIcon
               className="arrowUpIcon"

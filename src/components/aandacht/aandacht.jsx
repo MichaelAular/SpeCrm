@@ -17,7 +17,10 @@ export function Aandacht({ punt }) {
         overflow: aandachtOpen ? "visible" : "hidden",
       }}
     >
-      <div className="aandachtHeader">
+      <div className="aandachtHeader"
+            onClick={() => {setAandachtOpen(!aandachtOpen)}}
+            onMouseEnter={() => {setAandachtHovered(true)}}
+            onMouseLeave={() => {setAandachtHovered(false)}}>
         <h6 style={{color: aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}} >
           {dateObj.format('DD-MM-YYYY')}
         </h6>
@@ -26,9 +29,6 @@ export function Aandacht({ punt }) {
             type="button"
             className="titlebarButton"
             style={{transform: aandachtOpen && `rotate(180deg) translateY(6px)`}}
-            onClick={() => {setAandachtOpen(!aandachtOpen)}}
-            onMouseEnter={() => {setAandachtHovered(true)}}
-            onMouseLeave={() => {setAandachtHovered(false)}}
           >
             <ArrowUpIcon
               className="arrowUpIcon"
