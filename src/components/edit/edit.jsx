@@ -12,7 +12,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export function Edit({ elementArray, type}) {
   const [addAandachtOpen, setAddAandachtOpen] = useState(false);
-  const [addHovered, setAddHovered] = useState(false);
   const [addIncidentOpen, setAddIncidentOpen] = useState(false);
   const [deleteAandachtOpen, setDeleteAandachtOpen] = useState(false);
   const [deleteIncidentOpen, setDeleteIncidentOpen] = useState(false);
@@ -49,12 +48,9 @@ export function Edit({ elementArray, type}) {
             type="button"
         className="addBtn"
         onClick={()=>  {handleClickAdd(type)}}
-        onMouseEnter={()=> {setAddHovered(true)}}
-        onMouseLeave={()=> {setAddHovered(false)}}
       >
         <AddIcon
           size="20"
-          color={addHovered ? "rgb(var(--secundair)" : "rgb(var(--TextOnWhite)"}
         />
       </button>
       <div style={{zIndex: "1000", position: "absolute", transform: "translate(Calc(-50vw + 245px), Calc(-50vh + 53px))"}}>

@@ -1,5 +1,5 @@
 import "./header.scss";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { LogOutIcon } from "@/assets/icons/logOut";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
@@ -19,9 +19,6 @@ export function Header({
     setProfileID,
   }) {
 
-  const [saveBtnHovered, setSaveBtnHovered] = useState(false);
-  const [userBtnHovered, setUserBtnHovered] = useState(false);
-  const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
   const size = useWindowSize();
   const showUser = () => {
     setCurrentPage("User")
@@ -75,8 +72,6 @@ export function Header({
             type="submit"
             form="form"
             className="headerBtn saveBtn"
-            onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
-            onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
             style={{
               pointerEvents: currentPage !== "Student" && "none",
               opacity: currentPage !== "Student" && .2,
@@ -84,7 +79,6 @@ export function Header({
           >
             <SaveIcon
               className="saveBtn"
-              color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
               size="24"
             />
           </button>
@@ -92,26 +86,19 @@ export function Header({
           <button
             className="headerBtn userBtn"
             onClick={showUser}
-            onMouseEnter={() => {setUserBtnHovered(true)}}
-            onMouseLeave={() => {setUserBtnHovered(false)}}
             style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
           >
             <UserIcon
               className="userBtn"
-              color={
-                userBtnHovered === true || currentPage === "User" ? "--secundair" : "--white07"}
               size="24"
            />
           </button>
           <button
             className="headerBtn logOutBtn"
             onClick={()=>{console.log("Log Out")}}
-            onMouseEnter={() => {setLogOutBtnHovered(true)}}
-            onMouseLeave={() => {setLogOutBtnHovered(false)}}
           >
             <LogOutIcon
               className="logOutBtn"
-              color={logOutBtnHovered=== true ?  "rgb(var(--secundair))" : "rgb(var(--white07))"}
              size="22"
            />
           </button>

@@ -16,4 +16,14 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: rgb(var(--white07));
+    background-color: rgb(var(--TextOnWhite));
+}
+
+.deleteBtn:hover {
+    background-color: rgb(var(--white00));
+}
+
+.deleteBtn-danger:hover {
+    background-color: rgb(var(--danger));
 }

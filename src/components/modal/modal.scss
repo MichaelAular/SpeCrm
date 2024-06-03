@@ -36,9 +36,15 @@
 .modalInput {
     margin: 10px;
 }
+
 .closeBtn{
     border: none;
     background-color: transparent;
     cursor: pointer;
     margin-top: 2px;
+    fill: rgb(var(--white07));
+}
+
+.closeBtn:hover {
+    fill: rgb(var(--secundair));
 }

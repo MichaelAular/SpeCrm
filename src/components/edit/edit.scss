@@ -8,8 +8,15 @@
     display: flex;
 }
 
-.trashBtn, .addBtn{
+.trashBtn,
+.addBtn {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    fill: rgb(var(--TextOnWhite));
+}
+
+.trashBtn:hover,
+.addBtn:hover {
+    fill: rgb(var(--secundair));
 }

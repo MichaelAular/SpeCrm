@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 
 export function Aandacht({ punt, index }) {
   const [aandachtOpen, setAandachtOpen] = useState(false);
-  const [aandachtHovered, setAandachtHovered] = useState(false);
 
   return (
     <div
@@ -17,10 +16,8 @@ export function Aandacht({ punt, index }) {
       }}
     >
       <div className="aandachtHeader"
-            onClick={() => {setAandachtOpen(!aandachtOpen)}}
-            onMouseEnter={() => {setAandachtHovered(true)}}
-            onMouseLeave={() => {setAandachtHovered(false)}}>
-        <h6 style={{color: aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}} >
+            onClick={() => {setAandachtOpen(!aandachtOpen)}}>
+        <h6>
           {dayjs(punt.date).format('DD-MM-YYYY')}
         </h6>
         <div className="aandachtButtonContainer">
@@ -31,7 +28,6 @@ export function Aandacht({ punt, index }) {
           >
             <ArrowUpIcon
               className="arrowUpIcon"
-              color={aandachtHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
               size="16"
             />
           </button>

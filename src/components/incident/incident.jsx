@@ -7,7 +7,6 @@ import dayjs from "dayjs";
 
 export function Incident({ incident, index }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
-  const [incidentHovered, setIncidentHovered] = useState(false);
 
   return (
     <div
@@ -18,12 +17,8 @@ export function Incident({ incident, index }) {
       }}
     >
       <div className="incidentHeader"
-            onClick={() => {setIncidentOpen(!incidentOpen)}}
-            onMouseEnter={() => {setIncidentHovered(true)}}
-            onMouseLeave={() => {setIncidentHovered(false)}}>
-        <h6
-          style={{color: incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}}
-        >
+            onClick={() => {setIncidentOpen(!incidentOpen)}}>
+        <h6>
           {dayjs(incident.date).format('DD-MM-YYYY')}
         </h6>
         <div className="incidentButtonContainer">
@@ -34,7 +29,6 @@ export function Incident({ incident, index }) {
           >
             <ArrowUpIcon
               className="arrowUpIcon"
-              color={incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
               size="16"
             />
           </button>
