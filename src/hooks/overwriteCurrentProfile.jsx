@@ -26,6 +26,10 @@ export function useOverwriteCurrentProfile(
             if (key.startsWith("incidents") && key.endsWith("peopleInvolved")){
                 value = JSON.parse(value)
             }
+
+            if (key.startsWith("attentionPoints") && key.endsWith("date")){
+                value = dayjs(value, "DD-MM-YYYY").toDate();
+            }
     
             current[keys[keys.length - 1]] = value;
         };

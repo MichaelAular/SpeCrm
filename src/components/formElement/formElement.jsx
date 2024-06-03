@@ -79,7 +79,7 @@ export function FormElement({
           ))
       }
       { elementArray && elementTitle === "incident registratie" &&
-        elementArray.map((incident, index) => <Incident key={uuidv4()} incident={incident} index={index }/>)
+        elementArray.map((incident, index) => <Incident key={uuidv4()} incident={incident} index={index}/>)
       }
       { elementArray && elementTitle === "incident registratie" &&
         <Modal
@@ -91,7 +91,7 @@ export function FormElement({
       }
 
       { elementArray && elementTitle === "aandachtspunten" &&
-        elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
+        elementArray.map((punt, index) => <Aandacht key={uuidv4()} punt={punt} index={index}/>)
       }
       { elementArray && elementTitle === "aandachtspunten" &&
         <Modal

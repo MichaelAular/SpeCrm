@@ -44,6 +44,9 @@ export default function Home() {
             profileContent.incidents.map((incident) => {
               incident.date = incident.date.toDate()
             })
+            profileContent.attentionPoints.map((attentionPoint) => {
+              attentionPoint.date = attentionPoint.date.toDate()
+            })
             setCurrentProfile(profileContent);
           } else {
             console.log("Document not found");
