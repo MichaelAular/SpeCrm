@@ -28,7 +28,7 @@ export function Bar({
       { type === "string" && !input && <input required={required} className="inputEmpty" placeholder={`vul ${title} in...`} name={name} /> }
       { type === "string" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} /> }
       { type === "string_auto" && input &&  <AutoComplete required={required} options={options} input={input} multi={false} fs={false} name={name} /> }
-      { type === "string_auto_mfs" && <AutoComplete required={required} options={options} input={input} multi={true} fs={true} /> }
+      { type === "string_auto_mfs" && <AutoComplete required={required} options={options} input={input} multi={true} fs={true} name={name} /> }
       { type === "string_FH" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} /> }
       { type === "string_readOnly" && !input && <input required={required} className="inputGiven" defaultValue={0} name={name} readOnly/> }
       { type === "string_readOnly" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} readOnly/> }

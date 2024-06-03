@@ -9,9 +9,6 @@ import { Page_Analyse } from "@/pagesAndTabs/analyse";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
-import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
-import dayjs from "dayjs";
-import { Timestamp } from "firebase/firestore";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("Studenten");
@@ -42,9 +39,11 @@ export default function Home() {
       FirestoreProfileService.getProfile(profileID)
         .then((doc) => {
           if (doc.exists) {
-            console.log(doc.data())
             const profileContent = doc.data()
             profileContent.birthDate = profileContent.birthDate.toDate()
+            profileContent.incidents.map((incident) => {
+              incident.date = incident.date.toDate()
+            })
             setCurrentProfile(profileContent);
           } else {
             console.log("Document not found");

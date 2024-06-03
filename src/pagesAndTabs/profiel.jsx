@@ -19,20 +19,16 @@ export function Tab_Profiel({
 
   const handleChange = (e, preventDef) => {
     preventDef && e.preventDefault();
-
-    if (e.key === "Tab" || e.type === "change" || e.type === "blur") {
-      const formData = new FormData(document.getElementById("form"));
-      const newFormObject = Object.fromEntries(formData.entries());
-      document.querySelector('input[name="age"]').value = dayjs().diff(dayjs(newFormObject.birthDate, "DD-MM-YYYY"), 'year')
-      setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
-    }
+    const formData = new FormData(document.getElementById("form"));
+    const newFormObject = Object.fromEntries(formData.entries());
+    document.querySelector('input[name="age"]').value = dayjs().diff(dayjs(newFormObject.birthDate, "DD-MM-YYYY"), 'year')
+    setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
   }
   
-  const handleSubmit = (e, update, preventDef) => {
-    preventDef && e.preventDefault();
-    if (e.type === "submit") {
-      setSaveModal(true)
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleChange(e, true)
+    setSaveModal(true)
   };
 
   return (
@@ -44,8 +40,8 @@ export function Tab_Profiel({
             id="form"
             className="tabProfielContainer"
             method="post"
-            onSubmit={(e) => handleSubmit(e, true, true)}
-            onKeyDown={(e) => handleSubmit(e, false)}
+            onSubmit={handleSubmit}
+            onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
             onChange={(e) => handleChange(e, true)}
             onBlur={(e) => handleChange(e, true)}
           >

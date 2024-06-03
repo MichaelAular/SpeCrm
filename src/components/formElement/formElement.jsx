@@ -79,7 +79,7 @@ export function FormElement({
           ))
       }
       { elementArray && elementTitle === "incident registratie" &&
-        elementArray.map((incident) => <Incident key={uuidv4()} incident={incident}/>)
+        elementArray.map((incident, index) => <Incident key={uuidv4()} incident={incident} index={index }/>)
       }
       { elementArray && elementTitle === "incident registratie" &&
         <Modal

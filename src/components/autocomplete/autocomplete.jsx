@@ -10,6 +10,7 @@ export function AutoComplete({
   fullOptions,
   input,
   label,
+  name,
   multi,
   options,
   profileID,
@@ -21,8 +22,6 @@ export function AutoComplete({
 }) {
   const [value, setValue] = useState(input);
   const [inputValue, setInputValue] = useState("");
-
-  // console.log("input:", input);
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -51,6 +50,8 @@ export function AutoComplete({
       onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
       options={options}
       freeSolo={fs}
+      autoSelect
+      className={multi && "autoCompleteMulti"}
       multiple={multi}
       disableClearable
       required={required}
@@ -68,31 +69,34 @@ export function AutoComplete({
       )}
       renderTags={(tagValue, getTagProps) =>
         tagValue.map((option, index) => (
-          <Chip {...getTagProps({ index })} key={uuidv4()} label={option} />
+          <Chip {...getTagProps({ index })} className={multi && "autoCompleteMultiChip"} key={uuidv4()} label={option} />
         ))}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          label={profileID === null && `geef ${label} in`}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              color: label === "student" && "rgb(var(--secundair))",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              { border: "none" },
-            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-            minWidth: "300px",
-            borderRadius: "3px",
-            backgroundColor:
-              type === "header" && profileID === null
-                ? "rgb(var(--TextOnWhite))"
-                : type === "header" &&
-                  profileID !== null &&
-                  "rgb(var(--white07))",
-          }}
-        />
+        <div>
+          <input name={name} value={JSON.stringify(value)} onChange={(e) => console.log(e)} hidden/>
+          <TextField
+            {...params}
+            label={profileID === null && `geef ${label} in`}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                color: label === "student" && "rgb(var(--secundair))",
+              },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                { border: "none" },
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              minWidth: "300px",
+              borderRadius: "3px",
+              backgroundColor:
+                type === "header" && profileID === null
+                  ? "rgb(var(--TextOnWhite))"
+                  : type === "header" &&
+                    profileID !== null &&
+                    "rgb(var(--white07))",
+            }}
+          />
+        </div>
       )}
     />
   );

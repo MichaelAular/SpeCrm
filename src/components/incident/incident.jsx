@@ -5,10 +5,9 @@ import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import dayjs from "dayjs";
 
-export function Incident({ incident }) {
+export function Incident({ incident, index }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
   const [incidentHovered, setIncidentHovered] = useState(false);
-  const dateObj = dayjs(incident.date.toDate()).locale('nl');
 
   return (
     <div
@@ -25,7 +24,7 @@ export function Incident({ incident }) {
         <h6
           style={{color: incidentHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}}
         >
-          {dateObj.format('DD-MM-YYYY')}
+          {dayjs(incident.date).format('DD-MM-YYYY')}
         </h6>
         <div className="incidentButtonContainer">
           <button
@@ -42,11 +41,31 @@ export function Incident({ incident }) {
         </div>
       </div>
       <div className="incident_BarContainer">
-        <Bar title="datum" input={new Date(incident.date.toDate())} type="date" />
-        <Bar title="omschrijving" input={incident.description} type="string_FH" />
-        <Bar title="locatie" input={incident.location} type="string" />
-        {/* <Bar title="betrokkenen" input={incident.peopleInvolved} type="dropdown_multiple" options={options.employees}/> */}
-        <Bar title="betrokkenen" input={incident.peopleInvolved} type="string_auto_mfs" options={options.employees}/>
+        <Bar
+          title="datum"
+          name={"incidents." + index + ".date"}
+          input={incident.date}
+          type="date"
+        />
+        <Bar
+          title="omschrijving"
+          name={"incidents." + index + ".description"}
+          input={incident.description}
+          type="string_FH"
+        />
+        <Bar
+          title="locatie"
+          name={"incidents." + index + ".location"}
+          input={incident.location}
+          type="string"
+        />
+        <Bar
+          title="betrokkenen"
+          name={"incidents." + index + ".peopleInvolved"}
+          input={incident.peopleInvolved}
+          type="string_auto_mfs"
+          options={options.employees}
+        />
       </div>
     </div>
   );

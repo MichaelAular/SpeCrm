@@ -18,12 +18,22 @@ export function useOverwriteCurrentProfile(
             if (key === "birthDate") {
                 value = dayjs(value, "DD-MM-YYYY").toDate();
             }
+
+            if (key.startsWith("incidents") && key.endsWith("date")){
+                value = dayjs(value, "DD-MM-YYYY").toDate();
+            }
+
+            if (key.startsWith("incidents") && key.endsWith("peopleInvolved")){
+                value = JSON.parse(value)
+            }
     
             current[keys[keys.length - 1]] = value;
         };
     
         Object.entries(formJson).forEach(([key, value]) => {
-            setNestedProperty(currentProfile, key, value);
+            if (key !== "age") {
+                setNestedProperty(currentProfile, key, value);
+            }
         });
         return currentProfile;
 };
