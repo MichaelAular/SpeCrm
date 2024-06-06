@@ -9,6 +9,7 @@ import { Page_Analyse } from "@/pagesAndTabs/analyse";
 import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
+import emptyProfile from '../models/profile.json';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("Studenten");
@@ -32,9 +33,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const emptyProfile = require('../models/profile.json')
-    const updatedEmptyProfile = { ...emptyProfile, birthDate: new Date() };
-    setCurrentProfile(updatedEmptyProfile);
+    const resetProfile = JSON.parse(JSON.stringify(emptyProfile));
+    resetProfile.birthDate = new Date();
+    setCurrentProfile(resetProfile);
     if (profileID && profileID !== "new_user") {
       FirestoreProfileService.getProfile(profileID)
         .then((doc) => {
