@@ -52,6 +52,13 @@ export function Tab_Profiel({
               elementTitle="gegevens kind"
               elementBars={[
                 {
+                  title: "bsn",
+                  input: currentProfile.bsn,
+                  name: "bsn",
+                  type: "string",
+                  required: true
+                },
+                {
                   title: "voornaam",
                   input: currentProfile.firstName,
                   name: "firstName",
@@ -128,13 +135,6 @@ export function Tab_Profiel({
                   type: "string",
                 },
                 {
-                  title: "e-mailadres ouder",
-                  input: currentProfile.family.parents.email,
-                  name: "family.parents.email",
-                  type: "string",
-                  required: true
-                },
-                {
                   title: "geboorteland",
                   input: currentProfile.countryOfBirth,
                   name: "countryOfBirth",
@@ -153,6 +153,52 @@ export function Tab_Profiel({
                   name: "languages",
                   type: "dropdown_multiple",
                   options: options.languages,
+                  required: true
+                },
+                {
+                  title: "Allergiën",
+                  input: currentProfile.allergies,
+                  name: "allergies",
+                  type: "string"
+                },
+                {
+                  title: "Gebruikte medicatie",
+                  input: currentProfile.medicinesUsed,
+                  name: "medicinesUsed",
+                  type: "string"
+                },
+                {
+                  title: "Bekende ziektes",
+                  input: currentProfile.knownIllnesses,
+                  name: "knownIllnesses",
+                  type: "string"
+                },
+                {
+                  title: "Inkomensklasse",
+                  input: currentProfile.family.incomeClass,
+                  name: "family.incomeClass",
+                  type: "string",
+                  required: true
+                },
+                {
+                  title: "Krijgt uitkering",
+                  input: currentProfile.family.benefits,
+                  name: "family.benefits",
+                  type: "dropdown_boolean",
+                  required: true
+                },
+                {
+                  title: "nood contactpersoon naam",
+                  input: currentProfile.family.contactDetails.name,
+                  name: "family.contactDetails.name",
+                  type: "string",
+                  required: true
+                },
+                {
+                  title: "nood e-mailadres",
+                  input: currentProfile.family.contactDetails.email,
+                  name: "family.contactDetails.email",
+                  type: "string",
                   required: true
                 },
                 {
@@ -176,20 +222,6 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
-                  title: "nood contactpersoon",
-                  input: currentProfile.family.contactDetails.name,
-                  name: "family.contactDetails.name",
-                  type: "string",
-                  required: true
-                },
-                {
-                  title: "nood e-mailadres",
-                  input: currentProfile.family.contactDetails.email,
-                  name: "family.contactDetails.email",
-                  type: "string",
-                  required: true
-                },
-                {
                   title: "aantal kinderen in het gezin",
                   input: currentProfile.family.noOfChildren,
                   name: "family.noOfChildren",
@@ -197,10 +229,68 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
-                  title: "sport / naschoolse activiteiten",
-                  input: currentProfile.afterSchoolActivities,
-                  name: "afterSchoolActivities",
+                  title: "e-mailadres ouder",
+                  input: currentProfile.family.parents.email,
+                  name: "family.parents.email",
                   type: "string",
+                  required: true
+                },
+                {
+                  title: "Voornaam ouder",
+                  input: currentProfile.family.parents.firstName,
+                  name: "family.parents.firstName",
+                  type: "string",
+                  required: true
+                },
+                {
+                  title: "Achternaam ouder",
+                  input: currentProfile.family.parents.lastName,
+                  name: "family.parents.lastName",
+                  type: "string",
+                  required: true
+                },
+                {
+                  title: "Geslacht ouder",
+                  input: currentProfile.family.parents.sex,
+                  name: "family.parents.sex",
+                  type: "dropdown",
+                  options: options.sex,
+                  required: true
+                },
+                {
+                  title: "Voogd soort (Vader/Moeder/Tante,etc)",
+                  input: currentProfile.family.parents.type,
+                  name: "family.parents.type",
+                  type: "string",
+                  required: true
+                },
+                {
+                  title: "laptop",
+                  input: currentProfile.equipment.laptop,
+                  name: "equipment.laptop",
+                  type: "dropdown_boolean",
+                  required: true
+                },
+                {
+                  title: "smartphone",
+                  input: currentProfile.equipment.smartphone,
+                  name: "equipment.smartphone",
+                  type: "dropdown_boolean",
+                  required: true
+                },
+                {
+                  title: "tablet",
+                  input: currentProfile.equipment.tablet,
+                  name: "equipment.tablet",
+                  type: "dropdown_boolean",
+                  required: true
+                },
+                {
+                  title: "Ontvangen lesmateriaal + datum",
+                  input: currentProfile.equipment.lessonMaterial,
+                  name: "equipment.lessonMaterial",
+                  type: "string",
+                  required: true
                 },
                 {
                   title: "stadpas",
@@ -224,25 +314,10 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
-                  title: "laptop",
-                  input: currentProfile.equipment.laptop,
-                  name: "equipment.laptop",
-                  type: "dropdown_boolean",
-                  required: true
-                },
-                {
-                  title: "tablet",
-                  input: currentProfile.equipment.tablet,
-                  name: "equipment.tablet",
-                  type: "dropdown_boolean",
-                  required: true
-                },
-                {
-                  title: "smartphone",
-                  input: currentProfile.equipment.smartphone,
-                  name: "equipment.smartphone",
-                  type: "dropdown_boolean",
-                  required: true
+                  title: "sport / naschoolse activiteiten",
+                  input: currentProfile.afterSchoolActivities,
+                  name: "afterSchoolActivities",
+                  type: "string",
                 },
               ]}
             />
@@ -254,18 +329,18 @@ export function Tab_Profiel({
               elementTitle="gegevens school / bijles"
               elementBars={[
                 {
+                  title: "naam school",
+                  input: currentProfile.school.name,
+                  name: "school.name",
+                  type: "string",
+                  required: true
+                },
+                {
                   title: "soort school",
                   input: currentProfile.school.type,
                   name: "school.type",
                   type: "dropdown",
                   options: options.schoolType,
-                  required: true
-                },
-                {
-                  title: "naam school",
-                  input: currentProfile.school.name,
-                  name: "school.name",
-                  type: "string",
                   required: true
                 },
                 {
@@ -312,6 +387,13 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
+                  title: "postcode",
+                  input: currentProfile.school.address.neighbourhood,
+                  name: "school.address.neighbourhood",
+                  type: "string",
+                  required: true
+                },
+                {
                   title: "speciaal onderwijs",
                   input: currentProfile.school.specialEducation,
                   name: "school.specialEducation",
@@ -351,6 +433,7 @@ export function Tab_Profiel({
               elementArray={currentProfile.incidents.map((incident) => {
                 return incident;
               })}
+              currentProfile={currentProfile}
             />
             <FormElement
               elementTitle="aandachtspunten"
@@ -359,6 +442,7 @@ export function Tab_Profiel({
                   return aandachtspunt;
                 }
               )}
+              currentProfile={currentProfile}
             />
           </div>
         )}
@@ -371,7 +455,11 @@ export function Tab_Profiel({
         modalOpen={saveModal}
         setModalOpen={setSaveModal}
         title="Save"
-        input={<Save setModalOpen={setSaveModal} currentProfile={currentProfile} profileID={profileID}/>}
+        input={
+          <Save
+          setModalOpen={setSaveModal}
+          profileID={profileID}
+          currentProfile={currentProfile}/>}
       />
       </div>
   );
