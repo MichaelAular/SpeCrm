@@ -1,11 +1,15 @@
 import "./aandacht.scss";
 import React, { useState } from "react";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
+import { TrashIcon } from "@/assets/icons/trash";
+import { Modal } from "../modal/modal";
+import { Delete } from "../delete/delete";
 import { Bar } from "../bar/bar";
 import dayjs from "dayjs";
 
-export function Aandacht({ punt, index }) {
+export function Aandacht({ punt, index, setItemIdToDelete }) {
   const [aandachtOpen, setAandachtOpen] = useState(false);
+  const [deleteAandachtOpen, setDeleteAandachtOpen] = useState(false);
 
   return (
     <div
@@ -58,7 +62,27 @@ export function Aandacht({ punt, index }) {
           input={punt.agreements}
           type="string_FH"
         />
+        <button
+            type="button"
+            className="trashBtn deleteBtn deleteBtn-danger"
+            onClick={()=>{setDeleteAandachtOpen(true)}}
+          >
+            <TrashIcon size="20"/>
+          </button>
       </div>
+          <Modal
+            modalOpen={deleteAandachtOpen}
+            setModalOpen={setDeleteAandachtOpen}
+            title="Aandacht verwijderen"
+            input={
+              <Delete 
+                setDeleteOpen={setDeleteAandachtOpen}
+                index={index}
+                description="Weet u zeker dat u dit aandachtspunt wilt verwijderen?"
+                setItemIdToDelete={setItemIdToDelete}
+              />}
+            noShade
+          />
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import "./delete.scss";
 import React from "react";
 
-export function Delete({ setDeleteOpen, type }) {
+export function Delete({ setDeleteOpen, index, description, setItemIdToDelete }) {
 
   const clickedYes =()=> {
+    setItemIdToDelete(index)
     setDeleteOpen(false)
   }
   const clickedNo =()=> {
@@ -24,9 +25,7 @@ export function Delete({ setDeleteOpen, type }) {
 
   return (
     <div >
-      Are you sure you want to delete this 
-      {type === "incident" && " incident?"}
-      {type === "aandacht" && " focus point?"}
+      {description}
       <div className="buttonContainer">
         {deleteButton("yes", clickedYes)}
         {deleteButton("no", clickedNo)}
