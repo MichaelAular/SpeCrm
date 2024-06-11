@@ -352,7 +352,7 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
-                  title: "leerjaar",
+                  title: "Leerjaar (groep/klas)",
                   input: currentProfile.school.schoolYear,
                   name: "school.schoolYear",
                   type: "string",
