@@ -17,6 +17,9 @@
     cursor: pointer;
     color: rgb(var(--white07));
     background-color: rgb(var(--TextOnWhite));
+    align-self: end;
+    padding: 3px 0px 1px 0px;
+    margin-right: 10px;
 }
 
 .deleteBtn:hover {

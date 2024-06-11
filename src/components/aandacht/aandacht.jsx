@@ -64,7 +64,7 @@ export function Aandacht({ punt, index, setItemIdToDelete }) {
         />
         <button
             type="button"
-            className="trashBtn deleteBtn deleteBtn-danger"
+            className="deleteBtn deleteBtn-danger"
             onClick={()=>{setDeleteAandachtOpen(true)}}
           >
             <TrashIcon size="20"/>

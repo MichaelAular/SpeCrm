@@ -66,7 +66,7 @@ export function Incident({ incident, index, setItemIdToDelete }) {
         />
         <button
             type="button"
-            className="trashBtn deleteBtn deleteBtn-danger"
+            className="deleteBtn deleteBtn-danger"
             onClick={()=>{setDeleteIncidentOpen(true)}}
           >
             <TrashIcon size="20"/>
