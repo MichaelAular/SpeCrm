@@ -152,6 +152,12 @@ export function FormElement({
         }
       </div>
 
+      <div>
+        {elementArray && elementTitle === "evaluatie" &&
+          elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
+        }
+      </div>
+
       { elementArray && elementTitle === "aandachtspunten" &&
         elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
       }
