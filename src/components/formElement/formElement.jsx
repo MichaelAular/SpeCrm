@@ -5,7 +5,6 @@ import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import { Incident } from "../incident/incident";
 import { Evaluatie } from "../evaluatie/evaluatie";
-import { Modal } from "../modal/modal";
 import { v4 as uuidv4 } from "uuid";
 import { AddIcon } from "@/assets/icons/add";
 
@@ -71,40 +70,6 @@ export function FormElement({
           >
             <ArrowUpIcon className="arrowUpIcon" size="16" />
           </button>
-          {(elementTitle === "incident registratie" || elementTitle === "aandachtspunten") && (
-            <button
-              type='button'
-              className="titlebarButton editButton"
-              onClick={() => {
-                elementTitle === "incident registratie" && setEditIncident(true)
-                elementTitle === "aandachtspunten" && setEditAandacht(true)
-              }}
-              onMouseEnter={() => {setEditHovered(true)}}
-              onMouseLeave={() => {setEditHovered(false)}}
-            >
-              <EditIcon
-                className="edit"
-                color={editHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
-                size="18"
-              />
-            </button>
-          )}
-          {(elementTitle !== "evaluatie") &&
-            <button
-              type='button'
-              className="titlebarButton arrowButton"
-              style={{ transform: elementOpen && `rotate(180deg) translateY(4px)` }}
-              onClick={() => { setElementOpen(!elementOpen) }}
-              onMouseEnter={() => { setElementHovered(true) }}
-              onMouseLeave={() => { setElementHovered(false) }}
-            >
-              <ArrowUpIcon
-                className="arrowUpIcon"
-                color={elementHovered ? "rgb(var(--secundair))" : "rgb(var(--white06))"}
-                size="16"
-              />
-            </button>
-          }
         </div>
       </div>
       {elementBars && elementBars.map((bar) => (
@@ -144,31 +109,9 @@ export function FormElement({
           </button>
         </>
       )}
-      
-
-      <div>
         {elementArray && elementTitle === "evaluatie" &&
           elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
         }
-      </div>
-
-      <div>
-        {elementArray && elementTitle === "evaluatie" &&
-          elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
-        }
-      </div>
-
-      { elementArray && elementTitle === "aandachtspunten" &&
-        elementArray.map((punt) => <Aandacht key={uuidv4()} punt={punt}/>)
-      }
-      { elementArray && elementTitle === "aandachtspunten" &&
-        <Modal
-          modalOpen={editAandacht}
-          setModalOpen={setEditAandacht}
-          title="Edit Aandachtspunten"
-          input={<Edit elementArray={elementArray} type="aandacht"/>}
-        />
-      }
     </div>
   );
 }

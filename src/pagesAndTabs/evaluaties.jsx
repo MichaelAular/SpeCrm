@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "../app/page.module.scss";
 import { FormElement } from "@/components/formElement/formElement";
-import { useLeadingZero } from "@/hooks/leadingZero";
 import dayjs from "dayjs";
 require('dayjs/locale/nl')
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
@@ -15,7 +14,7 @@ export function Tab_Evaluatie({
 
   evaluation = allEvaluations.find(evaluation => {
     const year = selectedDate.year();
-    const week = useLeadingZero(selectedDate.week(), 2);
+    const week = selectedDate.week().toString().padStart(2, '0');
     return evaluation.id === `${year}-${week}`;
   });
 

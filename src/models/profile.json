@@ -9,7 +9,7 @@
    "countryOfBirth": "",
    "languages": "",
    "email": "",
-   "bsn": 0,
+   "bsn": null,
    "address": {
      "street": "",
      "streetNo": "",
