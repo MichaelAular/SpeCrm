@@ -1,51 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../app/page.module.scss";
 import { FormElement } from "@/components/formElement/formElement";
 import dayjs from "dayjs";
-require('dayjs/locale/nl')
+import 'dayjs/locale/nl'
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
-import temp_evaluations from "./temp_evaluations.json"
+import * as firebaseEvaluation from "../services/firebaseEvaluations";
 
 export function Tab_Evaluatie({
-  evaluation
+  profileID
 }) {
   const [selectedDate, setSelectedDate] = useState(dayjs().locale("nl"));
-  const allEvaluations = temp_evaluations;
+  const [evaluationContent, setEvaluationContent] = useState([]);
 
-  evaluation = allEvaluations.find(evaluation => {
-    const year = selectedDate.year();
-    const week = selectedDate.week().toString().padStart(2, '0');
-    return evaluation.id === `${year}-${week}`;
-  });
-
-
-  function getWeekTimestamps() {
+  function getWeekTimestamps(evaluations) {
     const startOfWeek = selectedDate.startOf('week').add(12, "hour");
     const lessonDayList = [];
 
     for (let i = 0; i < 6; i++) {
       const dayInWeek = startOfWeek.add(i, 'day');
-      const lessonDay = evaluation && evaluation['lessonDays'].find(day => day.date.startsWith(dayInWeek.format('YYYY-MM-DD')));
+      const lessonDay = evaluations?.lessonDays.find(
+        (day) => dayjs(day.date).format('YYYY-MM-DD') === dayInWeek.format('YYYY-MM-DD')
+      );
 
       if (lessonDay) {
         lessonDayList.push(lessonDay);
       } else {
         lessonDayList.push({
           "date": dayInWeek.toISOString(),
-          "day": "",
-          "presence": "",
-          "onTime": "",
           "homework": "",
-          "vo_lessonMaterial": "",
-          "vo_subjects": "",
-          "learningAttitude": "",
-          "followingInstructions": "",
-          "behaviourToOthers": "",
-          "keepsAttention": "",
-          "worksIndependently": "",
-          "askingQuestions": "",
-          "understandingMaterial": "",
           "behaviour": "",
+          "learningObjectives": "",
+          "workingIndependently": "",
+          "voSubjects": "",
+          "voBehaviour": "",
           "remarks": "",
           "isNotSet": 1
         })
@@ -54,7 +41,26 @@ export function Tab_Evaluatie({
     return lessonDayList;
   }
 
-  const timestamps = getWeekTimestamps();
+  useEffect(() => {
+    const year = selectedDate.year();
+    const week = selectedDate.week().toString().padStart(2, '0');
+
+    firebaseEvaluation.getEvaluation(profileID, `${year}-${week}`).then((doc) => {
+      if (doc.exists) {
+        const evaluationContentData = doc.data();
+        if (evaluationContentData) {
+          evaluationContentData.lessonDays.forEach((lessonDay) => {
+            lessonDay.date = lessonDay.date.toDate();
+          });
+          setEvaluationContent(getWeekTimestamps(evaluationContentData));
+        } else {
+          setEvaluationContent(getWeekTimestamps())
+        }
+      } else {
+        console.log("Document not found");
+      }
+    })
+  }, [selectedDate]);
 
   return (
     <div className="tabEvaluatieContainer" >
@@ -71,7 +77,7 @@ export function Tab_Evaluatie({
         <div className={styles.pageCollumn}>
           <FormElement
             elementTitle="evaluatie"
-            elementArray={timestamps.map((evaluaties) => {
+            elementArray={evaluationContent.map((evaluaties) => {
               return evaluaties;
             })}
           />

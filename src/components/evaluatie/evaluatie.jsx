@@ -28,19 +28,12 @@ export function Evaluatie({ evaluatie }) {
         </div>
       </div>
       <div className="evaluatie_BarContainer">
-        <Bar title="Is het kind aanwezig? Zo nee: is het kind afgemeld?/ Is er contact geweest met ouders?" input={evaluatie.presence} type="string" />
-        <Bar title="Is het kind op tijd? Zo nee: waarom niet?" input={evaluatie.onTime} type="string" />
-        <Bar title="Heeft het kind huiswerk gemaakt? Zo nee: waarom niet?" input={evaluatie.homework} type="string" />
-        <Bar title="VO: welke vakken heeft het kind meegenomen?" input={evaluatie.vo_subjects} type="string" />
-        <Bar title="VO: Heeft het kind alle benodigde lesmaterialen mee? (denk aan boeken, schrijfgerei/laptop) Zo nee: waarom niet?" input={evaluatie.vo_lessonMaterial} type="string" />
-        <Bar title="Heeft het kind een actieve werkhouding? (denk aan rechtop zitten/aandacht bij de les/proactief vragen stellen)" input={evaluatie.learningAttitude} type="string" />
-        <Bar title="Luistert het kind naar de instructies van de begeleider?" input={evaluatie.followingInstructions} type="string" />
-        <Bar title="Gedraagt het kind zich positief naar andere leerlingen?" input={evaluatie.behaviourToOthers} type="string" />
-        <Bar title="Houdt het kind zijn/haar aandacht bij de les?" input={evaluatie.keepsAttention} type="string" />
-        <Bar title="Gaat het kind zelfstandig aan het werk na de uitleg?" input={evaluatie.worksIndependently} type="string" />
-        <Bar title="Stelt het kind vragen als hij/zij iets niet begrijpt?" input={evaluatie.askingQuestions} type="string" />
-        <Bar title="Heeft het kind de behandelde lesstof goed begrepen? Zo nee: wat zijn de aandachtspunten?" input={evaluatie.understandingMaterial} type="string" />
-        <Bar title="Is er iets opgevallen mbt het gedrag/welzijn van het kind? Denk aan te stil/boos/verdrietig/blij/opgewekt" input={evaluatie.behaviour} type="string" />
+        <Bar title="Heeft het kind het huiswerk gemaakt en snapt het kind het huiswerk? Hoeveel foute antwoorden heeft het kind?" input={evaluatie.homework} required={true} type="string" />
+        <Bar title="Vertel iets over het gedrag van het kind: werkhouding/luisteren/concentratie/humeur" input={evaluatie.behaviour} required={true} type="string" />
+        <Bar title="Heeft het kind het leerdoel begrepen: vertel iets over de behandelde leerdoelen en waar het kind moeite mee heeft. Hoeveel fouten heeft het kind?" input={evaluatie.learningObjectives} required={true} type="string" />
+        <Bar title="Voortgezet Onderwijs: Vertel iets over de zelfstandigheid van het kind. Kan het kind de behandelde lesstof zelfstandig toepassen? Na 1 keer uitleggen of moet je het kind echt bij de hand nemen?" input={evaluatie.workingIndependently} required={true} type="string" />
+        <Bar title="Voortgezet Onderwijs: Vertel iets over de zelfstandigheid van het kind. Kan het kind de behandelde lesstof zelfstandig toepassen? Na 1 keer uitleggen of moet je het kind echt bij de hand nemen?" input={evaluatie.voSubjects} type="string" />
+        <Bar title="Hoevaak is de leerling absent geweest deze week? Hoevaak heeft de leerling zijn/haar boeken vergeten deze week" input={evaluatie.voBehaviour} type="string" />
         <Bar title="Zijn er verder nog bijzonderheden van belang?" input={evaluatie.remarks} type="string" />
       </div>
     </div>
