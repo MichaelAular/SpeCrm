@@ -135,7 +135,7 @@ export function BasicTable({
               sx={{ cursor: "pointer" }}
               onClick={() => {
                 setProfileID(row.id);
-                setCurrentPage("Analyse");
+                setCurrentPage("Student");
                 setCurrentTab("Profielschets");
               }}
             >
@@ -158,7 +158,7 @@ export function BasicTable({
                 className="headerBtn prevent-select"
                 onClick={() => {
                   setProfileID("new_user");
-                  setCurrentPage("Analyse");
+                  setCurrentPage("Student");
                   setCurrentTab("Profielschets");
                 }}
               >
