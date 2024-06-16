@@ -8,7 +8,8 @@ export function Save({
   profileID,
   setCurrentPage,
   setCurrentTab,
-  setProfileID
+  setProfileID,
+  setProfiles
 }) {
 
   const initialModalText = profileID === "new_user" 
@@ -36,10 +37,20 @@ export function Save({
   };
 
   const backToHome = () => {
-    setModalOpen(false);
-    setCurrentPage("Studenten")
-    setCurrentTab("Profielschets")
-    setProfileID(null)
+    FirestoreProfileService.fetchProfileNameList()
+      .then((doc) => {
+        if (doc.exists) {
+          setProfiles(doc.data());
+          setModalOpen(false);
+          setCurrentPage("Studenten")
+          setCurrentTab("Profielschets")
+          setProfileID(null)
+        } else {
+          console.log("Document not found");
+        }
+      })
+      .catch(() => console.log("Error"));
+    
   };
 
   return (

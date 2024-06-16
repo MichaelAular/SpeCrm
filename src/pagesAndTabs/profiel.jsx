@@ -16,7 +16,8 @@ export function Tab_Profiel({
   profileID,
   setCurrentPage,
   setCurrentTab,
-  setProfileID
+  setProfileID,
+  setProfiles
 }) {
   const [saveModal, setSaveModal] = useState(false);
 
@@ -465,7 +466,8 @@ export function Tab_Profiel({
           currentProfile={currentProfile}
           setCurrentPage={setCurrentPage}
           setCurrentTab={setCurrentTab}
-          setProfileID={setProfileID} />}
+          setProfileID={setProfileID}
+          setProfiles={setProfiles} />}
       />
       </div>
   );

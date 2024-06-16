@@ -93,6 +93,7 @@ export default function Home() {
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
             setProfileID={setProfileID}
+            setProfiles={setProfiles}
           />
         )}
         {currentPage === "Student" && currentTab === "Voortgang" && (
