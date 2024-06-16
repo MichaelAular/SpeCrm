@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FormElement } from "@/components/formElement/formElement";
 import { Spinner } from "@/components/spinner/spinner";
 import options from "../../dropdownOptions.json";
@@ -13,7 +13,10 @@ export function Tab_Profiel({
   dataLoaded,
   currentProfile,
   setCurrentProfile,
-  profileID
+  profileID,
+  setCurrentPage,
+  setCurrentTab,
+  setProfileID
 }) {
   const [saveModal, setSaveModal] = useState(false);
 
@@ -459,7 +462,10 @@ export function Tab_Profiel({
           <Save
           setModalOpen={setSaveModal}
           profileID={profileID}
-          currentProfile={currentProfile}/>}
+          currentProfile={currentProfile}
+          setCurrentPage={setCurrentPage}
+          setCurrentTab={setCurrentTab}
+          setProfileID={setProfileID} />}
       />
       </div>
   );

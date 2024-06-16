@@ -90,6 +90,9 @@ export default function Home() {
             setCurrentProfile={setCurrentProfile}
             dataLoaded={dataLoaded}
             profileID={profileID}
+            setCurrentPage={setCurrentPage}
+            setCurrentTab={setCurrentTab}
+            setProfileID={setProfileID}
           />
         )}
         {currentPage === "Student" && currentTab === "Voortgang" && (
