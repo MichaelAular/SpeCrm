@@ -2,46 +2,84 @@ import "./save.scss";
 import React, { useState } from "react";
 import * as FirestoreProfileService from "../../services/firebaseProfiles";
 
-export function Save({setModalOpen, currentProfile}) {
-  const [yesButton, setYesButton] = useState(false);
-  const [noButton, setNoButton] = useState(false);
-  const clickedYes =()=> {
-    console.log("save:", currentProfile);
-    FirestoreProfileService.updateProfile(currentProfile);
-    setModalOpen(false);
-  }
-  const clickedNo =()=> {
-    console.log("don't save")
-    setModalOpen(false)
-  }
+export function Save({
+  setModalOpen,
+  currentProfile,
+  profileID,
+  setCurrentPage,
+  setCurrentTab,
+  setProfileID,
+  setProfiles
+}) {
 
-  const saveButton = (input, state, setState, handleClick) => {
-    return (
-      <button
-        className="saveButton"
-        style={{
-            color: state === true ? "rgb(var(--white07))" : "rgb(var(--white07)",
-            backgroundColor: state === true && input === "yes" ? "rgb(var(--secundair)" :
-            state === true && input === "no" ? "rgb(var(--white00)" :
-            "rgb(var(--TextOnWhite)"
-        }}
-        onMouseEnter={()=> setState(true)}
-        onMouseLeave={()=> setState(false)}
-        onClick={()=>handleClick()}
-      >
-        {input}
-      </button>
-    );
+  const initialModalText = profileID === "new_user" 
+    ? <>U maakt een nieuw profiel aan. <br /> Weet u zeker dat u wilt doorgaan?</> 
+    : <>Weet u zeker dat u de <br /> vorige gegevens wilt overschrijven?</>;
+
+  const [modalText, setModalText] = useState(initialModalText);
+  const [saveCompleted, setSaveCompleted] = useState(false);
+
+
+  const saveProfile = () => {
+    if (profileID === "new_user") {
+      console.log("create new profile: ", currentProfile);
+      FirestoreProfileService.addProfile(currentProfile).then(() =>{
+        setModalText("Gegevens zijn succesvol opgeslagen.")
+        setSaveCompleted(true)
+      });
+    } else {
+      console.log("update profile: ", currentProfile);
+      FirestoreProfileService.updateProfile(currentProfile).then(() =>{
+          setModalText("Gegevens zijn succesvol opgeslagen.")
+          setSaveCompleted(true)
+        });
+    }
+  };
+
+  const backToHome = () => {
+    FirestoreProfileService.fetchProfileNameList()
+      .then((doc) => {
+        if (doc.exists) {
+          setProfiles(doc.data());
+          setModalOpen(false);
+          setCurrentPage("Studenten")
+          setCurrentTab("Profielschets")
+          setProfileID(null)
+        } else {
+          console.log("Document not found");
+        }
+      })
+      .catch(() => console.log("Error"));
+    
   };
 
   return (
     <div className="saveContainer">
-      Are you sure you want to overwrite
-      <br />
-      previous data?
-      <div className="buttonContainer">
-        {saveButton("yes", yesButton, setYesButton, clickedYes)}
-        {saveButton("no", noButton, setNoButton, clickedNo)}
+      {modalText}
+      <div className={`buttonContainer ${saveCompleted ? "hidden" : ""}`}>
+        <button
+          type="button"
+          className="saveButton saveButton-secundair"
+          onClick={saveProfile}
+        >
+          Ja
+        </button>
+        <button
+          type="button"
+          className="saveButton"
+          onClick={() => setModalOpen(false)}
+        >
+          Nee
+        </button>
+      </div>
+      <div className={`buttonContainer ${saveCompleted ? "" : "hidden"}`}>
+        <button
+          type="button"
+          className="saveButton saveButton-secundair"
+          onClick={backToHome}
+        >
+          Oké
+        </button>
       </div>
     </div>
   );

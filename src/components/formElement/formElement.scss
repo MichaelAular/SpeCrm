@@ -39,3 +39,19 @@
     display: flex;
     justify-content: center;
 }
+
+.editButton {
+    fill: rgb(var(--white06));
+}
+
+.editButton:hover{
+    fill: rgb(var(--secundair));
+}
+
+.arrowButton {
+    fill: rgb(var(--white06));
+}
+
+.arrowButton:hover{
+    fill: rgb(var(--secundair));
+}

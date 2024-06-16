@@ -2,3 +2,14 @@
     fill: rgb(var(--TextOnWhite));
     &:hover{ fill: rgb(var(--secundair))}
 }
+
+.addBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    fill: rgb(var(--TextOnWhite))
+}
+
+.addBtn:hover {
+    fill: rgb(var(--secundair));
+}

@@ -10,34 +10,30 @@ export function DropdownBoolean({
     name,
     options,
     title,
+    required
   }) {
-  const [selectValue, setSelectValue] = useState(input ? input : 'none')
-  const handleChange = (event) => {setSelectValue(event.target.value)};
+  const [selectValue, setSelectValue] = useState(input)
+  const handleChange = (event) => {
+    event.target.value ? event.target.classList.remove("noneSelected") : event.target.classList.add("noneSelected")
+    setSelectValue(event.target.value)
+  };
 
   return (
-    <FormControl
-      className="dropdown"
-      variant="standard"
-      name={title}
+    <select
+      name={name}
+      className={input === "" ? "select noneSelected" : "select"}
+      value={selectValue}
+      required={required}
+      onChange={handleChange}
     >
-      <Select
-        name={name}
-        className="select"
-        value={selectValue}
-        onChange={handleChange}
-        disableUnderline
-      >
-        <MenuItem value="none" disabled >
-          <em className="noneSelected">
-            selecteer {title}
-          </em>
-        </MenuItem>
-        {options.map((option) => (
-          <MenuItem value={option} key={uuidv4()}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+      <option value={""} disabled >
+        selecteer {title}
+      </option>
+      {options.map((option) => (
+        <option value={option} key={uuidv4()}>
+          {option}
+        </option>
+      ))}
+    </select>
   );
 }
