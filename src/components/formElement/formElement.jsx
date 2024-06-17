@@ -4,6 +4,7 @@ import { Aandacht } from "../aandacht/aandacht";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import { Incident } from "../incident/incident";
+import { Evaluatie } from "../evaluatie/evaluatie";
 import { v4 as uuidv4 } from "uuid";
 import { AddIcon } from "@/assets/icons/add";
 
@@ -108,6 +109,9 @@ export function FormElement({
           </button>
         </>
       )}
+        {elementArray && elementTitle === "evaluatie" &&
+          elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
+        }
     </div>
   );
 }

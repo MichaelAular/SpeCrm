@@ -16,9 +16,6 @@
 }
 
 .evaluatieScheme {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   min-height: 100vh;
   padding: 2rem;
   padding-top: 0rem;
@@ -40,7 +37,6 @@
 
 .pageCollumn {
   width: 100%;
-  max-width: 800px;
   min-width: 350px;
   display: flex;
   flex-direction: column;
