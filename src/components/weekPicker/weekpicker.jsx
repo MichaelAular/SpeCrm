@@ -8,6 +8,7 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useWindowSize } from "@/hooks/windowSize";
+import 'dayjs/locale/nl';
 
 const CustomPickersDay = styled(PickersDay, {
   shouldForwardProp: (prop) => prop !== "isSelected" && prop !== "isHovered",
@@ -105,6 +106,7 @@ export function WeekPicker({value, setValue}) {
         </span>
     <LocalizationProvider
         dateAdapter={AdapterDayjs}
+        adapterLocale="nl"
         sx={{
             display: "flex",
             flexDirection: "collumn",

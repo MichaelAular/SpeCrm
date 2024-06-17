@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { Bar } from "../bar/bar";
 import dayjs from "dayjs";
+require('dayjs/locale/nl')
 import "./evaluatie.scss";
 
 export function Evaluatie({ evaluatie }) {

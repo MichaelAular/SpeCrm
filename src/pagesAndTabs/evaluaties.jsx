@@ -4,6 +4,7 @@ import { FormElement } from "@/components/formElement/formElement";
 import dayjs from "dayjs";
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
 import * as firebaseEvaluation from "../services/firebaseEvaluations";
+require('dayjs/locale/nl')
 
 export function Tab_Evaluatie({
   profileID
