@@ -20,7 +20,13 @@
     padding-right: 7px;
     background-color: rgb(var(--TextOnWhite));
     color: rgb(var(--white07));
+    fill: rgb(var(--white07));
     cursor: pointer;
+}
+
+.evaluatieHeader:hover {
+    color: rgb(var(--secundair));
+    fill: rgb(var(--secundair));
 }
 
 .evaluatie_BarContainer {
