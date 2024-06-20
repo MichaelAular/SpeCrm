@@ -1,5 +1,5 @@
 import "./header.scss";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { signOut } from "@/app/auth";
 import { LogOutIcon } from "@/assets/icons/logOut";
 import { SaveIcon } from "@/assets/icons/save";
@@ -8,6 +8,7 @@ import { TabHeader } from "../tabMenu/tabHeader";
 import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
 import { useWindowSize } from "@/hooks/windowSize";
+import { useUser } from "@/app/auth";
 
 export function Header({
     currentPage,
@@ -19,7 +20,7 @@ export function Header({
     setCurrentTab,
     setProfileID,
   }) {
-
+  const user = useUser();
   const size = useWindowSize();
   const showUser = () => {
     setCurrentPage("User")
@@ -53,8 +54,8 @@ export function Header({
     <div className="headerContainer">
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
-          {dataLoaded && headerBtn( "Studenten" )}
-          {dataLoaded && headerBtn( "Analyse" )}
+          {dataLoaded && user && headerBtn( "Studenten" )}
+          {dataLoaded && user && headerBtn( "Analyse" )}
         </div>
 
         <div className="headerSide" style={{
@@ -62,7 +63,7 @@ export function Header({
           paddingTop:size.width <= 700 && "14px"
         }}
           >
-          {profiles && <Searchbar
+          {profiles && user && <Searchbar
             profiles={profiles}
             setProfileID={setProfileID}
             profileID={profileID}
@@ -97,8 +98,6 @@ export function Header({
           <button
             className="headerBtn logOutBtn"
             onClick={()=>{signOut()}}
-            onMouseEnter={() => {setLogOutBtnHovered(true)}}
-            onMouseLeave={() => {setLogOutBtnHovered(false)}}
           >
             <LogOutIcon
               className="logOutBtn"

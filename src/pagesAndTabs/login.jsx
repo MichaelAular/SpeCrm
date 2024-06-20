@@ -30,23 +30,23 @@ export function Page_Login() {
 
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
           <div className="bg-gray-800 p-10 rounded-lg shadow-xl w-96">
-            <h2 className="text-white text-2xl mb-5">Sign In</h2>
-            <label htmlFor="username">Username:</label>
+            <h2 className="text-white text-2xl mb-5">Inloggen bij Stichting SPE</h2>
+            <label htmlFor="email">E-mail:</label><br/>
             <input 
               type="email" 
               placeholder="Email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-            />
-            <label htmlFor="password">Password:</label>
+            /><br/>
+            <label htmlFor="password">Wachtwoord:</label><br/>
             <input 
               type="password" 
               placeholder="Password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-            />
+            /><br/>
             <br></br>
             <Button
               onClick={handleSignIn}
@@ -54,7 +54,7 @@ export function Page_Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Inloggen
             </Button>
             <br></br>
             {loginFailed && (
