@@ -8,15 +8,12 @@ import { Page_Login } from "@/pagesAndTabs/login";
 import { Page_User } from "@/pagesAndTabs/user";
 import { Page_Students } from "@/pagesAndTabs/students";
 import { Page_Analyse } from "@/pagesAndTabs/analyse";
-import { Tab_Evaluatie } from "@/pagesAndTabs/evaluatie";
+import { Tab_Evaluatie } from "@/pagesAndTabs/evaluaties";
 import { Tab_Profiel } from "@/pagesAndTabs/profiel";
 import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
-import { useGetAge } from "@/hooks/getAge";
-import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
+import emptyProfile from '../models/profile.json';
 
 export default function Home() {
-  const [age, setAge] = useState(null);
-  const [birthDate, setBirthDate] = useState(null);
   const [currentPage, setCurrentPage] = useState("");
   const [currentProfile, setCurrentProfile] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
@@ -24,12 +21,6 @@ export default function Home() {
   const [profileID, setProfileID] = useState(null);
   const [profiles, setProfiles] = useState();
   const user = useUser();
-
-  const converteDate =(dateString)=> {
-    let dateParts = dateString.split("-");
-    let dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
-    return dateObject.toString();
-  }
 
   useEffect(() => {
     if (user != null) {
@@ -53,43 +44,29 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    profileID !== null &&
+    const resetProfile = JSON.parse(JSON.stringify(emptyProfile));
+    resetProfile.birthDate = new Date();
+    setCurrentProfile(resetProfile);
+    if (profileID && profileID !== "new_user") {
       FirestoreProfileService.getProfile(profileID)
         .then((doc) => {
           if (doc.exists) {
-            setCurrentProfile(doc.data());
+            const profileContent = doc.data()
+            profileContent.birthDate = profileContent.birthDate.toDate()
+            profileContent.incidents.map((incident) => {
+              incident.date = incident.date.toDate()
+            })
+            profileContent.attentionPoints.map((attentionPoint) => {
+              attentionPoint.date = attentionPoint.date.toDate()
+            })
+            setCurrentProfile(profileContent);
           } else {
             console.log("Document not found");
           }
         })
-
         .catch(() => console.log("Error"));
-  }, [profileID]);
-
-   useEffect(() => {
-     const update = () => {
-        setBirthDate(new Date(currentProfile.birthDate.toDate()));
-        setAge(useGetAge(currentProfile.birthDate.toDate(), "timestamp"));
-      }
-      currentProfile && update();
-    }, [currentProfile]);
-
-  const handleSubmit = (e, update, preventDef) => {
-    const formData = new FormData(document.getElementById("form"));
-    const newFormObject = Object.fromEntries(formData.entries());
-    const newAge = newFormObject.birthDate ? useGetAge(newFormObject.birthDate) : null;
-    preventDef && e.preventDefault();
-    if (e.key === "Tab" || update === true) {
-      const update =()=> {
-        setAge(newAge)
-        let newDate = converteDate(newFormObject.birthDate)
-        setBirthDate(newDate)
-      }
-      newFormObject.birthDate && update();
-      setCurrentProfile(useOverwriteCurrentProfile(currentProfile, newFormObject))
-      // console.log("newFormObject", newFormObject)
     }
-  };
+  }, [profileID]);
 
   return (
     <main>
@@ -104,15 +81,6 @@ export default function Home() {
         profileID={profileID}
         dataLoaded={dataLoaded}
       />
-      <form
-        id="form"
-        className="tabProfielContainer"
-        method="post"
-        onSubmit={(e) => handleSubmit(e, true, true)}
-        onKeyDown={(e) => handleSubmit(e, false, false)}
-        onMouseDown={(e) => handleSubmit(e, true, false)}
-        onMouseOut={(e) => handleSubmit(e, true, false)}
-      >
         {currentPage === "Login" && (
           <Page_Login/>
         )}
@@ -126,23 +94,26 @@ export default function Home() {
         )}
         {currentPage === "User" && <Page_User currentTab={currentTab} />}
         {currentPage === "Student" && currentTab === "Evaluatie" && (
-          <Tab_Evaluatie />
+          <Tab_Evaluatie profileID={profileID} />
         )}
-        {currentPage === "Student" &&
-          currentTab === "Profielschets" &&
-          currentProfile !== null && (
-            <Tab_Profiel
-              currentProfile={currentProfile}
-              dataLoaded={dataLoaded}
-              age={age}
-              birthDate={birthDate}
-            />
-          )}
+      {currentPage === "Student" &&
+        currentTab === "Profielschets" &&
+        currentProfile !== null && (
+          <Tab_Profiel
+            currentProfile={currentProfile}
+            setCurrentProfile={setCurrentProfile}
+            dataLoaded={dataLoaded}
+            profileID={profileID}
+            setCurrentPage={setCurrentPage}
+            setCurrentTab={setCurrentTab}
+            setProfileID={setProfileID}
+            setProfiles={setProfiles}
+          />
+        )}
         {currentPage === "Student" && currentTab === "Voortgang" && (
           <Tab_Voortgang />
         )}
         {currentPage === "Analyse" && <Page_Analyse />}
-      </form>
     </main>
   );
 }

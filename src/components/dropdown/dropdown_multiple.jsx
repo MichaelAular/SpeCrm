@@ -11,11 +11,12 @@ export function DropdownMultiple({
     name,
     options,
     title,
+    required
   }) {
-  const [personName, setPersonName] = useState(input ? input.split(',') : ['none']);
+  const [personName, setPersonName] = useState(input ? input.split(',') : ['']);
   const handleChange = (event) => {
-    event.target.value[0] === 'none' && event.target.value.shift()
-    event.target.value[0] === undefined && event.target.value.push('none')
+    event.target.value[0] === '' && event.target.value.shift()
+    event.target.value[0] === undefined && event.target.value.push('')
     const { target: { value } } = event;
     setPersonName( typeof value === 'string' ? value.split(',') : value );
   };
@@ -28,9 +29,11 @@ export function DropdownMultiple({
       className="select"
       value={personName}
       onChange={handleChange}
+      required={required}
       disableUnderline
+      displayEmpty
       >
-        <MenuItem value="none" disabled>
+        <MenuItem value="" disabled>
           <em className="noneSelected">
             selecteer {title}
           </em>

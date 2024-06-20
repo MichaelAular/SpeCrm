@@ -1,28 +1,43 @@
-import { useDateFormatter } from "./dateformatter";
+import dayjs from "dayjs";
 
 export function useOverwriteCurrentProfile(
     currentProfile,
     formJson,
     ) {
-    let newJson = currentProfile;
+        const setNestedProperty = (obj, key, value) => {
+            const keys = key.split('.');
+            let current = obj;
+    
+            keys.slice(0, -1).forEach((k) => {
+                if (!current[k]) {
+                    current[k] = {};
+                }
+                current = current[k];
+            });
+    
+            if (key === "birthDate") {
+                value = dayjs(value, "DD-MM-YYYY").toDate();
+            }
 
-    Object.entries(formJson).map(([key, v]) => {
-        let val = v;
-        if (key === "birthDate")  {
-            val = new Date(useDateFormatter(v))
-        }
+            if (key.startsWith("incidents") && key.endsWith("date")){
+                value = dayjs(value, "DD-MM-YYYY").toDate();
+            }
 
-        const nest = key.split(".");
-        if (nest[1]) { newJson[nest[0]] = {...newJson[nest[0]], ...{}} };
-        if (nest[2]) { newJson[nest[0]][nest[1]] = {...newJson[nest[0]][nest[1]], ...{}} };
-        if (nest[3]) { newJson[nest[0]][nest[1]][nest[2]] = {...newJson[nest[0]][nest[1]][nest[2]], ...{}} };
-        if (nest[0] && key.charAt(0) != ":") {
-            if (!nest[1] && !nest[2] && !nest[3]) { newJson[nest[0]] = val };
-            if ( nest[1] && !nest[2] && !nest[3]) { newJson[nest[0]][nest[1]] = val };
-            if ( nest[1] &&  nest[2] && !nest[3]) { newJson[nest[0]][nest[1]][nest[2]] = val };
-            if ( nest[1] &&  nest[2] &&  nest[3]) { newJson[nest[0]][nest[1]][nest[2]][nest[3]] = val };
+            if (key.startsWith("incidents") && key.endsWith("peopleInvolved")){
+                value = JSON.parse(value)
+            }
+
+            if (key.startsWith("attentionPoints") && key.endsWith("date")){
+                value = dayjs(value, "DD-MM-YYYY").toDate();
+            }
+    
+            current[keys[keys.length - 1]] = value;
         };
-    });
-
-    return newJson
+    
+        Object.entries(formJson).forEach(([key, value]) => {
+            if (key !== "age") {
+                setNestedProperty(currentProfile, key, value);
+            }
+        });
+        return currentProfile;
 };

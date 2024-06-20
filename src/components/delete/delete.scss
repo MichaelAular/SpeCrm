@@ -12,8 +12,20 @@
 
 .deleteBtn {
     width: 50px;
-    height: 26px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: rgb(var(--white07));
+    background-color: rgb(var(--TextOnWhite));
+    align-self: end;
+    padding: 3px 0px 1px 0px;
+    margin-right: 10px;
+}
+
+.deleteBtn:hover {
+    background-color: rgb(var(--white00));
+}
+
+.deleteBtn-danger:hover {
+    background-color: rgb(var(--danger));
 }

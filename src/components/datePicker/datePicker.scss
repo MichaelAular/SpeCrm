@@ -1,10 +1,20 @@
 .datePicker {
     width: 100%;
+    top: -3px;
  }
 
 .datePicker::placeholder {
     font-style: italic;
     color: rgb(var(--white02));
+}
+
+.datePicker input {
+    font-size: 14px;
+    padding-left: 25px;
+}
+
+fieldset {
+    border-width: 0 !important;
 }
 
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle {

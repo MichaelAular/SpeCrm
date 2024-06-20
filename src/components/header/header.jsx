@@ -2,8 +2,6 @@ import "./header.scss";
 import React, { useState, useEffect } from "react";
 import { signOut } from "@/app/auth";
 import { LogOutIcon } from "@/assets/icons/logOut";
-import { Modal } from "../modal/modal";
-import { Save } from "../save/save";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
 import { TabHeader } from "../tabMenu/tabHeader";
@@ -14,7 +12,6 @@ import { useWindowSize } from "@/hooks/windowSize";
 export function Header({
     currentPage,
     currentTab,
-    currentProfile,
     dataLoaded,
     profileID,
     profiles,
@@ -23,12 +20,7 @@ export function Header({
     setProfileID,
   }) {
 
-  const [saveBtnHovered, setSaveBtnHovered] = useState(false);
-  const [saveModal, setSaveModal] = useState(false);
-  const [userBtnHovered, setUserBtnHovered] = useState(false);
-  const [logOutBtnHovered, setLogOutBtnHovered] = useState(false);
   const size = useWindowSize();
-  const updateProfile = () => {setSaveModal(true)};
   const showUser = () => {
     setCurrentPage("User")
     setCurrentTab("NAW")
@@ -79,10 +71,8 @@ export function Header({
           />}
           <button
             type="submit"
+            form="form"
             className="headerBtn saveBtn"
-            onClick={updateProfile}
-            onMouseEnter={() => {currentPage === "Student" && setSaveBtnHovered(true)}}
-            onMouseLeave={() => {currentPage === "Student" && setSaveBtnHovered(false)}}
             style={{
               pointerEvents: currentPage !== "Student" && "none",
               opacity: currentPage !== "Student" && .2,
@@ -90,7 +80,6 @@ export function Header({
           >
             <SaveIcon
               className="saveBtn"
-              color={saveBtnHovered === true ? "rgb(var(--secundair))" : "rgb(var(--white07))"}
               size="24"
             />
           </button>
@@ -98,14 +87,10 @@ export function Header({
           <button
             className="headerBtn userBtn"
             onClick={showUser}
-            onMouseEnter={() => {setUserBtnHovered(true)}}
-            onMouseLeave={() => {setUserBtnHovered(false)}}
             style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
           >
             <UserIcon
               className="userBtn"
-              color={
-                userBtnHovered === true || currentPage === "User" ? "--secundair" : "--white07"}
               size="24"
            />
           </button>
@@ -117,7 +102,6 @@ export function Header({
           >
             <LogOutIcon
               className="logOutBtn"
-              color={logOutBtnHovered=== true ?  "rgb(var(--secundair))" : "rgb(var(--white07))"}
              size="22"
            />
           </button>
@@ -135,12 +119,6 @@ export function Header({
         <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>
       }
-      <Modal
-        modalOpen={saveModal}
-        setModalOpen={setSaveModal}
-        title="Save"
-        input={<Save setModalOpen={setSaveModal} currentProfile={currentProfile}/>}
-      />
     </div>
   );
 }

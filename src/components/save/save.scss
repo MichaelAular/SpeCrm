@@ -16,4 +16,18 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: rgb(var(--white07));
+    background-color: rgb(var(--TextOnWhite));
+}
+
+.saveButton:hover {
+    background-color: rgb(var(--white00));
+}
+
+.saveButton-secundair:hover {
+    background-color: rgb(var(--secundair));
+}
+
+.hidden {
+    display: none;
 }

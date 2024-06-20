@@ -5,13 +5,28 @@
 }
 
 .select {
+    border: none;
+    padding-left: 25px;
+    background-color: inherit;
     color: rgb(var(--primair));
     font-size: 14px;
     border: none;
 }
 
+.select option {
+    color: rgb(var(--primair));
+}
+
+.select option:first-child {
+    color: rgb(var(--white02));
+}
+
 .noneSelected{
     color: rgb(var(--white02));
+}
+
+.MuiSelect-select {
+    padding-left: 0 !important;
 }
 
 @media (max-width: 700px) {
