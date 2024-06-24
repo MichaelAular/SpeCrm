@@ -1,5 +1,6 @@
 import { db } from '@/firebase';
-import { doc, addDoc, getDoc, updateDoc, collection } from "firebase/firestore";
+import { doc, addDoc, query, where, limit, get, getDoc, getDocs, updateDoc, collection } from "firebase/firestore";
+import axios from 'axios';
 
 // Get profile name list from Firestore Database
 export const fetchProfileNameList = async () => {
@@ -8,13 +9,15 @@ export const fetchProfileNameList = async () => {
 
 // Get specific profile from Firestore Database by id
 export const getProfile = (profileId) => {
-    const profileDocRef = doc(db, 'profiles', profileId);
-    return getDoc(profileDocRef);
+    const profileDocRef = query(collection(db, 'profiles'), where('id', '==', profileId), where('active', '==', 1), limit(1));
+    return getDocs(profileDocRef);
 };
 
 // Add new profile to Firestore Database
 export const addProfile = async (data) => {
     try {
+        data.active = 1;
+        data.registrationDate = new Date();
         const docRef = await addDoc(collection(db, "profiles"), data);
         console.log("Document written with ID: ", docRef.id);
         data.id = docRef.id;
@@ -43,7 +46,8 @@ export const updateProfileList = async (profile) => {
         id: profile.id,
         firstName: profile.firstName,
         lastName: profile.lastName,
-        birthDate: profile.birthDate
+        birthDate: profile.birthDate,
+        active: profile.active
     }
     const profileListDoc = await getDoc(doc(db, 'profiles', 'All'));
     try {

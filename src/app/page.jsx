@@ -23,7 +23,10 @@ export default function Home() {
     FirestoreProfileService.fetchProfileNameList()
       .then((doc) => {
         if (doc.exists) {
-          setProfiles(doc.data());
+          const onlyActiveProfiles = {"list": doc.data().list.filter(function (el) {
+            return el.active == 1;
+          })}
+          setProfiles(onlyActiveProfiles);
           setLoaded(true);
         } else {
           console.log("Document not found");
@@ -39,8 +42,8 @@ export default function Home() {
     if (profileID && profileID !== "new_user") {
       FirestoreProfileService.getProfile(profileID)
         .then((doc) => {
-          if (doc.exists) {
-            const profileContent = doc.data()
+          if (doc.docChanges()[0].doc.exists) {
+            const profileContent = doc.docChanges()[0].doc.data()
             profileContent.birthDate = profileContent.birthDate.toDate()
             profileContent.incidents.map((incident) => {
               incident.date = incident.date.toDate()
