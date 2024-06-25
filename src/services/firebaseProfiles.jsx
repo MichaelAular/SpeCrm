@@ -16,6 +16,15 @@ export const getProfile = (profileId) => {
 // Add new profile to Firestore Database
 export const addProfile = async (data) => {
     try {
+        try {
+            const response = await axios.get(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${data.address.postalCode} ${data.address.streetNo} ${data.address.city}&fl=wijknaam,buurtnaam&fq=type:(adres)&rows=1&wt=json`);
+            const buurt = response.data.response.docs[0]?.buurtnaam;
+            const wijk = response.data.response.docs[0]?.wijknaam;
+            data.address.buurt = buurt
+            data.address.wijk = wijk
+        } catch (apiError) {
+            console.error(`Error fetching wijk:`, apiError);
+        }
         data.active = 1;
         data.registrationDate = new Date();
         const docRef = await addDoc(collection(db, "profiles"), data);
@@ -31,6 +40,15 @@ export const addProfile = async (data) => {
 // Update existing profile to Firestore Database
 export const updateProfile = async (data) => {
     try {
+        try {
+            const response = await axios.get(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${data.address.postalCode} ${data.address.streetNo} ${data.address.city}&fl=wijknaam,buurtnaam&fq=type:(adres)&rows=1&wt=json`);
+            const buurt = response.data.response.docs[0]?.buurtnaam;
+            const wijk = response.data.response.docs[0]?.wijknaam;
+            data.address.buurt = buurt
+            data.address.wijk = wijk
+        } catch (apiError) {
+            console.error(`Error fetching wijk:`, apiError);
+        }
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
         await updateDoc(profileRef, data);
