@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "../app/page.module.scss";
 import { generateDashboardData } from "../services/firebaseDashboard";
-import { SingleNumberCard } from "@/components/analyse/analyseNumberCard";
-import { TableCard } from "@/components/analyse/analyseTableCard";
-import { PieChartCard } from "@/components/analyse/analysePieChartCard";
-import { BarChartCard } from "@/components/analyse/analyseBarChartCard";
-import "../components/analyse/analyse.scss";
+import { SingleNumberCard } from "@/components/cards/numberCard";
+import { TableCard } from "@/components/cards/tableCard";
+import { PieChartCard } from "@/components/cards/pieChartCard";
+import { BarChartCard } from "@/components/cards/barChartCard";
+import "../components/cards/cards.scss";
 
 export function Page_Analyse() {
   const [dashboardData, setDashboardData] = useState({
