@@ -160,17 +160,17 @@ const progressContentUpdater = (firebaseData, formData) => {
         "name": "testGrades",
         "title": "Toets resultaten (0-10)",
         "fields": [
-          { "name": "nederlands", "value": valueMaker(progress?.testGrades?.nederlands), "title": "Nederlands", "type": "number" },
-          { "name": "wiskunde", "value": valueMaker(progress?.testGrades?.wiskunde), "title": "wiskunde", "type": "number" },
-          { "name": "engels", "value": valueMaker(progress?.testGrades?.engels), "title": "Engels", "type": "number" },
-          { "name": "aardrijkskunde", "value": valueMaker(progress?.testGrades?.aardrijkskunde), "title": "Aardrijkskunde", "type": "number" },
-          { "name": "geschiedenis", "value": progress?.testGrades?.geschiedenis || "", "title": "Geschiedenis", "type": "number" },
-          { "name": "natuurkunde", "value": valueMaker(progress?.testGrades?.natuurkunde), "title": "Natuurkunde", "type": "number" },
-          { "name": "scheikunde", "value": valueMaker(progress?.testGrades?.scheikunde), "title": "Scheikunde", "type": "number" },
-          { "name": "biologie", "value": valueMaker(progress?.testGrades?.biologie), "title": "Biologie", "type": "number" },
-          { "name": "economie", "value": valueMaker(progress?.testGrades?.economie), "title": "Economie", "type": "number" },
-          { "name": "frans", "value": valueMaker(progress?.testGrades?.frans), "title": "Frans", "type": "number" },
-          { "name": "duits", "value": valueMaker(progress?.testGrades?.duits), "title": "Duits", "type": "number" },
+          { "name": "nederlands", "value": valueMaker(progress?.testGrades?.nederlands), "title": "Nederlands", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "wiskunde", "value": valueMaker(progress?.testGrades?.wiskunde), "title": "wiskunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "engels", "value": valueMaker(progress?.testGrades?.engels), "title": "Engels", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "aardrijkskunde", "value": valueMaker(progress?.testGrades?.aardrijkskunde), "title": "Aardrijkskunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "geschiedenis", "value": progress?.testGrades?.geschiedenis || "", "title": "Geschiedenis", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "natuurkunde", "value": valueMaker(progress?.testGrades?.natuurkunde), "title": "Natuurkunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "scheikunde", "value": valueMaker(progress?.testGrades?.scheikunde), "title": "Scheikunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "biologie", "value": valueMaker(progress?.testGrades?.biologie), "title": "Biologie", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "economie", "value": valueMaker(progress?.testGrades?.economie), "title": "Economie", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "frans", "value": valueMaker(progress?.testGrades?.frans), "title": "Frans", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "duits", "value": valueMaker(progress?.testGrades?.duits), "title": "Duits", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
           { "name": "particularities", "value": progress?.testGrades?.particularities || "", "title": "Bijzonderheden", "type": "string" }
         ]
       })

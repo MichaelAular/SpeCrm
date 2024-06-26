@@ -14,7 +14,8 @@ export function Bar({
   title,
   type,
   required,
-  onChange
+  onChange,
+  minMaxStep
 }) {
 
   return (
@@ -27,8 +28,8 @@ export function Bar({
       { type === "dropdown" && <Dropdown required={required} options={options} input={input} title={title} name={name} onChange={onChange}/> }
       { type === "dropdown_boolean" && <DropdownBoolean required={required} options={["ja", "nee"]} input={(input === true || input == "ja") ? "ja" : "nee"} title={title} name={name} /> }
       { type === "dropdown_multiple" && <DropdownMultiple required={required} options={options} input={input} title={title} name={name}/> }
-      { type === "number" && !input && <input required={required} className="inputEmpty" placeholder={`Vul ${title.toLowerCase()} in...`} name={name} onChange={onChange} type="number" /> }
-      { type === "number" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} onChange={onChange} type="number" /> }
+      { type === "number" && !input && <input required={required} className="inputEmpty" placeholder={`Vul ${title.toLowerCase()} in...`} name={name} onChange={onChange} type="number" min={minMaxStep[0]} max={minMaxStep[1]} step={minMaxStep[2]} /> }
+      { type === "number" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} onChange={onChange} type="number" min={minMaxStep[0]} max={minMaxStep[1]} step={minMaxStep[2]} /> }
       { type === "string" && !input && <input required={required} className="inputEmpty" placeholder={`Vul ${title.toLowerCase()} in...`} name={name} onChange={onChange} /> }
       { type === "string" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} onChange={onChange} /> }
       { type === "string_auto" && input &&  <AutoComplete required={required} options={options} input={input} multi={false} fs={false} name={name} /> }

@@ -32,6 +32,7 @@ export function ProgressInput({ progresses }) {
                                 type={progress.type}
                                 options={progress.options}
                                 onChange={handleChange}
+                                minMaxStep={progress.minMaxStep}
                             />
                         </div>
                     )}
