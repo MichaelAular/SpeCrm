@@ -25,9 +25,10 @@
          "countryOfBirth": "",
          "email": ""
        },
-       "email": ""
+       "email": "",
+       "sex": ""
      },
-     "benefits": true,
+     "benefits": "",
      "contactDetails": {
        "name": "",
        "phoneNoMobile": "",
@@ -60,6 +61,7 @@
    "libraryPass": "",
    "lessonSchedule": "",
    "afterSchoolActivities": "",
+   "registrationPurpose": "",
    "medicinesUsed": "",
    "knownIllnessess": "",
    "allergies": "",

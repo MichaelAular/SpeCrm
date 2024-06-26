@@ -323,6 +323,14 @@ export function Tab_Profiel({
                   name: "afterSchoolActivities",
                   type: "string",
                 },
+                {
+                  title: "Doel aanmelding",
+                  input: currentProfile.registrationPurpose,
+                  name: "registrationPurpose",
+                  type: "dropdown",
+                  options: options.registrationPurpose,
+                  required: true
+                },
               ]}
             />
           </div>
