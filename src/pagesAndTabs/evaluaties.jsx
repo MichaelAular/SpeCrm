@@ -8,7 +8,8 @@ import options from "../../dropdownOptions.json";
 require('dayjs/locale/nl')
 
 export function Tab_Evaluatie({
-  profileID
+  profileID,
+  currentProfile
 }) {
   const [selectedDate, setSelectedDate] = useState(dayjs().locale("nl"));
   const [evaluationContent, setEvaluationContent] = useState([]);
@@ -34,7 +35,7 @@ const progressContentUpdater = (firebaseData, formData) => {
       current = current[part] || (current[part] = {});
     }
     current[keyParts[keyParts.length - 1]] = 
-      isNaN(formData[key]) ? formData[key] : parseInt(formData[key]);
+      isNaN(formData[key]) || formData[key] === "" ? formData[key]  : parseInt(formData[key]);
   }
   return firebaseData;
 };
@@ -110,31 +111,70 @@ const progressContentUpdater = (firebaseData, formData) => {
       }
     }
 
-    progressList.push({
-      "name": "dutchLanguage",
-      "title": "Taal/Nederlands",
-      "fields": [
-        { "name": "readingLevel", "value": valueMaker(progress?.dutchLanguage?.readingLevel), "title": "Leesniveau", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "readingComprehension", "value": valueMaker(progress?.dutchLanguage?.readingComprehension), "title": "Begrijpend lezen", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "vocabulary", "value": valueMaker(progress?.dutchLanguage?.vocabulary), "title": "Woordenschat", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "spelling", "value": valueMaker(progress?.dutchLanguage?.spelling), "title": "Spelling", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "particularities", "value": progress?.dutchLanguage?.particularities || "", "title": "Bijzonderheden", "type": "string" }
-      ]
-    })
-    progressList.push({
-      "name": "mathematics",
-      "title": "Rekenen/Wiskunde",
-      "fields": [
-        { "name": "addition", "value": valueMaker(progress?.mathematics?.addition), "title": "Optellen", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "subtraction", "value": valueMaker(progress?.mathematics?.subtraction), "title": "Aftrekken", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "multiply", "value": valueMaker(progress?.mathematics?.multiply), "title": "Vermenigvuldigen", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "multiplicationSums", "value": valueMaker(progress?.mathematics?.multiplicationSums), "title": "Keersomen", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "dividing", "value": valueMaker(progress?.mathematics?.dividing), "title": "Delen door", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "fractions", "value": valueMaker(progress?.mathematics?.fractions), "title": "Breuken", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "percentages", "value": valueMaker(progress?.mathematics?.percentages), "title": "Procenten", "options": options.progressGrades, "type": "dropdown" },
-        { "name": "particularities", "value": progress?.mathematics?.particularities || "", "title": "Bijzonderheden", "type": "string" }
-      ]
-    })
+    if (currentProfile.school.type == "Basisschool") {
+      progressList.push({
+        "name": "dutchLanguage",
+        "title": "Taal/Nederlands",
+        "fields": [
+          { "name": "readingLevel", "value": valueMaker(progress?.dutchLanguage?.readingLevel), "title": "Leesniveau", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "readingComprehension", "value": valueMaker(progress?.dutchLanguage?.readingComprehension), "title": "Begrijpend lezen", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "vocabulary", "value": valueMaker(progress?.dutchLanguage?.vocabulary), "title": "Woordenschat", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "spelling", "value": valueMaker(progress?.dutchLanguage?.spelling), "title": "Spelling", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "particularities", "value": progress?.dutchLanguage?.particularities || "", "title": "Bijzonderheden", "type": "string" }
+        ]
+      })
+      progressList.push({
+        "name": "mathematics",
+        "title": "Rekenen/Wiskunde",
+        "fields": [
+          { "name": "addition", "value": valueMaker(progress?.mathematics?.addition), "title": "Optellen", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "subtraction", "value": valueMaker(progress?.mathematics?.subtraction), "title": "Aftrekken", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "multiply", "value": valueMaker(progress?.mathematics?.multiply), "title": "Vermenigvuldigen", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "multiplicationSums", "value": valueMaker(progress?.mathematics?.multiplicationSums), "title": "Keersomen", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "dividing", "value": valueMaker(progress?.mathematics?.dividing), "title": "Delen door", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "fractions", "value": valueMaker(progress?.mathematics?.fractions), "title": "Breuken", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "percentages", "value": valueMaker(progress?.mathematics?.percentages), "title": "Procenten", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "particularities", "value": progress?.mathematics?.particularities || "", "title": "Bijzonderheden", "type": "string" }
+        ]
+      })
+    } else {
+      progressList.push({
+        "name": "progressGrades",
+        "title": "Leerling voorgang beoordelingen",
+        "fields": [
+          { "name": "nederlands", "value": valueMaker(progress?.progressGrades?.nederlands), "title": "Nederlands", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "wiskunde", "value": valueMaker(progress?.progressGrades?.wiskunde), "title": "wiskunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "engels", "value": valueMaker(progress?.progressGrades?.engels), "title": "Engels", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "aardrijkskunde", "value": valueMaker(progress?.progressGrades?.aardrijkskunde), "title": "Aardrijkskunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "geschiedenis", "value": progress?.progressGrades?.geschiedenis || "", "title": "Geschiedenis", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "natuurkunde", "value": valueMaker(progress?.progressGrades?.natuurkunde), "title": "Natuurkunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "scheikunde", "value": valueMaker(progress?.progressGrades?.scheikunde), "title": "Scheikunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "biologie", "value": valueMaker(progress?.progressGrades?.biologie), "title": "Biologie", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "economie", "value": valueMaker(progress?.progressGrades?.economie), "title": "Economie", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "frans", "value": valueMaker(progress?.progressGrades?.Frans), "title": "Frans", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "duits", "value": valueMaker(progress?.progressGrades?.Duits), "title": "Duits", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "particularities", "value": progress?.progressGrades?.particularities || "", "title": "Bijzonderheden", "type": "string" }
+        ]
+      })
+      progressList.push({
+        "name": "testGrades",
+        "title": "Toets resultaten (0-10)",
+        "fields": [
+          { "name": "nederlands", "value": valueMaker(progress?.testGrades?.nederlands), "title": "Nederlands", "type": "number" },
+          { "name": "wiskunde", "value": valueMaker(progress?.testGrades?.wiskunde), "title": "wiskunde", "type": "number" },
+          { "name": "engels", "value": valueMaker(progress?.testGrades?.engels), "title": "Engels", "type": "number" },
+          { "name": "aardrijkskunde", "value": valueMaker(progress?.testGrades?.aardrijkskunde), "title": "Aardrijkskunde", "type": "number" },
+          { "name": "geschiedenis", "value": progress?.testGrades?.geschiedenis || "", "title": "Geschiedenis", "type": "number" },
+          { "name": "natuurkunde", "value": valueMaker(progress?.testGrades?.natuurkunde), "title": "Natuurkunde", "type": "number" },
+          { "name": "scheikunde", "value": valueMaker(progress?.testGrades?.scheikunde), "title": "Scheikunde", "type": "number" },
+          { "name": "biologie", "value": valueMaker(progress?.testGrades?.biologie), "title": "Biologie", "type": "number" },
+          { "name": "economie", "value": valueMaker(progress?.testGrades?.economie), "title": "Economie", "type": "number" },
+          { "name": "frans", "value": valueMaker(progress?.testGrades?.frans), "title": "Frans", "type": "number" },
+          { "name": "duits", "value": valueMaker(progress?.testGrades?.duits), "title": "Duits", "type": "number" },
+          { "name": "particularities", "value": progress?.testGrades?.particularities || "", "title": "Bijzonderheden", "type": "string" }
+        ]
+      })
+    }
 
     return progressList;
   }

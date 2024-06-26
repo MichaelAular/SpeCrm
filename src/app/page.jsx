@@ -83,7 +83,7 @@ export default function Home() {
         )}
         {currentPage === "User" && <Page_User currentTab={currentTab} />}
         {currentPage === "Student" && currentTab === "Evaluatie" && (
-          <Tab_Evaluatie profileID={profileID} />
+          <Tab_Evaluatie profileID={profileID} currentProfile={currentProfile} />
         )}
       {currentPage === "Student" &&
         currentTab === "Profielschets" &&
