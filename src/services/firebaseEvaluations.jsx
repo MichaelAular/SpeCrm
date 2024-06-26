@@ -8,9 +8,10 @@ export const getEvaluation = (profileId, weekId) => {
 };
 
 // Add new evaluation to Firestore Database
-export const addEvaluation = async (profileId, weekId, data) => {
+export const addEvaluation = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
     try {
-        await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "lessonDays": data });
+        lessonDaysData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "lessonDays": lessonDaysData });
+        progressMonitorData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "progressMonitor": progressMonitorData });
         console.log("Document written with ID: ", weekId);
     } catch (data) {
         console.error("Error adding document: ", data);
@@ -18,15 +19,16 @@ export const addEvaluation = async (profileId, weekId, data) => {
 }
 
 // Update existing evaluation to Firestore Database
-export const updateEvaluation = async (profileId, weekId, data) => {
+export const updateEvaluation = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
     const evaluationDocRef = doc(db, "profiles", profileId, 'evaluations', weekId);
     try {
         const docSnap = await getDoc(evaluationDocRef);
         if (docSnap.exists()) {
-            await updateDoc(evaluationDocRef, { "lessonDays": data });
+            lessonDaysData && await updateDoc(evaluationDocRef, { "lessonDays": lessonDaysData });
+            progressMonitorData && await updateDoc(evaluationDocRef, { "progressMonitor": progressMonitorData });
             console.log("Document updated with ID: ", weekId);
         } else {
-            await addEvaluation(profileId, weekId, data);
+            await addEvaluation(profileId, weekId, lessonDaysData, progressMonitorData);
         }
     } catch (error) {
         console.error("Error updating document: ", error);

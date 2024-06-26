@@ -40,13 +40,20 @@
     ],
     "schoolType": [
       "Basisschool",
-      "Middelbare school",
-      "Voortgezet onderwijs"
+      "Vmbo-praktijkonderwijs",
+      "Vmbo-basis",
+      "Vmbo-kader",
+      "Vmbo-theoretisch/mavo",
+      "Havo",
+      "Vwo"
     ],
-    "schoolFieldOfStudy": [
-      "VMBO",
-      "Mavo/Havo",
-      "VWO"
+    "progressGrades": [
+      {"value": 0, "description": "0 - Geen begrip of inzet"},
+      {"value": 1, "description": "1 - Minimale kennis; basisconcepten ontbreken"},
+      {"value": 2, "description": "2 - Basisbegrip met significante toepassingsfouten"},
+      {"value": 3, "description": "3 - Redelijk begrip en basis toepassing"},
+      {"value": 4, "description": "4 - Goed begrip; correcte toepassing van de meeste concepten"},
+      {"value": 5, "description": "5 - Uitstekende beheersing en vaardige toepassing van alle concepten"}
     ],
     "registrationPurpose": [
       "Soft skills verbeteren",

@@ -356,14 +356,6 @@ export function Tab_Profiel({
                   required: true
                 },
                 {
-                  title: "richting",
-                  input: currentProfile.school.fieldOfStudy,
-                  name: "school.fieldOfStudy",
-                  type: "dropdown",
-                  options: options.schoolFieldOfStudy,
-                  required: true
-                },
-                {
                   title: "Leerjaar (groep/klas)",
                   input: currentProfile.school.schoolYear,
                   name: "school.schoolYear",
