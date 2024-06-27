@@ -1,11 +1,24 @@
 import { db } from '@/firebase';
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection, setDoc, updateDoc } from "firebase/firestore";
 
 // Get specific evaluation week from Firestore Database by profile id and week id
 export const getEvaluation = (profileId, weekId) => {
     const evaluationDocRef = doc(db, 'profiles', profileId, 'evaluations', weekId);
     return getDoc(evaluationDocRef);
 };
+
+// Get all evaluations from Firestore Database by profile id
+export const getEvaluations = async (profileId) => {
+    const evaluationsRef = collection(db, 'profiles', profileId, 'evaluations');
+    try {
+      const querySnapshot = await getDocs(evaluationsRef);
+      const evaluations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return evaluations;
+    } catch (error) {
+      console.error('Error fetching evaluations: ', error);
+      return [];
+    }
+  };
 
 // Add new evaluation to Firestore Database
 export const addEvaluation = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
