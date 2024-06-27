@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "../app/page.module.scss";
 import { FormElement } from "@/components/formElement/formElement";
 import dayjs from "dayjs";
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
 import * as firebaseEvaluation from "../services/firebaseEvaluations";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import options from "../../dropdownOptions.json";
 require('dayjs/locale/nl')
 
@@ -17,28 +18,33 @@ export function Tab_Evaluatie({
 
   const evaluationContentUpdater = (firebaseData, formData) => {
     Object.keys(formData).forEach(key => {
-        const index = parseInt(key[0]);
-        const field = key.slice(1);
-        if (firebaseData[index]) {
-            firebaseData[index][field] = formData[key];
-        }
+      const index = parseInt(key[0]);
+      const field = key.slice(1);
+      if (firebaseData[index]) {
+        firebaseData[index][field] = formData[key];
+      }
     });
     return firebaseData;
-};
+  };
 
-const progressContentUpdater = (firebaseData, formData) => {
-  for (const key in formData) {
-    const keyParts = key.split('.');
-    let current = firebaseData;
-    for (let i = 0; i < keyParts.length - 1; i++) {
-      const part = keyParts[i];
-      current = current[part] || (current[part] = {});
+  const progressContentUpdater = (firebaseData, formData) => {
+    for (const key in formData) {
+      const keyParts = key.split('.');
+      let current = firebaseData;
+      for (let i = 0; i < keyParts.length - 1; i++) {
+        const part = keyParts[i];
+        current = current[part] || (current[part] = {});
+      }
+      if (formData[key] !== "") {
+        current[keyParts[keyParts.length - 1]] =
+          isNaN(formData[key]) ? formData[key] : parseInt(formData[key]);
+      } else {
+        delete current[keyParts[keyParts.length - 1]];
+      }
     }
-    current[keyParts[keyParts.length - 1]] = 
-      isNaN(formData[key]) || formData[key] === "" ? formData[key]  : parseInt(formData[key]);
-  }
-  return firebaseData;
-};
+    console.log(firebaseData)
+    return firebaseData;
+  };
 
   const handleChange = (event, preventDef) => {
     preventDef && event.preventDefault();
@@ -60,6 +66,7 @@ const progressContentUpdater = (firebaseData, formData) => {
       return keys.some(key => key !== "date" && item[key] !== "");
     });
 
+    console.log(progressContent.progressMonitor)
     await firebaseEvaluation.updateEvaluation(profileID, weekId, lessonDaysContent, progressContent.progressMonitor);
     getEvaluationContent();
   };
@@ -99,7 +106,7 @@ const progressContentUpdater = (firebaseData, formData) => {
     }
     return lessonDayList;
   }
-  
+
   const generateProgress = (progress) => {
     const progressList = [];
 
@@ -143,34 +150,43 @@ const progressContentUpdater = (firebaseData, formData) => {
         "title": "Leerling voorgang beoordelingen",
         "fields": [
           { "name": "nederlands", "value": valueMaker(progress?.progressGrades?.nederlands), "title": "Nederlands", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "wiskunde", "value": valueMaker(progress?.progressGrades?.wiskunde), "title": "wiskunde", "options": options.progressGrades, "type": "dropdown" },
           { "name": "engels", "value": valueMaker(progress?.progressGrades?.engels), "title": "Engels", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "aardrijkskunde", "value": valueMaker(progress?.progressGrades?.aardrijkskunde), "title": "Aardrijkskunde", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "geschiedenis", "value": progress?.progressGrades?.geschiedenis || "", "title": "Geschiedenis", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "natuurkunde", "value": valueMaker(progress?.progressGrades?.natuurkunde), "title": "Natuurkunde", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "scheikunde", "value": valueMaker(progress?.progressGrades?.scheikunde), "title": "Scheikunde", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "biologie", "value": valueMaker(progress?.progressGrades?.biologie), "title": "Biologie", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "wiskundeA", "value": valueMaker(progress?.progressGrades?.wiskundeA), "title": "Wiskunde A", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "wiskundeB", "value": valueMaker(progress?.progressGrades?.wiskundeB), "title": "Wiskunde B", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "natuurkunde", "value": progress?.progressGrades?.natuurkunde || "", "title": "Natuurkunde", "options": options.progressGrades, "type": "dropdown" },
           { "name": "economie", "value": valueMaker(progress?.progressGrades?.economie), "title": "Economie", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "frans", "value": valueMaker(progress?.progressGrades?.Frans), "title": "Frans", "options": options.progressGrades, "type": "dropdown" },
-          { "name": "duits", "value": valueMaker(progress?.progressGrades?.Duits), "title": "Duits", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "scheikunde", "value": valueMaker(progress?.progressGrades?.scheikunde), "title": "Scheikunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "aardrijkskunde", "value": valueMaker(progress?.progressGrades?.aardrijkskunde), "title": "Aardrijkskunde", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "biologie", "value": valueMaker(progress?.progressGrades?.biologie), "title": "Biologie", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "maatschappijleer", "value": valueMaker(progress?.progressGrades?.maatschappijleer), "title": "Maatschappijleer", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "geschiedenis", "value": valueMaker(progress?.progressGrades?.geschiedenis), "title": "Geschiedenis", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "frans", "value": valueMaker(progress?.progressGrades?.frans), "title": "Frans", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "duits", "value": valueMaker(progress?.progressGrades?.duits), "title": "Duits", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "spaans", "value": valueMaker(progress?.progressGrades?.spaans), "title": "Spaans", "options": options.progressGrades, "type": "dropdown" },
+          { "name": "overig", "value": valueMaker(progress?.progressGrades?.overig), "title": "Overig", "options": options.progressGrades, "type": "dropdown" },
           { "name": "particularities", "value": progress?.progressGrades?.particularities || "", "title": "Bijzonderheden", "type": "string" }
         ]
       })
+      const minMaxStep = [1, 10, 0.1]
       progressList.push({
         "name": "testGrades",
         "title": "Toets resultaten (0-10)",
         "fields": [
-          { "name": "nederlands", "value": valueMaker(progress?.testGrades?.nederlands), "title": "Nederlands", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "wiskunde", "value": valueMaker(progress?.testGrades?.wiskunde), "title": "wiskunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "engels", "value": valueMaker(progress?.testGrades?.engels), "title": "Engels", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "aardrijkskunde", "value": valueMaker(progress?.testGrades?.aardrijkskunde), "title": "Aardrijkskunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "geschiedenis", "value": progress?.testGrades?.geschiedenis || "", "title": "Geschiedenis", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "natuurkunde", "value": valueMaker(progress?.testGrades?.natuurkunde), "title": "Natuurkunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "scheikunde", "value": valueMaker(progress?.testGrades?.scheikunde), "title": "Scheikunde", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "biologie", "value": valueMaker(progress?.testGrades?.biologie), "title": "Biologie", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "economie", "value": valueMaker(progress?.testGrades?.economie), "title": "Economie", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "frans", "value": valueMaker(progress?.testGrades?.frans), "title": "Frans", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
-          { "name": "duits", "value": valueMaker(progress?.testGrades?.duits), "title": "Duits", "type": "number", "minMaxStep": [ 1, 10, 0.1 ] },
+          { "name": "nederlands", "value": valueMaker(progress?.testGrades?.nederlands), "title": "Nederlands", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "engels", "value": valueMaker(progress?.testGrades?.engels), "title": "Engels", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "wiskundeA", "value": valueMaker(progress?.testGrades?.wiskundeA), "title": "Wiskunde A", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "wiskundeB", "value": valueMaker(progress?.testGrades?.wiskundeB), "title": "Wiskunde B", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "natuurkunde", "value": valueMaker(progress?.testGrades?.natuurkunde), "title": "Natuurkunde", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "economie", "value": valueMaker(progress?.testGrades?.economie), "title": "Economie", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "scheikunde", "value": valueMaker(progress?.testGrades?.scheikunde), "title": "Scheikunde", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "aardrijkskunde", "value": valueMaker(progress?.testGrades?.aardrijkskunde), "title": "Aardrijkskunde", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "biologie", "value": valueMaker(progress?.testGrades?.biologie), "title": "Biologie", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "maatschappijleer", "value": valueMaker(progress?.testGrades?.maatschappijleer), "title": "Maatschappijleer", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "geschiedenis", "value": valueMaker(progress?.testGrades?.geschiedenis), "title": "Geschiedenis", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "frans", "value": valueMaker(progress?.testGrades?.frans), "title": "Frans", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "duits", "value": valueMaker(progress?.testGrades?.duits), "title": "Duits", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "spaans", "value": valueMaker(progress?.testGrades?.spaans), "title": "Spaans", "type": "number", "minMaxStep": minMaxStep },
+          { "name": "overig", "value": valueMaker(progress?.testGrades?.overig), "title": "Overig", "type": "number", "minMaxStep": minMaxStep },
           { "name": "particularities", "value": progress?.testGrades?.particularities || "", "title": "Bijzonderheden", "type": "string" }
         ]
       })
@@ -199,45 +215,47 @@ const progressContentUpdater = (firebaseData, formData) => {
       }
     })
   }
-   
+
   useEffect(() => {
     getEvaluationContent();
   }, [selectedDate]);
 
   return (
-    <div className="tabEvaluatieContainer" >
-      <div className={styles.textContainer} >
-        <h1 className="pageTitle">Evaluatie</h1>
-      </div>
-      <main className={styles.evaluatieScheme}>
-        <div className="weekPickerContainer">
-          <WeekPicker value={selectedDate} setValue={setSelectedDate}/>
-        </div>
-        <form
-            id="form"
-            className="tabProfielContainer"
-            method="post"
-            onSubmit={handleSubmit}
-            onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
-            onChange={(e) => handleChange(e, true)}
-            onBlur={(e) => handleChange(e, true)}
-          >
-          <div className={styles.pageCollumn}>
+    <form
+      id="form"
+      className="tabProfielContainer"
+      method="post"
+      onSubmit={handleSubmit}
+      onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
+      onChange={(e) => handleChange(e, true)}
+      onBlur={(e) => handleChange(e, true)}
+    >
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h1>Evaluatie</h1>
+          </Grid>
+          <Grid item xs={12}>
+            <div className="weekPickerContainer">
+              <WeekPicker value={selectedDate} setValue={setSelectedDate} />
+            </div>
+          </Grid>
+          <Grid item xs={12} style={{ paddingTop: "0px" }}>
             <FormElement
               elementTitle="evaluatie"
               elementArray={evaluationContent.map((evaluaties, index) => ({ evaluaties, index }))}
             />
-          </div>
-          <div className={styles.pageCollumn}>
+          </Grid>
+          <Grid item xs={12}>
             {progressContent &&
               <FormElement
                 elementTitle="Leerling voortgang"
                 elementArray={progressContent}
               />
             }
-          </div>
-          </form>
-      </main>
-    </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </form>
   );
 }

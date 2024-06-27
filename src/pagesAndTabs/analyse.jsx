@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "../app/page.module.scss";
 import { generateDashboardData } from "../services/firebaseDashboard";
 import { SingleNumberCard } from "@/components/cards/numberCard";
 import { TableCard } from "@/components/cards/tableCard";
 import { PieChartCard } from "@/components/cards/pieChartCard";
 import { BarChartCard } from "@/components/cards/barChartCard";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import "../components/cards/cards.scss";
 
 export function Page_Analyse() {
@@ -47,39 +48,45 @@ export function Page_Analyse() {
   ];
 
   return (
-    <main className={styles.main}>
-      <a className={styles.textContainer}>
-        <h1 className="pageTitle">Analyse</h1>
-        <div className="analyse-row">
+    <Container maxWidth="lg">
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <h1>Analyse</h1>
+        </Grid>
+        <Grid item xs={12}>
           <PieChartCard className={"analyse-column"} title={"Leerling aantallen"} series={leerlingCountPieChartSeries}></PieChartCard>
-        </div>
-        <div className="analyse-row">
+        </Grid>
+        <Grid item xs={12} lg={4}>
           <SingleNumberCard
             className={"analyse-column"}
             title={"Aantal leerlingen met een Stadspas"}
             value={`${cityPassCount['ja']} Leerlingen (${Math.round(cityPassCount['ja'] * 100 / profileCount.totalCount)}%)`}
           ></SingleNumberCard>
+        </Grid>
+        <Grid item xs={12} lg={4}>
           <SingleNumberCard
             className={"analyse-column"}
             title={"Aantal leerlingen met ouders in de uitkering"}
             value={`${benefitsCount['ja']} Leerlingen (${Math.round(benefitsCount['ja'] * 100 / profileCount.totalCount)}%)`}
           ></SingleNumberCard>
+        </Grid>
+        <Grid item xs={12} lg={4}>
           <SingleNumberCard
             className={"analyse-column"}
             title={"Aantal op het speciaal onderwijs"}
             value={`${specialEducationCount['ja']} Leerlingen (${Math.round(specialEducationCount['ja'] * 100 / profileCount.totalCount)}%)`}
           ></SingleNumberCard>
-        </div>
-        <div className="analyse-row">
+        </Grid>
+        <Grid item xs={12} lg={6}>
           <TableCard className={"analyse-column"} title={"Stadsdelen"} value={wijkenCounts} headers={["Wijknaam", "Aantal leerlingen"]}></TableCard>
-        </div>
-        <div className="analyse-row">
+        </Grid>
+        <Grid item xs={12} lg={6}>
           <TableCard className={"analyse-column"} title={"School soorten"} value={schoolTypeCounts} headers={["School soort", "Aantal leerlingen"]}></TableCard>
-        </div>
-        <div className="analyse-row">
+        </Grid>
+        <Grid item xs={12}>
           <BarChartCard className={"analyse-column"} title={"Doel van aanmelding"} dataset={registrationPurposeCounts}></BarChartCard>
-        </div>
-      </a>
-    </main>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

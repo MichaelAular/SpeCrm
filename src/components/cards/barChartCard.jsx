@@ -18,10 +18,6 @@ const processDataset = (dataset) => {
     });
 };
 
-const chartSetting = {
-    
-};
-
 export function BarChartCard({
     title,
     headers,
