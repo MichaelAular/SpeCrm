@@ -18,10 +18,6 @@ const processDataset = (dataset) => {
     });
 };
 
-const chartSetting = {
-    
-};
-
 export function BarChartCard({
     title,
     headers,
@@ -60,7 +56,7 @@ export function BarChartCard({
                                             tickMinStep: 1,
                                         },
                                     ]}
-                                    height={ "400" }
+                                    height={400}
                                 />
                             }
                         </TableCell>

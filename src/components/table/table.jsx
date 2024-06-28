@@ -110,10 +110,6 @@ export function BasicTable({
   return (
     <TableContainer component={Paper}>
       <Table
-        sx={{
-          width: "Calc(100vw - 4rem)",
-          maxWidth: "800px",
-        }}
         aria-label="custom pagination table"
       >
         <TableHead>

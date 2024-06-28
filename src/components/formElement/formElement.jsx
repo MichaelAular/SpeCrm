@@ -7,6 +7,8 @@ import { Incident } from "../incident/incident";
 import { Evaluatie } from "../evaluatie/evaluatie";
 import { v4 as uuidv4 } from "uuid";
 import { AddIcon } from "@/assets/icons/add";
+import { ProgressInput } from "../progressInput/progressInput";
+import Grid from '@mui/material/Grid';
 
 export function FormElement({
   elementArray,
@@ -111,6 +113,15 @@ export function FormElement({
       )}
         {elementArray && elementTitle === "evaluatie" &&
           elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
+        }
+        {elementArray && elementTitle === "Leerling voortgang" &&
+        <Grid container>
+          {elementArray.map((progresses) =>
+            <Grid item xs={12} md={6} key={uuidv4()}>
+              <ProgressInput progresses={progresses} />
+            </Grid>
+          )}
+        </Grid>
         }
     </div>
   );
