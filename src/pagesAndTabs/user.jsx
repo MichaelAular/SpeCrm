@@ -1,4 +1,3 @@
-import styles from "../app/page.module.scss";
 import React, { useState, useEffect } from "react";
 import * as FirestoreUserService from "../services/firebaseUsers";
 import { Spinner } from "@/components/spinner/spinner";
@@ -7,6 +6,8 @@ import { FormElement } from "@/components/formElement/formElement";
 import { Employee_naw } from "@/components/employee_naw/employee_naw";
 import { Modal } from "../components/modal/modal";
 import { Save } from "../components//save/save";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 
 export function Page_User({ currentTab }) {
@@ -32,19 +33,15 @@ export function Page_User({ currentTab }) {
 
   return (
     <div>
-      <div
-        className={styles.textContainer}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          paddingRight: "10px",
-        }}
-      >
-        <h1 className="pageTitle">Werknemer</h1>
-      </div>
-      <main className={styles.main}>
-        {currentUser && (
-          <div className={styles.pageCollumn}>
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h1>Werknemer</h1>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          {currentUser && (
+            <Grid item xs={12}>
             <FormElement
               elementTitle="Gegevens"
               elementBars={[
@@ -85,15 +82,13 @@ export function Page_User({ currentTab }) {
                 },
               ]}
             />
-          </div>
-        )}
+            </Grid>
+          )}
 
-        {!currentUser && <Skeleton variant="rectangular" width={600} height={200} />}
-        {!currentUser && <Spinner />}
-      </main>
-      {/* <main className={styles.evaluatieScheme} >
-        {currentTab === "NAW" && <Employee_naw/>}
-      </main> */}
+          {!currentUser && <Skeleton variant="rectangular" width={600} height={200} />}
+          {!currentUser && <Spinner />}
+        </Grid>
+      </Container>
     </div>
   );
 }

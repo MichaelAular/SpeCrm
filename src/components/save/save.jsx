@@ -40,7 +40,10 @@ export function Save({
     FirestoreProfileService.fetchProfileNameList()
       .then((doc) => {
         if (doc.exists) {
-          setProfiles(doc.data());
+          const onlyActiveProfiles = {"list": doc.data().list.filter(function (el) {
+            return el.active == 1;
+          })}
+          setProfiles(onlyActiveProfiles);
           setModalOpen(false);
           setCurrentPage("Studenten")
           setCurrentTab("Profielschets")

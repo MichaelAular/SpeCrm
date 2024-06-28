@@ -1,34 +1,36 @@
 import './dropdown.scss'
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 export function Dropdown({
     input,
     name,
     options,
     title,
-    required
+    required,
+    onChange
   }) {
-  const [selectValue, setSelectValue] = useState(input)
+  const [selectValue, setSelectValue] = useState(input == null ? "" : input)
   const handleChange = (event) => {
-    event.target.value ? event.target.classList.remove("noneSelected") : event.target.classList.add("noneSelected")
-    setSelectValue(event.target.value)
+    onChange && onChange()
+    const { value, classList } = event.target;
+    classList.toggle('noneSelected', !value);
+    setSelectValue(value);
   };
 
   return (
     <select
       name={name}
-      className={input === "" ? "select noneSelected" : "select"}
+      className={`select ${selectValue === "" && 'noneSelected'}`}
       value={selectValue}
       required={required}
       onChange={handleChange}
     >
       <option value={""} disabled >
-        selecteer {title}
+        Selecteer {title.toLowerCase()}
       </option>
-      {options.map((option) => (
-        <option value={option} key={uuidv4()}>
-          {option}
+      {options.map((option, index) => (
+        <option value={typeof option === 'object' ? option.value : option} key={index}>
+          {typeof option === 'object' ? option.description : option}
         </option>
       ))}
     </select>

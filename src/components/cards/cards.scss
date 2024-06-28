@@ -1,0 +1,12 @@
+.analyse-row {
+    display: flex;
+}
+
+.analyse-row > div {
+    flex: 1;
+    margin: 10px;
+}
+
+.tableHeader {
+    background-color: lightgray;
+}

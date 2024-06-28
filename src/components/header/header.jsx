@@ -51,7 +51,7 @@ export function Header({
   }
 
   return (
-    <div className="headerContainer">
+    <>
       <div className="header">
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
           {dataLoaded && user && headerBtn( "Studenten" )}
@@ -118,6 +118,6 @@ export function Header({
         <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>
       }
-    </div>
+    </>
   );
 }
