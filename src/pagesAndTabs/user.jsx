@@ -36,7 +36,8 @@ export function Page_User({ currentTab }) {
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1>Werknemer</h1>
+            {!currentUser && (<h1>Welkom!</h1>)}
+            {currentUser && (<h1>Welkom {currentUser.firstName}!</h1>)}
           </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -85,7 +86,6 @@ export function Page_User({ currentTab }) {
             </Grid>
           )}
 
-          {!currentUser && <Skeleton variant="rectangular" width={600} height={200} />}
           {!currentUser && <Spinner />}
         </Grid>
       </Container>

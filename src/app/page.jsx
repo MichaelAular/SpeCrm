@@ -2,7 +2,8 @@
 import "./page";
 import React, { useState, useEffect } from "react";
 import * as FirestoreProfileService from "../services/firebaseProfiles";
-import { useUser } from "@/app/auth";
+import * as FirestoreUserService from "../services/firebaseUsers";
+import { useUser, getAccount } from "@/app/auth";
 import { Header } from "@/components/header/header";
 import { Page_Login } from "@/pagesAndTabs/login";
 import { Page_User } from "@/pagesAndTabs/user";
@@ -18,6 +19,7 @@ import "./page.scss";
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("");
   const [currentProfile, setCurrentProfile] = useState(null);
+  const [currentAccount, setCurrentAccount] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
   const [dataLoaded, setLoaded] = useState(false);
   const [profileID, setProfileID] = useState(null);
@@ -25,15 +27,67 @@ export default function Home() {
   const user = useUser();
 
   useEffect(() => {
-    if (user != null) {
-      setCurrentPage("Studenten");
-    } else {
+    console.log(user);
+    if (user != null && user['uid'] != "") {
+      console.log(currentAccount);
+      if (currentAccount == null) {
+        FirestoreUserService.getUser(user['uid'])
+        .then((doc) => {
+            if (doc.exists) {
+              // console.log(doc);
+              // console.log(doc.data());
+              const userContent = doc.data();
+              console.log(userContent);
+              setCurrentAccount(userContent);
+              console.log(currentAccount);
+            } else {
+              console.log("Document not found");
+            }
+        })
+        .catch(() => console.log("Error"));
+      } else {
+        if (currentAccount != null && currentAccount.parentOfChildId != null) {
+          //if (currentPage == '') {
+            setProfileID(currentAccount.parentOfChildId);
+            setCurrentPage("Student");
+            setCurrentTab("Profielschets");
+          //}
+        } else {
+          if (currentAccount.permissions.studentList != 'denied') {
+            FirestoreProfileService.fetchProfileNameList()
+              .then((doc) => {
+                if (doc.exists) {
+                  const onlyActiveProfiles = {
+                    "list": doc.data().list.filter(function (el) {
+                      return el.active == 1;
+                    })
+                  }
+                  setProfiles(onlyActiveProfiles);
+                  setCurrentPage("Studenten");
+                  //setLoaded(true);
+                } else {
+                  console.log("Document not found");
+                }
+            })
+            .catch(() => console.log("Error"));
+          }
+        }
+      }
+      if (profiles) {
+        setCurrentPage("Studenten");
+      }
+      setLoaded(true);
+    } else if (sessionStorage.getItem('user') == null || sessionStorage.getItem('user') == '') {
+      setProfiles(null);
+      setCurrentAccount(null);
       setCurrentPage("Login");
+      setLoaded(true);
     }
-  }, [user]);
+  }, [user, currentAccount]);
 
   useEffect(() => {
-    FirestoreProfileService.fetchProfileNameList()
+    if (currentPage == 'Studenten') { //TODO: auth check
+      FirestoreProfileService.fetchProfileNameList()
       .then((doc) => {
         if (doc.exists) {
           const onlyActiveProfiles = {
@@ -42,12 +96,14 @@ export default function Home() {
             })
           }
           setProfiles(onlyActiveProfiles);
-          setLoaded(true);
+          //setLoaded(true);
         } else {
           console.log("Document not found");
         }
       })
       .catch(() => console.log("Error"));
+    }
+
   }, []);
 
   useEffect(() => {
@@ -75,60 +131,62 @@ export default function Home() {
     }
   }, [profileID]);
 
-  if (!profiles) {
-    return (<Spinner />)
-  } else {
-    return (
-      <>
-        <header>
-          <Header
-            currentPage={currentPage}
-            currentTab={currentTab}
-            currentProfile={currentProfile}
-            setCurrentPage={setCurrentPage}
-            setCurrentTab={setCurrentTab}
+  return (
+    <>
+        <Header
+          currentPage={currentPage}
+          currentTab={currentTab}
+          currentProfile={currentProfile}
+          currentUser={currentAccount}
+          setCurrentAccount={setCurrentAccount}
+          setCurrentPage={setCurrentPage}
+          setCurrentTab={setCurrentTab}
+          profiles={profiles}
+          setProfileID={setProfileID}
+          profileID={profileID}
+          dataLoaded={dataLoaded}
+        />
+      {dataLoaded && (<main>
+        {currentPage === "Login" && (
+          <Page_Login/>
+        )}
+        {currentPage === "Studenten" && profiles && (
+          <Page_Students
             profiles={profiles}
             setProfileID={setProfileID}
-            profileID={profileID}
-            dataLoaded={dataLoaded}
+            setCurrentPage={setCurrentPage}
+            setCurrentTab={setCurrentTab}
           />
-        </header>
-        <main>
-          {currentPage === "Login" && (
-            <Page_Login/>
-          )}
-          {currentPage === "Studenten" && (
-            <Page_Students
-              profiles={profiles}
-              setProfileID={setProfileID}
+        )}
+        {currentPage === "Student" && currentTab === "Evaluatie" && (
+          <Tab_Evaluatie profileID={profileID} currentProfile={currentProfile} />
+        )}
+        {currentPage === "Student" &&
+          currentTab === "Profielschets" &&
+          currentProfile !== null && (
+            <Tab_Profiel
+              currentProfile={currentProfile}
+              setCurrentProfile={setCurrentProfile}
+              dataLoaded={dataLoaded}
+              profileID={profileID}
               setCurrentPage={setCurrentPage}
               setCurrentTab={setCurrentTab}
+              setProfileID={setProfileID}
+              setProfiles={setProfiles}
             />
           )}
-          {currentPage === "User" && <Page_User currentTab={currentTab} />}
-          {currentPage === "Student" && currentTab === "Evaluatie" && (
-            <Tab_Evaluatie profileID={profileID} currentProfile={currentProfile} />
-          )}
-          {currentPage === "Student" &&
-            currentTab === "Profielschets" &&
-            currentProfile !== null && (
-              <Tab_Profiel
-                currentProfile={currentProfile}
-                setCurrentProfile={setCurrentProfile}
-                dataLoaded={dataLoaded}
-                profileID={profileID}
-                setCurrentPage={setCurrentPage}
-                setCurrentTab={setCurrentTab}
-                setProfileID={setProfileID}
-                setProfiles={setProfiles}
-              />
-            )}
-          {currentPage === "Student" && currentTab === "Voortgang" && (
-            <Tab_Voortgang profileID={profileID} />
-          )}
-          {currentPage === "Analyse" && <Page_Analyse />}
-        </main>
-      </>
-    );
-  }
+        {currentPage === "Student" && currentTab === "Voortgang" && (
+          <Tab_Voortgang profileID={profileID} />
+        )}
+        {currentPage === "Analyse" && <Page_Analyse />}
+        
+        {currentPage === "User" && 
+          <Page_User 
+            currentTab={currentTab}
+          />}
+      </main>)}
+
+      {!dataLoaded && (<Spinner />)}
+    </>
+  );
 }

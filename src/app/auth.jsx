@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { signOut as firebaseSignOut, browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-
+import * as FirestoreUserService from "../services/firebaseUsers";
 import { auth } from '@/firebase';
 
 export async function signIn(email, password) {
@@ -22,4 +22,16 @@ export function useUser() {
   }, []);
 
   return currentUser;
+}
+
+export function getAccount(user) {
+    FirestoreUserService.getUser(user['uid'])
+    .then((doc) => {
+      if (doc.exists) {
+        // console.log(doc);
+        // console.log(doc.data());
+        return doc.data();
+      } 
+    })
+    .catch(() => console.log("Error"));
 }

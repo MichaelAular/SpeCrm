@@ -16,7 +16,7 @@ export function Page_Login() {
         const res = await signIn(email, password);
         console.log(res.user);
         sessionStorage.setItem('user', res.user.uid);
-        setEmail('');
+        //setEmail('');
         setPassword('');
     }catch(e){
         setloginFailed(true);
@@ -25,7 +25,7 @@ export function Page_Login() {
   };
 
   return (
-    <main className={styles.mainCentered} style={{paddingTop: "6rem"}}>
+    <main className={styles.mainCentered} style={{paddingTop: "10rem"}}>
         <div className={styles.container}>
 
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
