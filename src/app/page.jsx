@@ -27,19 +27,13 @@ export default function Home() {
   const user = useUser();
 
   useEffect(() => {
-    console.log(user);
     if (user != null && user['uid'] != "") {
-      console.log(currentAccount);
       if (currentAccount == null) {
         FirestoreUserService.getUser(user['uid'])
         .then((doc) => {
             if (doc.exists) {
-              // console.log(doc);
-              // console.log(doc.data());
               const userContent = doc.data();
-              console.log(userContent);
               setCurrentAccount(userContent);
-              console.log(currentAccount);
             } else {
               console.log("Document not found");
             }
@@ -47,11 +41,9 @@ export default function Home() {
         .catch(() => console.log("Error"));
       } else {
         if (currentAccount != null && currentAccount.parentOfChildId != null) {
-          //if (currentPage == '') {
-            setProfileID(currentAccount.parentOfChildId);
-            setCurrentPage("Student");
-            setCurrentTab("Profielschets");
-          //}
+          setProfileID(currentAccount.parentOfChildId);
+          setCurrentPage("Student");
+          setCurrentTab("Profielschets");
         } else {
           if (currentAccount.permissions.studentList != 'denied') {
             FirestoreProfileService.fetchProfileNameList()
@@ -64,7 +56,6 @@ export default function Home() {
                   }
                   setProfiles(onlyActiveProfiles);
                   setCurrentPage("Studenten");
-                  //setLoaded(true);
                 } else {
                   console.log("Document not found");
                 }

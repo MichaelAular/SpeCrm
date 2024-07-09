@@ -14,7 +14,6 @@ export function Page_User({ currentTab }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   const uid = sessionStorage.getItem('user');
-  console.log(uid);
   useEffect(() => {
     if (uid != "") {
       FirestoreUserService.getUser(uid)
@@ -22,7 +21,6 @@ export function Page_User({ currentTab }) {
           if (doc.exists) {
             const userContent = doc.data();
             setCurrentUser(userContent);
-            console.log(userContent);
           } else {
             console.log("Document not found");
           }

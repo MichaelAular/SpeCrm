@@ -4,7 +4,6 @@ import * as FirestoreUserService from "../services/firebaseUsers";
 import { auth } from '@/firebase';
 
 export async function signIn(email, password) {
-  //await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
   return signInWithEmailAndPassword(auth, email, password);
 }
 
@@ -18,20 +17,8 @@ export function useUser() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => setCurrentUser(user));
-    return () => unsubscribe(); // cleanup function
+    return () => unsubscribe();
   }, []);
 
   return currentUser;
-}
-
-export function getAccount(user) {
-    FirestoreUserService.getUser(user['uid'])
-    .then((doc) => {
-      if (doc.exists) {
-        // console.log(doc);
-        // console.log(doc.data());
-        return doc.data();
-      } 
-    })
-    .catch(() => console.log("Error"));
 }
