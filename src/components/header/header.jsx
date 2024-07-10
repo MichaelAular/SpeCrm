@@ -1,5 +1,6 @@
 import "./header.scss";
 import React from "react";
+import { signOut } from "@/app/auth";
 import { LogOutIcon } from "@/assets/icons/logOut";
 import { SaveIcon } from "@/assets/icons/save";
 import { Searchbar } from "../searchbar/searchbar";
@@ -7,6 +8,7 @@ import { TabHeader } from "../tabMenu/tabHeader";
 import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
 import { useWindowSize } from "@/hooks/windowSize";
+import { useUser } from "@/app/auth";
 
 export function Header({
     currentPage,
@@ -14,11 +16,13 @@ export function Header({
     dataLoaded,
     profileID,
     profiles,
+    setCurrentAccount,
     setCurrentPage,
     setCurrentTab,
     setProfileID,
+    currentUser
   }) {
-
+  const user = useUser();
   const size = useWindowSize();
   const showUser = () => {
     setCurrentPage("User")
@@ -26,14 +30,14 @@ export function Header({
     setProfileID(null)
   };
 
-  const headerBtn =( title )=> {
+  const headerBtn =( title, label, profileID )=> {
     return (
       <button
         className="headerBtn prevent-select"
         onClick={()=>{
           setCurrentPage(title)
           setCurrentTab("Profielschets")
-          setProfileID(null)
+          setProfileID(profileID)
         }}
         style={{
           backgroundColor: title === currentPage && "rgb(var(--white07))",
@@ -43,17 +47,28 @@ export function Header({
           paddingRight: (title === "Studenten" || title === "Analyse") && "16px",
         }}
       >
-        {title}
+        {label}
       </button>
     )
+  }
+
+  const logout = () => {
+    signOut()
+    setCurrentPage('')
+    setCurrentTab(null)
+    setProfileID(null)
+    setCurrentAccount(null)
   }
 
   return (
     <>
       <div className="header">
+        <img className="headerImage" src="/images/27558_logonegatief.png" alt="Stichting SPE" height="50">
+        </img>
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
-          {dataLoaded && headerBtn( "Studenten" )}
-          {dataLoaded && headerBtn( "Analyse" )}
+          {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Studenten", 'Studenten', null)}
+          {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Analyse", 'Analyse', null)}
+          {dataLoaded && user && currentUser && currentUser.permissions.studentList == 'denied' && headerBtn("Student", 'Uw kind', currentUser.parentOfChildId)}
         </div>
 
         <div className="headerSide" style={{
@@ -61,14 +76,14 @@ export function Header({
           paddingTop:size.width <= 700 && "14px"
         }}
           >
-          {profiles && <Searchbar
+          {profiles && user && currentUser && currentUser.permissions.studentList != 'denied' && <Searchbar
             profiles={profiles}
             setProfileID={setProfileID}
             profileID={profileID}
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
           />}
-          <button
+          {profiles && user && <button
             type="submit"
             form="form"
             className="headerBtn saveBtn"
@@ -81,27 +96,29 @@ export function Header({
               className="saveBtn"
               size="24"
             />
-          </button>
+          </button>}
 
-          <button
+          {user && <button
             className="headerBtn userBtn"
             onClick={showUser}
-            style={{ backgroundColor: currentPage === "User" && "rgb(var(--white07))" }}
-          >
+            style={{
+              backgroundColor: currentPage === "User" && "rgb(var(--white07))",
+              color: currentPage === "User" && "#C29435"
+            }}>
             <UserIcon
               className="userBtn"
               size="24"
            />
-          </button>
-          <button
+          </button>}
+          {user && <button
             className="headerBtn logOutBtn"
-            onClick={()=>{console.log("Log Out")}}
+            onClick={logout}
           >
             <LogOutIcon
               className="logOutBtn"
              size="22"
            />
-          </button>
+          </button>}
 
         </div>
       </div>

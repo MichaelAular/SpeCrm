@@ -159,10 +159,10 @@ export function BasicTable({
                 }}
               >
                 <AddIcon
-                  color={"--white07"}
+                  color="#FFFFFF"
                   size="18"
                 />
-                <span style={{ color: "black", padding: "0 10px"}}>leerling toevoegen</span>
+                <span style={{ color: "#FFFFFF", padding: "0 10px"}}>Leerling toevoegen</span>
               </button>
             </TableCell>
             <TablePagination
