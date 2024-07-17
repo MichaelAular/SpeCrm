@@ -10,6 +10,7 @@ import { AddIcon } from "@/assets/icons/add";
 import { ProgressInput } from "../progressInput/progressInput";
 import Grid from '@mui/material/Grid';
 import { UrenRegistratie } from "../urenRegistratie/urenRegistratie";
+import { UrenRegistratieForm } from "../urenRegistratie/urenRegistratieForm";
 
 export function FormElement({
   elementArray,
@@ -115,8 +116,11 @@ export function FormElement({
       {elementArray && elementTitle === "evaluatie" &&
         elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
       }
-      {elementArray && elementTitle === "Uren registratie" &&
+      {elementArray && elementTitle === "Uren overzicht" &&
         elementArray.map((urenRegistratie) => <UrenRegistratie key={uuidv4()} urenRegistratie={urenRegistratie} />)
+      }
+      {elementArray && elementTitle === "Uren registratie" &&
+        <UrenRegistratieForm key={uuidv4()} />
       }
         {elementArray && elementTitle === "Leerling voortgang" &&
         <Grid container>

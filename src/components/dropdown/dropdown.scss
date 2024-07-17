@@ -1,16 +1,16 @@
 .dropdown {
     position: relative;
     padding-left: 25px;
-    top: -7px;
 }
 
 .select {
     border: none;
-    padding-left: 25px;
+    padding-left: 20px;
     background-color: inherit;
     color: rgb(var(--primair));
     font-size: 14px;
     border: none;
+    width: 100%;
 }
 
 .select option {
@@ -23,6 +23,7 @@
 
 .noneSelected{
     color: rgb(var(--white02));
+    font-style: italic;
 }
 
 .MuiSelect-select {

@@ -28,37 +28,6 @@
     align-content: center;
 }
 
-.css-1bixp4x-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
-    border: none !important;
-    background-color: rgba(var(--secundair), 0.2) !important;
-    border-radius: 50%;
-}
-.css-jruog0-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
-    border: none !important;
-    ::after {
-        content: "";
-        display: flex;
-        position: relative;
-        height: 100%;
-        background-color: rgba(var(--TextOnWhite), 0.2);
-        border-radius: 50%;
-    }
-}
-
-.css-8jbzye-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
-    border: none !important;
-    ::after {
-        content: "";
-        display: flex;
-        position: relative;
-        height: 80%;
-        width: 80%;
-        transform: translate(10%, 10%);
-        background-color: rgba(var(--secundair), 0.2);
-        border-radius: 50%;
-    }
-}
-
 .MuiDateCalendar-root {
     background-color: rgb(var(--white08));
     border-radius: 3px;

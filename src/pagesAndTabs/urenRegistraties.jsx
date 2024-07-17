@@ -1,38 +1,17 @@
 import React, { useState, useEffect } from "react";
-import * as FirestoreUserService from "../services/firebaseUsers";
-import { Spinner } from "@/components/spinner/spinner";
-import Skeleton from "@mui/material/Skeleton";
 import { FormElement } from "@/components/formElement/formElement";
-import { Employee_naw } from "@/components/employee_naw/employee_naw";
-import { Modal } from "../components/modal/modal";
-import { Save } from "../components/save/save";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
 import * as firebaseHourRegistration from "../services/firebaseHourRegistrations";
+import { addHourRegistration } from "@/services/firebaseHourRegistrations";
 
-export function Page_UrenRegistraties({ currentTab }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  
+export function Page_UrenRegistraties({ }) {
+
   const [hourRegistrationContent, setHourRegistrationContent] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs().locale("nl"));
-
   const uid = sessionStorage.getItem('user');
-  useEffect(() => {
-    if (uid != "") {
-      FirestoreUserService.getUser(uid)
-        .then((doc) => {
-          if (doc.exists) {
-            const userContent = doc.data();
-            setCurrentUser(userContent);
-          } else {
-            console.log("Document not found");
-          }
-        })
-        .catch(() => console.log("Error"));
-    }
-  }, [uid]);
 
   const weekIdMaker = (date) => {
     const year = date.year();
@@ -41,50 +20,49 @@ export function Page_UrenRegistraties({ currentTab }) {
   }
 
   const generateWeekHourRegistration = (hourRegistrations) => {
-    const startOfWeek = selectedDate.startOf('week').add(12, "hour");
-    const lessonDayList = [];
+    const startOfWeek = selectedDate.startOf('week').add(12, 'hour');
+    const hourRegistrationList = [];
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 7; i++) {
       const dayInWeek = startOfWeek.add(i, 'day');
-      const lessonDay = hourRegistrations?.lessonDays?.find(
-        (day) => dayjs(day.date).format('YYYY-MM-DD') === dayInWeek.format('YYYY-MM-DD')
+      const registrationsForDay = hourRegistrations.filter(
+        registration => dayjs(registration.date).isSame(dayInWeek, 'day')
       );
 
-      if (lessonDay) {
-        lessonDayList.push(lessonDay);
-      } else {
-        lessonDayList.push({
-          "date": dayInWeek.toDate(),
-          "startTime": "",
-          "endTime": "",
-          "description": "",
-          "project": "",
-          "product": "",
-          "activity": "",
-          "week": weekIdMaker(selectedDate),
-          "isNotSet": 1
-        })
-      }
+      registrationsForDay.sort((a, b) => {
+        const startTimeA = parseInt(a.startTime.slice(0, 2));
+        const startTimeB = parseInt(b.startTime.slice(0, 2));
+        return startTimeA - startTimeB;
+      });
+
+      hourRegistrationList.push(registrationsForDay.length !== 0 ? registrationsForDay : [{ date: dayInWeek.toDate(), isNotSet: 1 }]);
     }
-    return lessonDayList;
+
+    return hourRegistrationList;
   }
 
   const getHourRegistrationContent = () => {
-    firebaseHourRegistration.getHourRegistration(uid, weekIdMaker(selectedDate)).then((doc) => {
-      if (doc.exists) {
-        const hourRegistrationContentData = doc.data();
-        if (hourRegistrationContentData) {
-          hourRegistrationContentData.lessonDays?.forEach((lessonDay) => {
-            lessonDay.date = lessonDay.date.toDate();
-            lessonDay.week = weekIdMaker(selectedDate);
-          });
-          setHourRegistrationContent(generateWeekHourRegistration(hourRegistrationContentData));
-        } else {
-          setHourRegistrationContent(generateWeekHourRegistration());
-        }
+    firebaseHourRegistration.getHourRegistrationWeek(uid, weekIdMaker(selectedDate)).then((doc) => {
+      if (doc) {
+        doc.forEach((registration) => {
+          registration.date = registration.date.toDate();
+        });
+        setHourRegistrationContent(generateWeekHourRegistration(doc));
       } else {
         console.log("Document not found");
       }
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(document.getElementById("hourRegistrationForm"));
+    const formObject = Object.fromEntries(formData.entries());
+    const weekId = weekIdMaker(dayjs(formObject.date, "DD-MM-YYYY"));
+    formObject.date = dayjs(formObject.date, "DD-MM-YYYY").toDate()
+    formObject.weekId = weekId
+    addHourRegistration(uid, weekId, formObject).then(() => {
+      getHourRegistrationContent();
     })
   }
 
@@ -94,13 +72,10 @@ export function Page_UrenRegistraties({ currentTab }) {
 
   return (
     <form
-      id="form"
+      id="hourRegistrationForm"
       className="tabProfielContainer"
       method="post"
-      // onSubmit={handleSubmit}
-      // onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
-      // onChange={(e) => handleChange(e, true)}
-      // onBlur={(e) => handleChange(e, true)}
+      onSubmit={e => handleSubmit(e)}
     >
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -113,6 +88,12 @@ export function Page_UrenRegistraties({ currentTab }) {
             </div>
           </Grid>
           <Grid item xs={12} style={{ paddingTop: "0px" }}>
+            <FormElement
+              elementTitle="Uren overzicht"
+              elementArray={hourRegistrationContent.map((urenRegistraties) => ({ urenRegistraties }))}
+            />
+          </Grid>
+          <Grid item xs={12} style={{ paddingTop: "1rem" }}>
             <FormElement
               elementTitle="Uren registratie"
               elementArray={hourRegistrationContent.map((urenRegistraties, index) => ({ urenRegistraties, index }))}

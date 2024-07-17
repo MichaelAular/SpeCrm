@@ -176,9 +176,7 @@ export default function Home() {
             currentTab={currentTab}
           />}
         {currentPage === "User" && currentTab === "Uren" && 
-          <Page_UrenRegistraties 
-            currentTab={currentTab}
-          />}
+          <Page_UrenRegistraties />}
       </main>)}
 
       {!dataLoaded && (<Spinner />)}

@@ -1,15 +1,16 @@
 import { db } from '@/firebase';
-import { doc, getDoc, getDocs, collection, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, where, getDocs, collection, query, addDoc, updateDoc } from "firebase/firestore";
 
 // Get specific evaluation week from Firestore Database by profile id and week id
-export const getHourRegistration = (profileId, weekId) => {
-    const evaluationDocRef = doc(db, 'profiles', profileId, 'evaluations', weekId);
-    return getDoc(evaluationDocRef);
+export const getHourRegistrationWeek = async (userId, weekId) => {
+    const evaluationDocRef = await getDocs(query(collection(db, 'accounts', userId, 'hours'), where('weekId', '==', weekId)));
+    const profiles = evaluationDocRef.docs.map(doc => doc.data());
+    return profiles;
 };
 
 // Get all evaluations from Firestore Database by profile id
-export const getHourRegistrations = async (profileId) => {
-    const evaluationsRef = collection(db, 'profiles', profileId, 'evaluations');
+export const getHourRegistrations = async (userId) => {
+    const evaluationsRef = collection(db, 'accounts', userId, 'hours');
     try {
       const querySnapshot = await getDocs(evaluationsRef);
       const evaluations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -21,10 +22,9 @@ export const getHourRegistrations = async (profileId) => {
   };
 
 // Add new evaluation to Firestore Database
-export const addHourRegistration = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
+export const addHourRegistration = async (userId, weekId, hoursData) => {
     try {
-        lessonDaysData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "lessonDays": lessonDaysData });
-        progressMonitorData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "progressMonitor": progressMonitorData });
+        hoursData && await addDoc(collection(db, "accounts", userId, 'hours'), hoursData);
         console.log("Document written with ID: ", weekId);
     } catch (data) {
         console.error("Error adding document: ", data);
@@ -32,18 +32,18 @@ export const addHourRegistration = async (profileId, weekId, lessonDaysData, pro
 }
 
 // Update existing evaluation to Firestore Database
-export const updateHourRegistration = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
-    const evaluationDocRef = doc(db, "profiles", profileId, 'evaluations', weekId);
-    try {
-        const docSnap = await getDoc(evaluationDocRef);
-        if (docSnap.exists()) {
-            lessonDaysData && await updateDoc(evaluationDocRef, { "lessonDays": lessonDaysData });
-            progressMonitorData && await updateDoc(evaluationDocRef, { "progressMonitor": progressMonitorData });
-            console.log("Document updated with ID: ", weekId);
-        } else {
-            await addEvaluation(profileId, weekId, lessonDaysData, progressMonitorData);
-        }
-    } catch (error) {
-        console.error("Error updating document: ", error);
-    }
-}
+// export const updateHourRegistration = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
+//     const evaluationDocRef = doc(db, "profiles", profileId, 'evaluations', weekId);
+//     try {
+//         const docSnap = await getDoc(evaluationDocRef);
+//         if (docSnap.exists()) {
+//             lessonDaysData && await updateDoc(evaluationDocRef, { "lessonDays": lessonDaysData });
+//             progressMonitorData && await updateDoc(evaluationDocRef, { "progressMonitor": progressMonitorData });
+//             console.log("Document updated with ID: ", weekId);
+//         } else {
+//             await addEvaluation(profileId, weekId, lessonDaysData, progressMonitorData);
+//         }
+//     } catch (error) {
+//         console.error("Error updating document: ", error);
+//     }
+// }

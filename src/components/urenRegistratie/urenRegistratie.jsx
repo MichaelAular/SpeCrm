@@ -1,28 +1,41 @@
 import React, { useState } from "react";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
-import { Bar } from "../bar/bar";
+import { styled } from '@mui/material/styles';
+import Table from "@mui/material/Table";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import Paper from "@mui/material/Paper";
 import dayjs from "dayjs";
+import { v4 as uuidv4 } from "uuid";
 require('dayjs/locale/nl')
-// import "./evaluatie.scss";
 
 export function UrenRegistratie({ urenRegistratie }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
-  console.log(urenRegistratie)
 
-  const index = urenRegistratie.index
   urenRegistratie = urenRegistratie.urenRegistraties
-
-  const dateObj = dayjs(urenRegistratie.date).locale("nl");
-
-  const handleChange = () => {
-    document.getElementById("unsavedChanges" + index).innerHTML = "(Wijzigingen niet opgeslagen)";
+  const totalWeekHours = () => {
+    let totalHours = 0;
+    urenRegistratie.forEach(registration => {
+      totalHours += dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true);
+    });
+    return totalHours ? `(${totalHours} uur)` : "";
   };
+  
+  const dateObj = dayjs(urenRegistratie[0].date).locale("nl");
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(even)': {
+      backgroundColor: "lightgrey",
+    },
+  }));
 
   return (
     <div className="evaluatieContainer" style={{ height: incidentOpen ? "auto" : "28px", overflow: incidentOpen ? "visible" : "hidden", }}>
       <div className="evaluatieHeader" onClick={() => { setIncidentOpen(!incidentOpen) }}>
         <h6>
-          {dateObj.format('dddd DD-MM-YYYY')} {!urenRegistratie.isNotSet && "(Ingevuld)"} {<span id={"unsavedChanges" + index} style={{color: "darkred"}}></span>}
+          {dateObj.format('dddd DD-MM-YYYY')} {totalWeekHours()} {<span id={"unsavedChanges"} style={{color: "darkred"}}></span>}
         </h6>
         <div className="evaluatieButtonContainer">
           <button className="titlebarButton" style={{ transform: incidentOpen && `rotate(180deg) translateY(6px)` }}>
@@ -31,47 +44,23 @@ export function UrenRegistratie({ urenRegistratie }) {
         </div>
       </div>
       {incidentOpen && (
-        <div className="evaluatie_BarContainer">
-          <Bar title="Starttijd"
-          input={urenRegistratie.homework}
-          name={index + "homework"}
-          required={true}
-          type="string"
-          onChange={handleChange}
-          />
-          <Bar title="Eindtijd"
-          input={urenRegistratie.behaviour}
-          name={index + "behaviour"}
-          required={true}
-          type="string"
-          onChange={handleChange}
-          />
-          <Bar title="Toelichting"
-          input={urenRegistratie.learningObjectives}
-          name={index + "learningObjectives"}
-          required={true}
-          type="string"
-          onChange={handleChange}
-          />
-          <Bar title="Gewerkt aan project"
-          input={urenRegistratie.workingIndependently}
-          name={index + "workingIndependently"}
-          required={true}
-          type="string"
-          onChange={handleChange}
-          />
-          <Bar title="Gewerkt aan product"
-          input={urenRegistratie.voSubjects}
-          name={index + "voSubjects"}
-          type="string"
-          onChange={handleChange}
-          />
-          <Bar title="Gewerkt aan activiteit"
-          input={urenRegistratie.voBehaviour}
-          name={index + "voBehaviour"}
-          type="string"
-          onChange={handleChange}
-          />
+        <div className="evaluatie_BarContainer" style={{marginTop: 0}}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableBody>
+                {urenRegistratie.map((registration) => (
+                  !registration.isNotSet &&
+                  <StyledTableRow  key={uuidv4()}>
+                    <TableCell>
+                      <div style={{ fontSize: "large", fontWeight: "bold" }}>{registration.project} - {registration.product} - {registration.activity}</div>
+                      <div style={{ fontSize: "medium" }}>{registration.startTime} - {registration.endTime} ({dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true)} uur)</div>
+                      <div style={{ fontSize: "medium" }}>{registration.description}</div>
+                    </TableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       )}
     </div>
