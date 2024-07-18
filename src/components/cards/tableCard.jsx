@@ -19,7 +19,7 @@ export function TableCard({
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={value && Object.keys(value).length}>{title}</TableCell>
+                        <TableCell colSpan={value[0] && Object.keys(value[0]).length}>{title}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
