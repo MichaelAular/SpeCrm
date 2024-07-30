@@ -1,6 +1,6 @@
 import "./tabMenu.scss";
 
-export function TabUser({ currentTab, setCurrentTab }) {
+export function TabUser({ currentTab, setCurrentTab, currentUser }) {
   const tab = (title) => {
     return (
       <div
@@ -19,7 +19,7 @@ export function TabUser({ currentTab, setCurrentTab }) {
   return (
     <div className="tabMenuContainer">
       {tab("NAW")}
-      {tab("Uren")}
+      {currentUser.permissions.hourRegistration !== 'denied' && tab("Uren")}
     </div>
   );
 }

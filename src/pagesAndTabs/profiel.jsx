@@ -330,7 +330,7 @@ export function Tab_Profiel({
                     title: "Doel aanmelding",
                     input: currentProfile.registrationPurpose,
                     name: "registrationPurpose",
-                    type: "dropdown",
+                    type: "dropdown_multiple",
                     options: options.registrationPurpose,
                     required: true
                   },

@@ -1,0 +1,16 @@
+.urenRegistratieSaveBtn {
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgb(var(--white07));
+    background-color: rgb(var(--TextOnWhite));
+    align-self: end;
+    padding: 3px 0px 1px 0px;
+    margin-right: 1rem;
+    padding: 6px 15px;
+}
+
+.urenRegistratieSaveBtn:hover {
+    background-color: rgb(var(--white00));
+}

@@ -15,6 +15,7 @@ import { Tab_Voortgang } from "@/pagesAndTabs/voortgang";
 import { Spinner } from "@/components/spinner/spinner";
 import emptyProfile from '../models/profile.json';
 import "./page.scss";
+import { Page_UrenRegistraties } from "@/pagesAndTabs/urenRegistraties";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("");
@@ -170,11 +171,12 @@ export default function Home() {
           <Tab_Voortgang profileID={profileID} />
         )}
         {currentPage === "Analyse" && <Page_Analyse />}
-        
-        {currentPage === "User" && 
+        {currentPage === "User" && currentTab === "NAW" && 
           <Page_User 
             currentTab={currentTab}
           />}
+        {currentPage === "User" && currentTab === "Uren" && 
+          <Page_UrenRegistraties />}
       </main>)}
 
       {!dataLoaded && (<Spinner />)}

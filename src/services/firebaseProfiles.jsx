@@ -80,7 +80,6 @@ export const updateProfileList = async (profile) => {
         profileList.list.sort((a, b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0));
         console.log(profileList)
         await updateDoc(doc(db, 'profiles', 'All'), profileList);
-        //console.log("Document updated with ID: ", docRef.id);
         return item;
     } catch (data) {
         console.error("Error updating document: ", data);

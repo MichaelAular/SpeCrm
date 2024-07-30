@@ -6,6 +6,7 @@ import { DropdownBoolean } from "../dropdown/dropdown_boolean";
 import { Datepicker } from "../datePicker/datePicker";
 import { useCapitalize } from "@/hooks/capitalize";
 import { AutoComplete } from "../autocomplete/autocomplete";
+import { Timepicker } from "../timePicker/timePicker"
 
 export function Bar({
   input,
@@ -25,6 +26,7 @@ export function Bar({
     >
       <h5 className="barTitle">{useCapitalize(title)}</h5>
       { type === "date" && input && <Datepicker required={required} input={input} name={name} /> }
+      { type === "time" && <Timepicker label="Uncontrolled picker" required={required} defaultValue={input} name={name} /> }
       { type === "dropdown" && <Dropdown required={required} options={options} input={input} title={title} name={name} onChange={onChange}/> }
       { type === "dropdown_boolean" && <DropdownBoolean required={required} options={["ja", "nee"]} input={(input === true || input == "ja") ? "ja" : "nee"} title={title} name={name} /> }
       { type === "dropdown_multiple" && <DropdownMultiple required={required} options={options} input={input} title={title} name={name}/> }

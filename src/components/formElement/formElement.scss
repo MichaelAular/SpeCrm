@@ -6,7 +6,7 @@
     width: 100%;
     min-width: 350px;
     border: 1px solid rgb(var(--TextOnWhite));
-    border-radius: 3px;
+    border-radius: 4px;
     padding-bottom: 15px;
     box-shadow: inset 2px -2px 6px rgb(var(--white03));
 }
@@ -14,10 +14,10 @@
 .elementTitle {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(var(--TextOnWhite));
+    background-color: rgb(var(--primair));
     color: rgb(var(--white06));
     text-transform: uppercase;
-    padding: 5px;
+    padding: 15px;
     padding-left: 15px;
     padding-right: 15px;
     margin-bottom: 10px;
