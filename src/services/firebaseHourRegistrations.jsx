@@ -1,27 +1,27 @@
 import { db } from '@/firebase';
 import { doc, getDoc, where, getDocs, collection, query, addDoc, updateDoc } from "firebase/firestore";
 
-// Get specific evaluation week from Firestore Database by profile id and week id
+// Get specific hour registration week from Firestore Database by profile id and week id
 export const getHourRegistrationWeek = async (userId, weekId) => {
-    const evaluationDocRef = await getDocs(query(collection(db, 'accounts', userId, 'hours'), where('weekId', '==', weekId)));
-    const profiles = evaluationDocRef.docs.map(doc => doc.data());
+    const hourRegistrationDocRef = await getDocs(query(collection(db, 'accounts', userId, 'hours'), where('weekId', '==', weekId)));
+    const profiles = hourRegistrationDocRef.docs.map(doc => doc.data());
     return profiles;
 };
 
-// Get all evaluations from Firestore Database by profile id
+// Get all hour registration from Firestore Database by profile id
 export const getHourRegistrations = async (userId) => {
-    const evaluationsRef = collection(db, 'accounts', userId, 'hours');
+    const hourRegistrationsRef = collection(db, 'accounts', userId, 'hours');
     try {
-      const querySnapshot = await getDocs(evaluationsRef);
-      const evaluations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      return evaluations;
+      const querySnapshot = await getDocs(hourRegistrationsRef);
+      const hourRegistrations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return hourRegistrations;
     } catch (error) {
-      console.error('Error fetching evaluations: ', error);
+      console.error('Error fetching hour registrations: ', error);
       return [];
     }
   };
 
-// Add new evaluation to Firestore Database
+// Add new hour registration to Firestore Database
 export const addHourRegistration = async (userId, weekId, hoursData) => {
     try {
         hoursData && await addDoc(collection(db, "accounts", userId, 'hours'), hoursData);
@@ -30,20 +30,3 @@ export const addHourRegistration = async (userId, weekId, hoursData) => {
         console.error("Error adding document: ", data);
     }
 }
-
-// Update existing evaluation to Firestore Database
-// export const updateHourRegistration = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
-//     const evaluationDocRef = doc(db, "profiles", profileId, 'evaluations', weekId);
-//     try {
-//         const docSnap = await getDoc(evaluationDocRef);
-//         if (docSnap.exists()) {
-//             lessonDaysData && await updateDoc(evaluationDocRef, { "lessonDays": lessonDaysData });
-//             progressMonitorData && await updateDoc(evaluationDocRef, { "progressMonitor": progressMonitorData });
-//             console.log("Document updated with ID: ", weekId);
-//         } else {
-//             await addEvaluation(profileId, weekId, lessonDaysData, progressMonitorData);
-//         }
-//     } catch (error) {
-//         console.error("Error updating document: ", error);
-//     }
-// }
