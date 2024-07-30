@@ -14,10 +14,12 @@ export const fetchAccountNames = async () => {
             const data = doc.data();
             return {
                 id: doc.id,
-                name: data.fullName || `${data.firstName} ${data.lastName}`
+                name: data.fullName || `${data.firstName} ${data.lastName}`,
+                parentOfChildId: data.parentOfChildId
             };
-        });
-        return accountNamesAndIds;
+        })
+            .filter(account => !account.parentOfChildId);
+        return accountNamesAndIds.map(({ id, name }) => ({ id, name }));
     } catch (error) {
         console.error("Error fetching account names and IDs:", error);
         return [];
