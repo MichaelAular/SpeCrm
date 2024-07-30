@@ -59,7 +59,7 @@ export function FormElement({
     <div
       className="formElement"
       style={{
-        height: !elementOpen && "35px",
+        height: !elementOpen && "54px",
         overflow: elementOpen ? "visible" : "hidden"
       }}
     >
