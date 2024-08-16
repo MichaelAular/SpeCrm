@@ -13,10 +13,12 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.14",
-    "@mui/material": "^5.15.14",
+    "@mui/material": "^5.16.7",
+    "@mui/material-nextjs": "latest",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-charts": "^7.7.1",
     "@mui/x-date-pickers": "^7.1.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "dayjs": "^1.11.10",
     "firebase": "^10.7.1",
     "next": "14.1.1",
@@ -24,6 +26,7 @@
     "react-datepicker": "^4.24.0",
     "react-dom": "^18",
     "sass": "^1.69.5",
+    "styled-components": "^6.1.12",
     "uuid": "^9.0.1"
   }
 }

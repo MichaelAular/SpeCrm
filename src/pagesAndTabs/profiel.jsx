@@ -184,7 +184,8 @@ export function Tab_Profiel({
                     title: "Inkomensklasse",
                     input: currentProfile.family.incomeClass,
                     name: "family.incomeClass",
-                    type: "string",
+                    type: "dropdown",
+                    options: options.incomeClasses,
                     required: true
                   },
                   {

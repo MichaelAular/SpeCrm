@@ -6,6 +6,7 @@
  // https://firebase.google.com/docs/web/setup#available-libraries
  // Your web app's Firebase configuration
  const firebaseConfig = {
+   //  deepcode ignore HardcodedNonCryptoSecret: Firebase
     apiKey: "AIzaSyBWl5BnmfmW3FFKgpirp_Et6qIMcNyZ3z4",
     authDomain: "stichting-spe.firebaseapp.com",
     projectId: "stichting-spe",

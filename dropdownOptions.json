@@ -47,6 +47,18 @@
       "Havo",
       "Vwo"
     ],
+    "incomeClasses": [
+      "Minder dan €1000",
+      "€1001 - €1500",
+      "€1501 - €2000",
+      "€2001 - €2500",
+      "€2501 - €3000",
+      "€3001 - €3500",
+      "€3501 - €4000",
+      "€4001 - €5000",
+      "€5001 - €6000",
+      "Meer dan €6000"
+    ],
     "progressGrades": [
       {"value": 0, "description": "0 - Geen begrip of inzet"},
       {"value": 1, "description": "1 - Minimale kennis; basisconcepten ontbreken"},
