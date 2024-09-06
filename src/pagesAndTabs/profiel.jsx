@@ -396,13 +396,13 @@ export function Tab_Profiel({
                         type: "string",
                         required: true
                       },
-                      {
-                        title: "postcode",
-                        input: currentProfile.school.address.neighbourhood,
-                        name: "school.address.neighbourhood",
-                        type: "string",
-                        required: true
-                      },
+                      // {
+                      //   title: "postcode",
+                      //   input: currentProfile.school.address.neighbourhood,
+                      //   name: "school.address.neighbourhood",
+                      //   type: "string",
+                      //   required: true
+                      // },
                       {
                         title: "speciaal onderwijs",
                         input: currentProfile.school.specialEducation,

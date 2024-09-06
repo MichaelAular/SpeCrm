@@ -31,7 +31,7 @@ export function PieChartCard({
                             <PieChart
                                 series={series}
                                 height={300}
-                                margin={{ top: 50, bottom: 75, left: 50, right: 50 }}
+                                margin={{ top: 75, bottom: 100, left: 50, right: 50 }}
                                 slotProps={{
                                     legend: {
                                       direction: useMediaQuery(theme.breakpoints.down("md")) ? 'row' : 'column',

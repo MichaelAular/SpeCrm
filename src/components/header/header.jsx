@@ -129,9 +129,9 @@ export function Header({
         </div>
       }
       { currentPage === "User" &&
-      <div className="tabHeaderContainer">
-        <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} currentUser={currentUser} />
-      </div>
+        <div className="tabHeaderContainer">
+          <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} currentUser={currentUser} />
+        </div>
       }
     </>
   );

@@ -215,14 +215,14 @@ export function Page_Analyse() {
         <Grid item xs={12}>
           <h1>Uren overzicht</h1>
         </Grid>
-        <Grid item xs={6} md={5}>
+        <Grid item xs={12} md={5}>
           <Grid container spacing={2}>
           <Grid item xs={5}><Datepicker required="true" input={startDate} name="Start date" newDate={handleStartChange}/></Grid>
           <Grid item xs={1}><p> tot </p></Grid>
           <Grid item xs={5}><Datepicker required="true" input={endDate} name="End date" newDate={handleEndChange} /></Grid>
           </Grid>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} md={3}>
           <FormControl fullWidth>
             <Select labelId="account-select-label" value={accountFilter} onChange={handleAccountChange} label="Account">
               <MenuItem key="All" selected value='All'>Alle accounts</MenuItem>
