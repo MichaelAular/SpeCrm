@@ -29,7 +29,7 @@ const generateYearOptions = (startYear) => {
   return years;
 };
 
-export function Page_Analyse() {
+export function Page_Analyse({currentUser}) {
   const [year, setYear] = useState(0);
   const [month, setMonth] = useState(0);
   const [startDate, setStartDate] = useState(getPastDefaultDate());
@@ -211,7 +211,7 @@ export function Page_Analyse() {
           <BarChartCard className={"analyse-column"} title={"Doel van aanmelding"} dataset={registrationPurposeCounts}></BarChartCard>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      {currentUser && currentUser.permissions.analysisHours != 'denied' && <Grid container spacing={2}>
         <Grid item xs={12}>
           <h1>Uren overzicht</h1>
         </Grid>
@@ -250,7 +250,7 @@ export function Page_Analyse() {
             </Grid>
           </>
         )}
-      </Grid>
+      </Grid>}
     </Container>
   );
 }

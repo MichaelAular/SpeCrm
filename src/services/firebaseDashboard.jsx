@@ -26,7 +26,6 @@ const fetchAndProcessAccounts = async (startDate, endDate, accountFilter = null)
         const accountsWithHoursPromises = accounts.map(async (account) => {
             const hoursQuerySnapshot = await getDocs(query(collection(db, `accounts/${account.id}/hours`), where('date', '>=', startDate), where('date', '<=', endDate)));
             const hours = hoursQuerySnapshot.docs.map(doc => doc.data());
-            console.log(hours);
             return { ...account, hours };
         });
 

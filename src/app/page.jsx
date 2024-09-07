@@ -45,8 +45,7 @@ export default function Home() {
           setProfileID(currentAccount.parentOfChildId);
           setCurrentPage("Student");
           setCurrentTab("Profielschets");
-        } else {
-          if (currentAccount.permissions.studentList != 'denied') {
+        } else if (currentAccount != null && currentAccount.permissions.studentList != 'denied') {
             FirestoreProfileService.fetchProfileNameList()
               .then((doc) => {
                 if (doc.exists) {
@@ -62,7 +61,10 @@ export default function Home() {
                 }
             })
             .catch(() => console.log("Error"));
-          }
+        } else if (currentAccount != null) {
+          // If no access to student list or is no parent, only show account page
+          setCurrentPage("Account");
+          setCurrentTab("Details");
         }
       }
       if (profiles) {
@@ -145,6 +147,7 @@ export default function Home() {
         {currentPage === "Studenten" && profiles && (
           <Page_Students
             profiles={profiles}
+            currentUser={currentAccount}
             setProfileID={setProfileID}
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
@@ -170,12 +173,12 @@ export default function Home() {
         {currentPage === "Student" && currentTab === "Voortgang" && (
           <Tab_Voortgang profileID={profileID} />
         )}
-        {currentPage === "Analyse" && <Page_Analyse />}
-        {currentPage === "User" && currentTab === "NAW" && 
+        {currentPage === "Analyse" && <Page_Analyse currentUser={currentAccount}/>}
+        {currentPage === "Account" && currentTab === "Details" && 
           <Page_User 
             currentTab={currentTab}
           />}
-        {currentPage === "User" && currentTab === "Uren" && 
+        {currentPage === "Account" && currentTab === "Uren" && 
           <Page_UrenRegistraties />}
       </main>)}
 

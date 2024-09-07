@@ -25,8 +25,8 @@ export function Header({
   const user = useUser();
   const size = useWindowSize();
   const showUser = () => {
-    setCurrentPage("User")
-    setCurrentTab("NAW")
+    setCurrentPage("Account")
+    setCurrentTab("Details")
     setProfileID(null)
   };
 
@@ -67,8 +67,8 @@ export function Header({
         </img>
         <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
           {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Studenten", 'Studenten', null)}
-          {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Analyse", 'Analyse', null)}
-          {dataLoaded && user && currentUser && currentUser.permissions.studentList == 'denied' && headerBtn("Student", 'Uw kind', currentUser.parentOfChildId)}
+          {dataLoaded && user && currentUser && currentUser.permissions.analysis != 'denied' && headerBtn("Analyse", 'Analyse', null)}
+          {dataLoaded && user && currentUser && currentUser.permissions.studentList == 'denied' && currentUser.parentOfChildId != null && headerBtn("Student", 'Uw kind', currentUser.parentOfChildId)}
         </div>
 
         <div className="headerSide" style={{
@@ -102,8 +102,8 @@ export function Header({
             className="headerBtn userBtn"
             onClick={showUser}
             style={{
-              backgroundColor: currentPage === "User" && "rgb(var(--white07))",
-              color: currentPage === "User" && "#C29435"
+              backgroundColor: currentPage === "Account" && "rgb(var(--white07))",
+              color: currentPage === "Account" && "#C29435"
             }}>
             <UserIcon
               className="userBtn"
@@ -128,7 +128,7 @@ export function Header({
           <TabHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
         </div>
       }
-      { currentPage === "User" &&
+      { currentPage === "Account" &&
         <div className="tabHeaderContainer">
           <TabUser currentTab={currentTab} setCurrentTab={setCurrentTab} currentUser={currentUser} />
         </div>
