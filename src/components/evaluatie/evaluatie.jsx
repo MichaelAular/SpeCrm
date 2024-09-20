@@ -51,26 +51,25 @@ export function Evaluatie({ evaluatie }) {
           type="string"
           onChange={handleChange}
           />
-          <Bar title="Voortgezet Onderwijs: Vertel iets over de zelfstandigheid van het kind. Kan het kind de behandelde lesstof zelfstandig toepassen? Na 1 keer uitleggen of moet je het kind echt bij de hand nemen?"
+          <Bar title="Voortgezet Onderwijs: Vertel iets over de zelfstandigheid van het kind. Kan het kind de behandelde lesstof zelfstandig toepassen? Na 1 keer uitleggen of moet je het kind echt bij de hand nemen? (optioneel)"
           input={evaluatie.workingIndependently}
           name={index + "workingIndependently"}
-          required={true}
           type="string"
           onChange={handleChange}
           />
-          <Bar title="Voortgezet Onderwijs: Vertel iets over de zelfstandigheid van het kind. Kan het kind de behandelde lesstof zelfstandig toepassen? Na 1 keer uitleggen of moet je het kind echt bij de hand nemen?"
+          <Bar title="Voortgezet Onderwijs: Welke vakken heeft het kind meegenomen? (optioneel)"
           input={evaluatie.voSubjects}
           name={index + "voSubjects"}
           type="string"
           onChange={handleChange}
           />
-          <Bar title="Hoevaak is de leerling absent geweest deze week? Hoevaak heeft de leerling zijn/haar boeken vergeten deze week"
+          <Bar title="Hoevaak is de leerling absent geweest deze week? Hoevaak heeft de leerling zijn/haar boeken vergeten deze week (optioneel)"
           input={evaluatie.voBehaviour}
           name={index + "voBehaviour"}
           type="string"
           onChange={handleChange}
           />
-          <Bar title="Zijn er verder nog bijzonderheden van belang?"
+          <Bar title="Zijn er verder nog bijzonderheden van belang? (optioneel)"
           input={evaluatie.remarks}
           name={index + "remarks"}
           type="string"

@@ -101,7 +101,7 @@ export function WeekPicker({value, setValue}) {
     >
        <span className="currentDate">
         {weekButton("prev")}
-        <div className="currentDateText">Week{value.week()} {value.$y}</div>
+        <div className="currentDateText">Week {value.week()} - {value.$y}</div>
         {weekButton("next")}
         </span>
     <LocalizationProvider

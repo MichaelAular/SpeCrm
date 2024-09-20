@@ -4,7 +4,7 @@
     border-radius: 5px;
     cursor: pointer;
     color: rgb(var(--white07));
-    background-color: rgb(var(--TextOnWhite));
+    background-color: rgb(var(--secundair));
     align-self: end;
     padding: 3px 0px 1px 0px;
     margin-right: 1rem;
@@ -12,5 +12,5 @@
 }
 
 .urenRegistratieSaveBtn:hover {
-    background-color: rgb(var(--white00));
+    background-color: rgb(var(--secundair_80));
 }

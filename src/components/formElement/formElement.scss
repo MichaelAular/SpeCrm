@@ -55,3 +55,23 @@
 .arrowButton:hover{
     fill: rgb(var(--secundair));
 }
+
+.buttonContainer {
+    width: 100%;
+}
+
+.saveFormBtn {
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgb(var(--white07));
+    align-self: end;
+    background-color: rgb(var(--secundair));
+    margin-right: 1rem;
+    padding: 6px 15px;
+}
+
+.saveFormBtn:hover {
+    background-color: rgb(var(--secundair_80));
+}

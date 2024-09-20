@@ -7,11 +7,10 @@ import { WeekPicker } from "@/components/weekPicker/weekpicker";
 import * as firebaseHourRegistration from "../services/firebaseHourRegistrations";
 import { addHourRegistration } from "@/services/firebaseHourRegistrations";
 
-export function Page_UrenRegistraties({ }) {
+export function Page_UrenRegistraties({currentUser}) {
 
   const [hourRegistrationContent, setHourRegistrationContent] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs().locale("nl"));
-  const uid = sessionStorage.getItem('user');
 
   const weekIdMaker = (date) => {
     const year = date.year();
@@ -42,7 +41,7 @@ export function Page_UrenRegistraties({ }) {
   }
 
   const getHourRegistrationContent = () => {
-    firebaseHourRegistration.getHourRegistrationWeek(uid, weekIdMaker(selectedDate)).then((doc) => {
+    firebaseHourRegistration.getHourRegistrationWeek(currentUser.id, weekIdMaker(selectedDate)).then((doc) => {
       if (doc) {
         doc.forEach((registration) => {
           registration.date = registration.date.toDate();

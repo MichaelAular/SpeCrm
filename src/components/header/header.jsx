@@ -9,6 +9,7 @@ import { TabUser } from "../tabMenu/tabUser";
 import { UserIcon } from "@/assets/icons/user";
 import { useWindowSize } from "@/hooks/windowSize";
 import { useUser } from "@/app/auth";
+import Grid from '@mui/material/Grid';
 
 export function Header({
     currentPage,
@@ -63,65 +64,50 @@ export function Header({
   return (
     <>
       <div className="header">
-        <img className="headerImage" src="/images/27558_logonegatief.png" alt="Stichting SPE" height="50">
-        </img>
-        <div className="headerSide" style={{order:size.width <= 700 ? 2 : 1}}>
-          {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Studenten", 'Studenten', null)}
-          {dataLoaded && user && currentUser && currentUser.permissions.analysis != 'denied' && headerBtn("Analyse", 'Analyse', null)}
-          {dataLoaded && user && currentUser && currentUser.permissions.studentList == 'denied' && currentUser.parentOfChildId != null && headerBtn("Student", 'Uw kind', currentUser.parentOfChildId)}
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={3} order={{ xs: 1, sm: 1 }} className="headerSide" justifyContent="center">
+            <img className="headerImage" src="/images/27558_logonegatief.png" alt="Stichting SPE" height="60">
+            </img>
+          </Grid>
+          <Grid item xs={8} md={4} order={{ xs: 3, sm: 2 }} className="headerSide">
+              {dataLoaded && user && currentUser && currentUser.permissions.studentList != 'denied' && headerBtn("Studenten", 'Studenten', null)}
+              {dataLoaded && user && currentUser && currentUser.permissions.analysis != 'denied' && headerBtn("Analyse", 'Analyse', null)}
+              {dataLoaded && user && currentUser && currentUser.permissions.studentList == 'denied' && currentUser.parentOfChildId != null && headerBtn("Student", 'Uw kind', currentUser.parentOfChildId)}
+          </Grid>
+          <Grid item xs={12} md={4} order={{ xs: 2, sm: 2 }} className="headerSide" justifyContent="center">
+            {profiles && user && currentUser && currentUser.permissions.studentList != 'denied' && <Searchbar
+              profiles={profiles}
+              setProfileID={setProfileID}
+              profileID={profileID}
+              setCurrentPage={setCurrentPage}
+              setCurrentTab={setCurrentTab}
+            />}
+          </Grid>
+          <Grid item xs={4} md={1} order={{ xs: 4, sm: 3 }} className="headerSide" justifyContent="flex-end">
 
-        <div className="headerSide" style={{
-          order:size.width <= 700 ? 1 : 2,
-          paddingTop:size.width <= 700 && "14px"
-        }}
-          >
-          {profiles && user && currentUser && currentUser.permissions.studentList != 'denied' && <Searchbar
-            profiles={profiles}
-            setProfileID={setProfileID}
-            profileID={profileID}
-            setCurrentPage={setCurrentPage}
-            setCurrentTab={setCurrentTab}
-          />}
-          {profiles && user && <button
-            type="submit"
-            form="form"
-            className="headerBtn saveBtn"
-            style={{
-              pointerEvents: currentPage !== "Student" && "none",
-              opacity: currentPage !== "Student" && .2,
-            }}
-          >
-            <SaveIcon
-              className="saveBtn"
-              size="24"
+            {user && <button
+              className="headerBtn userBtn"
+              onClick={showUser}
+              style={{
+                backgroundColor: currentPage === "Account" && "rgb(var(--white07))",
+                color: currentPage === "Account" && "#C29435"
+              }}>
+              <UserIcon
+                className="userBtn"
+                color={currentPage === "Account" ? "--secundair" : "--white07"}
+                size="24"
             />
-          </button>}
-
-          {user && <button
-            className="headerBtn userBtn"
-            onClick={showUser}
-            style={{
-              backgroundColor: currentPage === "Account" && "rgb(var(--white07))",
-              color: currentPage === "Account" && "#C29435"
-            }}>
-            <UserIcon
-              className="userBtn"
-              color={"--secundair"}
-              size="24"
-           />
-          </button>}
-          {user && <button
-            className="headerBtn logOutBtn"
-            onClick={logout}
-          >
-            <LogOutIcon
-              className="logOutBtn"
-             size="22"
-           />
-          </button>}
-
-        </div>
+            </button>}
+              {user && <button
+                className="headerBtn logOutBtn"
+                onClick={logout}>
+                <LogOutIcon
+                  className="logOutBtn"
+                size="22"
+              />
+              </button>}
+          </Grid>
+        </Grid>
       </div>
 
       { currentPage === "Student" &&

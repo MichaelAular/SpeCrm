@@ -6,6 +6,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
 import { Modal } from "../components/modal/modal";
 import { Save } from "../components//save/save";
+import { SaveIcon } from "@/assets/icons/save";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
@@ -47,11 +48,23 @@ export function Tab_Profiel({
       onBlur={(e) => handleChange(e, true)}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <h1>profielschets</h1>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={10} md={6}>
+          <h1>Profielschets</h1>
         </Grid>
+        {dataLoaded && currentProfile && <Grid item xs={2} md={6} container justifyContent="flex-end" alignItems="center">
+            <button
+              type="submit"
+              form="form"
+              className="headerBtn">
+              <SaveIcon
+                color={"#FFFFFF"}
+                className="saveBtn"
+                size="18"
+              />
+            </button>
+        </Grid>}
+      </Grid>
         <Grid container spacing={2}>
           {dataLoaded && (
             <Grid item xs={12} lg={6}>

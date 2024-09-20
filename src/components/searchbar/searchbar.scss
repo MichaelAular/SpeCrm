@@ -1,25 +1,16 @@
 .searchbarContainer {
     width: 100%;
-    margin-right: 4px;
 }
 
 .MuiAutocomplete-listbox {
     height: 100px;
+    background-color: white;
 }
 
 .MuiInputBase-root {
     height: 24px !important;
 }
 
-@media (max-width: 700px) {
-
-    .searchbarContainer {
-        width: 50&;
-    }
-}
-
-@media (max-width: 1200px) {
-    .searchbarContainer {
-        width: 75%;
-    }
+.MuiOutlinedInput-root .MuiAutocomplete-input {
+    margin: 0px !important;
 }

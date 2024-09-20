@@ -1,11 +1,17 @@
 import { db } from '@/firebase';
-import { doc, getDoc, where, getDocs, collection, query, addDoc, updateDoc } from "firebase/firestore";
+import { where, getDocs, collection, query, addDoc } from "firebase/firestore";
 
 // Get specific hour registration week from Firestore Database by profile id and week id
 export const getHourRegistrationWeek = async (userId, weekId) => {
-    const hourRegistrationDocRef = await getDocs(query(collection(db, 'accounts', userId, 'hours'), where('weekId', '==', weekId)));
-    const profiles = hourRegistrationDocRef.docs.map(doc => doc.data());
-    return profiles;
+    const hourRegistrationsRef = collection(db, 'accounts', userId, 'hours');
+    try {
+      const querySnapshot = await getDocs(query(hourRegistrationsRef, where('weekId', '==', weekId)));
+      const hourRegistrations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return hourRegistrations;
+    } catch (error) {
+      console.error('Error fetching hour registrations: ', error);
+      return [];
+    }
 };
 
 // Get all hour registration from Firestore Database by profile id

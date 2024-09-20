@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
+import InputAdornment from '@mui/material/InputAdornment';
+import { Search } from "@/assets/icons/search";
 import { v4 as uuidv4 } from "uuid";
 
 export function AutoComplete({
@@ -76,7 +78,16 @@ export function AutoComplete({
           <input name={name} value={JSON.stringify(value)} onChange={(e) => console.log(e)} hidden/>
           <TextField
             {...params}
-            label={profileID === null && `geef ${label} in`}
+            // slotProps={{
+            //   input: {
+            //     startAdornment: (
+            //       <InputAdornment position="start">
+            //         <Search color={"rgb(var(--secundair))"} />
+            //       </InputAdornment>
+            //     ),
+            //   },
+            // }}
+            label={profileID === null && `Zoek naar ${label}`}
             sx={{
               "& .MuiOutlinedInput-root": {
                 color: label === "student" && "rgb(var(--secundair))",
@@ -88,12 +99,7 @@ export function AutoComplete({
               },
               minWidth: "300px",
               borderRadius: "3px",
-              backgroundColor:
-                type === "header" && profileID === null
-                  ? "rgb(var(--TextOnWhite))"
-                  : type === "header" &&
-                    profileID !== null &&
-                    "rgb(var(--white07))",
+              backgroundColor: "rgb(var(--white07))",
             }}
           />
         </div>

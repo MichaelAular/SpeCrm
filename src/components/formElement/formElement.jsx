@@ -116,13 +116,17 @@ export function FormElement({
       {elementArray && elementTitle === "evaluatie" &&
         elementArray.map((evaluatie) => <Evaluatie key={uuidv4()} evaluatie={evaluatie} />)
       }
+      {elementArray && elementTitle === "evaluatie" && <button type="submit"
+          className="saveFormBtn">
+          Opslaan
+        </button>}
       {elementArray && elementTitle === "Uren overzicht" &&
         elementArray.map((urenRegistratie) => <UrenRegistratie key={uuidv4()} urenRegistratie={urenRegistratie} />)
       }
       {elementArray && elementTitle === "Uren registratie" &&
         <UrenRegistratieForm key={uuidv4()} />
       }
-        {elementArray && elementTitle === "Leerling voortgang" &&
+      {elementArray && elementTitle === "Leerling voortgang" &&
         <Grid container>
           {elementArray.map((progresses) =>
             <Grid item xs={12} md={6} key={uuidv4()}>
@@ -130,7 +134,13 @@ export function FormElement({
             </Grid>
           )}
         </Grid>
-        }
+      }
+      {elementArray && elementTitle === "Leerling voortgang" &&
+        <button type="submit"
+          className="saveFormBtn">
+          Opslaan
+        </button>
+      }
     </div>
   );
 }

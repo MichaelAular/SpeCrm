@@ -178,7 +178,7 @@ export default function Home() {
         {currentPage === "Account" && currentTab === "Details" && 
           <Page_User currentAccount={currentAccount} />}
         {currentPage === "Account" && currentTab === "Uren" && 
-          <Page_UrenRegistraties />}
+          <Page_UrenRegistraties currentUser={currentAccount} />}
         {currentPage === "Account" && currentTab === "Reset" && 
           <Page_Reset_Password currentUser={currentAccount} />}
       </main>)}

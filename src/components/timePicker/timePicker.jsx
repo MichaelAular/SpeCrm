@@ -17,8 +17,8 @@ export function Timepicker({ input, name, required }) {
                 slotProps={{ textField: { required: required } }}
                 ampm={false}
                 minutesStep={15}
-                minTime={dayjs().set('hour', 6)}
-                maxTime={dayjs().set('hour', 20)}
+                minTime={dayjs().set('hour', 0)}
+                maxTime={dayjs().set('hour', 23)}
             />
         </LocalizationProvider>
     );
