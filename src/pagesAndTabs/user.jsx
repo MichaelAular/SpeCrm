@@ -10,12 +10,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 
-export function Page_User({ currentTab }) {
+export function Page_User({ currentAccount }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   const uid = sessionStorage.getItem('user');
   useEffect(() => {
-    if (uid != "") {
+    if (currentAccount == null && uid != "") {
       FirestoreUserService.getUser(uid)
         .then((doc) => {
           if (doc.exists) {
@@ -26,6 +26,8 @@ export function Page_User({ currentTab }) {
           }
         })
         .catch(() => console.log("Error"));
+    } else {
+      setCurrentUser(currentAccount);
     }
   }, [uid]);
 

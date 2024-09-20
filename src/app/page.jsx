@@ -16,6 +16,7 @@ import { Spinner } from "@/components/spinner/spinner";
 import emptyProfile from '../models/profile.json';
 import "./page.scss";
 import { Page_UrenRegistraties } from "@/pagesAndTabs/urenRegistraties";
+import { Page_Reset_Password } from "@/pagesAndTabs/resetPassword";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("");
@@ -175,11 +176,11 @@ export default function Home() {
         )}
         {currentPage === "Analyse" && <Page_Analyse currentUser={currentAccount}/>}
         {currentPage === "Account" && currentTab === "Details" && 
-          <Page_User 
-            currentTab={currentTab}
-          />}
+          <Page_User currentAccount={currentAccount} />}
         {currentPage === "Account" && currentTab === "Uren" && 
           <Page_UrenRegistraties />}
+        {currentPage === "Account" && currentTab === "Reset" && 
+          <Page_Reset_Password currentUser={currentAccount} />}
       </main>)}
 
       {!dataLoaded && (<Spinner />)}

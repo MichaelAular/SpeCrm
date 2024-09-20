@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { signOut as firebaseSignOut, browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signOut as firebaseSignOut, sendPasswordResetEmail, browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import * as FirestoreUserService from "../services/firebaseUsers";
 import { auth } from '@/firebase';
 
@@ -10,6 +10,11 @@ export async function signIn(email, password) {
 export async function signOut() {
   sessionStorage.setItem('user', '');
   return firebaseSignOut(auth);
+}
+
+export async function triggerResetEmail(email) {
+  await sendPasswordResetEmail(auth, email);
+  console.log("Password reset email sent");
 }
 
 export function useUser() {

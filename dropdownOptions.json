@@ -96,7 +96,8 @@
       "Zomerschool Zomer met Dromen", 
       "PPOZO", 
       "Wijkimpuls", 
-      "Social Pact"
+      "Social Pact",
+      "Overig"
     ],
     "hourRegistrationProduct": [
       "Bijles",
@@ -113,7 +114,8 @@
       "Opvang Thuiszitters",
       "netwerkrol info delen",
       "Extra coaching vraaggericht",
-      "intermediare instanties (Buurtteam & OKT etc)"
+      "intermediare instanties (Buurtteam & OKT etc)",
+      "Overig"
     ],
     "hourRegistrationActivity": [
       "Intake",
@@ -139,6 +141,7 @@
       "Facilitair",
       "Bestuur",
       "Directeur",
-      "Administratie"
+      "Administratie",
+      "Overig"
     ]
 }

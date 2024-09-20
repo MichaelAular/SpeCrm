@@ -107,6 +107,7 @@ export function Header({
             }}>
             <UserIcon
               className="userBtn"
+              color={"--secundair"}
               size="24"
            />
           </button>}
