@@ -82,7 +82,7 @@ export function WeekPicker({value, setValue}) {
 
   const weekButton =( type )=> {
     return (
-      <button className="currentDateButton" onClick={()=>{
+      <button type="button" className="currentDateButton" onClick={()=>{
         const newWeek = type === "next" ? value.add(7, 'day') : value.subtract(7, 'day') ;
         setValue(newWeek)
       }}>

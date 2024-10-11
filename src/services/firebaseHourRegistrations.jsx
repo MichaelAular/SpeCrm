@@ -1,5 +1,5 @@
 import { db } from '@/firebase';
-import { where, getDocs, collection, query, addDoc } from "firebase/firestore";
+import { where, getDocs, collection, doc, query, addDoc, deleteDoc } from "firebase/firestore";
 
 // Get specific hour registration week from Firestore Database by profile id and week id
 export const getHourRegistrationWeek = async (userId, weekId) => {
@@ -35,4 +35,14 @@ export const addHourRegistration = async (userId, weekId, hoursData) => {
     } catch (data) {
         console.error("Error adding document: ", data);
     }
+}
+
+// Delete hour registration from Firestore Database
+export const deleteHourRegistration = async (userId, itemId) => {
+  try {
+      await deleteDoc(doc(db, "accounts", userId, 'hours', itemId));
+      console.log("Document written with ID: ", itemId);
+  } catch (data) {
+      console.error("Error deleting document: ", data);
+  }
 }

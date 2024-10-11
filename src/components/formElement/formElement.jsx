@@ -17,6 +17,7 @@ export function FormElement({
   elementBars,
   elementTitle,
   currentProfile,
+  handleDeleteItem,
 }) {
   const [elementOpen, setElementOpen] = useState(true);
   const [items, setItems] = useState([]);
@@ -121,7 +122,7 @@ export function FormElement({
           Opslaan
         </button>}
       {elementArray && elementTitle === "Uren overzicht" &&
-        elementArray.map((urenRegistratie) => <UrenRegistratie key={uuidv4()} urenRegistratie={urenRegistratie} />)
+        elementArray.map((urenRegistratie) => <UrenRegistratie key={uuidv4()} urenRegistratie={urenRegistratie} deletedAction={handleDeleteItem}/>)
       }
       {elementArray && elementTitle === "Uren registratie" &&
         <UrenRegistratieForm key={uuidv4()} />

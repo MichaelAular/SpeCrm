@@ -6,6 +6,7 @@ import * as firebaseEvaluation from "../services/firebaseEvaluations";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import options from "../../dropdownOptions.json";
+import { v4 as uuidv4 } from "uuid";
 require('dayjs/locale/nl')
 
 export function Tab_Evaluatie({
@@ -55,6 +56,7 @@ export function Tab_Evaluatie({
   }
 
   const handleSubmit = async (e) => {
+    console.log('submit triggered');
     e.preventDefault();
     const weekId = weekIdMaker(selectedDate);
     const lessonDaysContent = evaluationContent.map(item => {
@@ -68,6 +70,11 @@ export function Tab_Evaluatie({
 
     console.log(progressContent.progressMonitor)
     await firebaseEvaluation.updateEvaluation(profileID, weekId, lessonDaysContent, progressContent.progressMonitor);
+    getEvaluationContent();
+  };
+
+  const preventDef = async (e) => {
+    e.preventDefault();
     getEvaluationContent();
   };
 
@@ -241,14 +248,14 @@ export function Tab_Evaluatie({
             </div>
           </Grid>
           <Grid item xs={12} style={{ paddingTop: "0px" }}>
-            <FormElement
+            <FormElement key={uuidv4()}
               elementTitle="evaluatie"
               elementArray={evaluationContent.map((evaluaties, index) => ({ evaluaties, index }))}
             />
           </Grid>
           <Grid item xs={12}>
             {progressContent &&
-              <FormElement
+              <FormElement key={uuidv4()}
                 elementTitle="Leerling voortgang"
                 elementArray={progressContent}
               />

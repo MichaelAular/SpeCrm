@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowUpIcon } from "@/assets/icons/arrowUp";
 import { styled } from '@mui/material/styles';
+import { TrashIcon } from "@/assets/icons/trash";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -11,7 +12,7 @@ import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 require('dayjs/locale/nl')
 
-export function UrenRegistratie({ urenRegistratie }) {
+export function UrenRegistratie({ urenRegistratie, deletedAction }) {
   const [incidentOpen, setIncidentOpen] = useState(false);
 
   urenRegistratie = urenRegistratie.urenRegistraties
@@ -55,6 +56,15 @@ export function UrenRegistratie({ urenRegistratie }) {
                       <div style={{ fontSize: "large", fontWeight: "bold" }}>{registration.project} - {registration.product} - {registration.activity}</div>
                       <div style={{ fontSize: "medium" }}>{registration.startTime} - {registration.endTime} ({dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true)} uur)</div>
                       <div style={{ fontSize: "medium" }}>{registration.description}</div>
+                    </TableCell>
+                    <TableCell>
+                    <button
+                        type="button"
+                        className="saveFormBtn"
+                        onClick={()=>{deletedAction(registration)}}
+                      >
+                        <TrashIcon color="--white07" size="20"/>
+                      </button>
                     </TableCell>
                   </StyledTableRow>
                 ))}

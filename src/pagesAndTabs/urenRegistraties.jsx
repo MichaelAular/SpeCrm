@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import dayjs from "dayjs";
 import { WeekPicker } from "@/components/weekPicker/weekpicker";
 import * as firebaseHourRegistration from "../services/firebaseHourRegistrations";
-import { addHourRegistration } from "@/services/firebaseHourRegistrations";
+import { addHourRegistration, deleteHourRegistration } from "@/services/firebaseHourRegistrations";
 
 export function Page_UrenRegistraties({currentUser}) {
 
@@ -54,16 +54,25 @@ export function Page_UrenRegistraties({currentUser}) {
   }
 
   const handleSubmit = (event) => {
+    console.log('submit triggered');
     event.preventDefault();
     const formData = new FormData(document.getElementById("hourRegistrationForm"));
     const formObject = Object.fromEntries(formData.entries());
     const weekId = weekIdMaker(dayjs(formObject.date, "DD-MM-YYYY"));
     formObject.date = dayjs(formObject.date, "DD-MM-YYYY").toDate()
     formObject.weekId = weekId
-    addHourRegistration(uid, weekId, formObject).then(() => {
+    console.log(formObject);
+    addHourRegistration(currentUser.id, weekId, formObject).then(() => {
       getHourRegistrationContent();
     })
   }
+
+  const handleDeleteItem = (event) => {
+    console.log(event)
+    deleteHourRegistration(currentUser.id, event.id).then(() => {
+      getHourRegistrationContent();
+    })
+  };
 
   useEffect(() => {
     getHourRegistrationContent();
@@ -90,6 +99,7 @@ export function Page_UrenRegistraties({currentUser}) {
             <FormElement
               elementTitle="Uren overzicht"
               elementArray={hourRegistrationContent.map((urenRegistraties) => ({ urenRegistraties }))}
+              handleDeleteItem={handleDeleteItem}
             />
           </Grid>
           <Grid item xs={12} style={{ paddingTop: "1rem" }}>
