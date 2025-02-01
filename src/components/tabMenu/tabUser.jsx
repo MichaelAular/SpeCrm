@@ -20,6 +20,7 @@ export function TabUser({ currentTab, setCurrentTab, currentUser }) {
     <div className="tabMenuContainer">
       {tab("Details")}
       {currentUser.permissions.hourRegistration !== 'denied' && tab("Uren")}
+      {currentUser.permissions.addAccount !== 'denied' && tab("Nieuwe Gebruiker")}
       {tab("Reset")}
     </div>
   );

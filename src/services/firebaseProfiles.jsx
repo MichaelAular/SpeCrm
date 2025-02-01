@@ -1,5 +1,5 @@
 import { db } from '@/firebase';
-import { doc, addDoc, query, where, limit, get, getDoc, getDocs, updateDoc, collection } from "firebase/firestore";
+import { doc, addDoc, setDoc, deleteDoc, query, where, limit, get, getDoc, getDocs, updateDoc, collection } from "firebase/firestore";
 import axios from 'axios';
 
 // Get profile name list from Firestore Database
@@ -9,7 +9,7 @@ export const fetchProfileNameList = async () => {
 
 // Get specific profile from Firestore Database by id
 export const getProfile = (profileId) => {
-    const profileDocRef = query(collection(db, 'profiles'), where('id', '==', profileId), where('active', '==', 1), limit(1));
+    const profileDocRef = query(collection(db, 'profiles'), where('id', '==', profileId), limit(1));
     return getDocs(profileDocRef);
 };
 
@@ -86,3 +86,29 @@ export const updateProfileList = async (profile) => {
         return null;
     }
 }
+
+// Get all files from Firestore Database by profile id
+export const getFiles = async (profileId) => {
+    const fileRef = collection(db, 'profiles', profileId, 'files');
+    try {
+      const querySnapshot = await getDocs(fileRef);
+      const files = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return files;
+    } catch (error) {
+      console.error('Error fetching files: ', error);
+      return [];
+    }
+};
+
+export const saveFileLocation = async (data, profileId, docName) => {
+    await setDoc(doc(db, "profiles", profileId, "files", docName), data);
+};
+
+export const deleteFileLocation = async (profileId, docName) => {
+    try {
+        await deleteDoc(doc(db, "profiles", profileId, 'files', docName));
+        console.log("Document deleted with ID: ", docName);
+    } catch (data) {
+        console.error("Error deleting document: ", docName);
+    }
+};

@@ -3,6 +3,7 @@ import { FormElement } from "@/components/formElement/formElement";
 import { Spinner } from "@/components/spinner/spinner";
 import options from "../../dropdownOptions.json";
 import Skeleton from "@mui/material/Skeleton";
+import * as FirestoreProfileService from "../services/firebaseProfiles";
 import { useOverwriteCurrentProfile } from "@/hooks/overwriteCurrentProfile";
 import { Modal } from "../components/modal/modal";
 import { Save } from "../components//save/save";
@@ -13,6 +14,7 @@ import dayjs from "dayjs";
 
 export function Tab_Profiel({
   dataLoaded,
+  currentUser,
   currentProfile,
   setCurrentProfile,
   profileID,
@@ -22,6 +24,7 @@ export function Tab_Profiel({
   setProfiles
 }) {
   const [saveModal, setSaveModal] = useState(false);
+  const [saveStatus, setSaveStatus] = useState(false);
 
   const handleChange = (e, preventDef) => {
     preventDef && e.preventDefault();
@@ -37,22 +40,29 @@ export function Tab_Profiel({
     setSaveModal(true)
   };
 
+  const changeStatus = (e) => {
+    currentProfile.active = currentProfile.active == 1 ? 0 : 1;
+    setSaveStatus(true)
+    console.log("update profile: ", currentProfile);
+    FirestoreProfileService.updateProfile(currentProfile).then(() =>{
+      
+    });
+  }
+
   return (
-    <form
-      id="form"
-      className="tabProfielContainer"
-      method="post"
-      onSubmit={handleSubmit}
-      onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
-      onChange={(e) => handleChange(e, true)}
-      onBlur={(e) => handleChange(e, true)}
-    >
       <Container maxWidth="lg">
       <Grid container spacing={2}>
-        <Grid item xs={10} md={6}>
+        <Grid item xs={8} md={6}>
           <h1>Profielschets</h1>
+          <p>Status: {currentProfile.active == 1 ? 'Actief' : 'Inactief'}</p>
         </Grid>
-        {dataLoaded && currentProfile && <Grid item xs={2} md={6} container justifyContent="flex-end" alignItems="center">
+        {dataLoaded && currentProfile && currentUser.permissions.studentProfileConfidential == 'read-write' && <Grid item xs={2} md={5} container justifyContent="flex-end" alignItems="center">
+            <button onClick={changeStatus}
+              className="headerBtn">
+              Markeer {currentProfile.active == 1 ? 'inactief' : 'actief'}
+            </button>
+        </Grid>}
+        {dataLoaded && currentProfile && <Grid item xs={2} md={1} container justifyContent="flex-end" alignItems="center">
             <button
               type="submit"
               form="form"
@@ -65,6 +75,15 @@ export function Tab_Profiel({
             </button>
         </Grid>}
       </Grid>
+      <form
+      id="form"
+      className="tabProfielContainer"
+      method="post"
+      onSubmit={handleSubmit}
+      onKeyDown={(e) => e.key === "Tab" && handleChange(e, false)}
+      onChange={(e) => handleChange(e, true)}
+      onBlur={(e) => handleChange(e, true)}
+      >
         <Grid container spacing={2}>
           {dataLoaded && (
             <Grid item xs={12} lg={6}>
@@ -494,7 +513,7 @@ export function Tab_Profiel({
                 setProfiles={setProfiles} />}
           />
         </Grid>
+        </form>
       </Container>
-    </form>
   );
 }

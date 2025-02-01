@@ -11,10 +11,12 @@ export function Dropdown({
   }) {
   const [selectValue, setSelectValue] = useState(input == null ? "" : input)
   const handleChange = (event) => {
-    onChange && onChange()
+    console.log(event);
     const { value, classList } = event.target;
     classList.toggle('noneSelected', !value);
+    console.log(value);
     setSelectValue(value);
+    onChange && onChange(value);
   };
 
   return (

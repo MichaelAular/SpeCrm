@@ -37,7 +37,7 @@ export function Page_Analyse({currentUser}) {
   const [accountFilter, setAccountFilter] = useState('All');
   const [accountList, setAccountList] = useState([]);
   const [dashboardData, setDashboardData] = useState({
-    profileCount: { totalCount: 0, beforeLastSeptemberCount: 0, afterLastSeptemberCount: 0 },
+    profileCount: { totalCount: 0, beforeLastSeptemberCount: 0, afterLastSeptemberCount: 0, deactived: 0 },
     cityPassCount: { "ja": 0, "nee": 0 },
     benefitsCount: { "ja": 0, "nee": 0 },
     schoolTypeCounts: [],
@@ -100,6 +100,7 @@ export function Page_Analyse({currentUser}) {
       data: [
         { value: profileCount.beforeLastSeptemberCount, label: 'Oude aanmeldingen' },
         { value: profileCount.afterLastSeptemberCount, label: 'Nieuwe aanmeldingen' },
+        { value: profileCount.deactived, label: 'Deactivaties' },
       ],
       arcLabel: 'value',
     },

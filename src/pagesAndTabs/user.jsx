@@ -60,20 +60,20 @@ export function Page_User({ currentAccount }) {
                   type: "string",
                   required: true
                 },
-                {
-                  title: "geboortedatum",
-                  input: currentUser.birthDate,
-                  name: "birthDate",
-                  type: "date",
-                  required: false
-                },
-                {
-                  title: "leeftijd",
-                  input: dayjs().diff(dayjs(currentUser.birthDate), 'year'),
-                  name: "age",
-                  type: "string_readOnly",
-                  required: false
-                },
+                // {
+                //   title: "geboortedatum",
+                //   input: currentUser.birthDate,
+                //   name: "birthDate",
+                //   type: "date",
+                //   required: false
+                // },
+                // {
+                //   title: "leeftijd",
+                //   input: dayjs().diff(dayjs(currentUser.birthDate), 'year'),
+                //   name: "age",
+                //   type: "string_readOnly",
+                //   required: false
+                // },
                 {
                   title: "e-mailadres",
                   input: currentUser.email,

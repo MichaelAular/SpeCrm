@@ -17,6 +17,8 @@ import emptyProfile from '../models/profile.json';
 import "./page.scss";
 import { Page_UrenRegistraties } from "@/pagesAndTabs/urenRegistraties";
 import { Page_Reset_Password } from "@/pagesAndTabs/resetPassword";
+import { Tab_Files } from "@/pagesAndTabs/files";
+import { Page_AddUser } from "@/pagesAndTabs/addUser";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("");
@@ -50,12 +52,12 @@ export default function Home() {
             FirestoreProfileService.fetchProfileNameList()
               .then((doc) => {
                 if (doc.exists) {
-                  const onlyActiveProfiles = {
-                    "list": doc.data().list.filter(function (el) {
-                      return el.active == 1;
-                    })
-                  }
-                  setProfiles(onlyActiveProfiles);
+                  // const onlyActiveProfiles = {
+                  //   "list": doc.data().list.filter(function (el) {
+                  //     return el.active == 1;
+                  //   })
+                  // }
+                  setProfiles(doc.data());
                   setCurrentPage("Studenten");
                 } else {
                   console.log("Document not found");
@@ -161,6 +163,7 @@ export default function Home() {
           currentTab === "Profielschets" &&
           currentProfile !== null && (
             <Tab_Profiel
+              currentUser={currentAccount}
               currentProfile={currentProfile}
               setCurrentProfile={setCurrentProfile}
               dataLoaded={dataLoaded}
@@ -174,9 +177,14 @@ export default function Home() {
         {currentPage === "Student" && currentTab === "Voortgang" && (
           <Tab_Voortgang profileID={profileID} />
         )}
+        {currentPage === "Student" && currentTab === "Documenten" && (
+          <Tab_Files profileID={profileID} currentProfile={currentProfile} />
+        )}
         {currentPage === "Analyse" && <Page_Analyse currentUser={currentAccount}/>}
         {currentPage === "Account" && currentTab === "Details" && 
           <Page_User currentAccount={currentAccount} />}
+        {currentPage === "Account" && currentTab === "Nieuwe Gebruiker" && 
+          <Page_AddUser currentUser={currentAccount} />}
         {currentPage === "Account" && currentTab === "Uren" && 
           <Page_UrenRegistraties currentUser={currentAccount} />}
         {currentPage === "Account" && currentTab === "Reset" && 

@@ -14,6 +14,17 @@ const fetchAndProcessProfiles = async () => {
     }
 }
 
+const fetchAndProcessProfilesAll = async () => {
+    try {
+        const querySnapshot = await getDocs(query(collection(db, 'profiles')));
+        const profiles = querySnapshot.docs.map(doc => doc.data());
+        return profiles;
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        return [];
+    }
+}
+
 const fetchAndProcessAccounts = async (startDate, endDate, accountFilter = null) => {
     try {
         const accountsQuerySnapshot = await getDocs(collection(db, 'accounts'));
@@ -70,6 +81,7 @@ export const getProfileCount = (profiles, year, month) => {
     let beforeLastSeptemberCount = 0;
     let afterLastSeptemberCount = 0;
     let newCurrentMonthCount = 0;
+    let deactived = 0;
 
     profiles.forEach((data) => {
         totalCount++;
@@ -89,6 +101,10 @@ export const getProfileCount = (profiles, year, month) => {
             } else if (isSpecifiedMonth && (isCurrentYear || isSpecifiedYear)) {
                 newCurrentMonthCount++;
             }
+
+            if (data.active == false) {
+                deactived++;
+            }
         }
     });
 
@@ -96,7 +112,8 @@ export const getProfileCount = (profiles, year, month) => {
         totalCount,
         beforeLastSeptemberCount,
         afterLastSeptemberCount,
-        newCurrentMonthCount
+        newCurrentMonthCount,
+        deactived,
     };
 }
 
@@ -168,11 +185,12 @@ const groupByField = (data, field) => {
 }
 
 const formatResult = (groupedData) => {
-    const totalHours = Object.values(groupedData).reduce((sum, hours) => sum + hours, 0);
+    const totalHours = Object.values(groupedData).reduce((sum, hours) => sum + hours, 0).toFixed(2);
     const formattedData = Object.entries(groupedData).map(([key, hours]) => ({
         [key]: key,
-        "count": `${hours} uur (${((hours / totalHours) * 100).toFixed(0)}%)`
+        "count": `${(Math.round(hours * 100)/ 100).toFixed(2)} uur (${((hours / totalHours) * 100).toFixed(0)}%)`
     }));
+    console.log(totalHours);
     formattedData.push({
         key: 'Totaal',
         count: `${totalHours} uur (100%)`
@@ -201,9 +219,10 @@ export const getRegisteredHoursPerActivity = (accounts) => {
 // Fetch profiles once and process for each function
 export const generateDashboardData = async (year, month) => {
     const profiles = await fetchAndProcessProfiles();
+    const profilesAll = await fetchAndProcessProfilesAll();
 
     return {
-        profileCount: getProfileCount(profiles, year, month),
+        profileCount: getProfileCount(profilesAll, year, month),
         cityPassCount: getCityPassCount(profiles, year, month),
         benefitsCount: getBenefitsCount(profiles, year, month),
         specialEducationCount: getSpecialEducationCount(profiles, year, month),

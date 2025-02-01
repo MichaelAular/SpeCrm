@@ -85,37 +85,202 @@
       "Aanvraag jeugdfondssport",
       "1-op-1 les"
     ],
+    "accountRoles": [
+      "Admin",
+      "Studentbegeleider"
+    ],
     "hourRegistrationProject": [
       "Stichting SPE (algemeen)",
-      "Edusupport",
+      "EduSupport",
+      "Coding @ SPE",
       "Tech Collective",
-      "Zomerschool The Level UP",
       "Ouders Connected Gaasperdam", 
+      "Giving Back Project - Weekendschool",
+      "Zomerschool Zomer met Dromen", 
+      "Zomerschool The Level UP",
       "MDT", 
       "YAP", 
-      "Zomerschool Zomer met Dromen", 
       "PPOZO", 
       "Wijkimpuls", 
       "Social Pact",
       "Overig"
     ],
     "hourRegistrationProduct": [
-      "Bijles",
-      "Huiswerkbegeleiding",
-      "Ondersteuning ouderbetrokkenheid",
-      "intermediare armoede voorzieningen",
-      "Begeleiding/voorkoming schooluitval",
-      "Begeleiding risicojongeren",
-      "Begeleiden high potentials",
-      "Verbeteren soft skills",
-      "Organisatie",
-      "Administratie",
-      "Codering",
-      "Opvang Thuiszitters",
-      "netwerkrol info delen",
-      "Extra coaching vraaggericht",
-      "intermediare instanties (Buurtteam & OKT etc)",
-      "Overig"
+        {
+          "value": "Leerondersteuning",
+          "description": "Leerondersteuning",
+          "subcategories": [
+            "Bijles en huiswerkbegeleiding",
+            "Coordinatie",
+            "Management",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Burgerschapsvorming",
+          "description": "Burgerschapsvorming",
+          "subcategories": [
+            "Mentoring",
+            "Sociale vaardigheden verbreden dmv trainingen/workshops",
+            "Horizon verbreden dmv beroependagen en inhousedagen",
+            "Stageplekken aanbieden of helpen met vinden van stage",
+            "Helpen bij het vinden van werk /voorbereiden sollicitatie",
+            "Management",
+            "Coordinatie",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Laagdrempelige gezinsondersteuning",
+          "description": "Laagdrempelige gezinsondersteuning",
+          "subcategories": [
+            "Bemiddeling relatie ouders en kind",
+            "Bemiddeling relatie kind & school",
+            "Bemiddeling OKT",
+            "Bemiddeling Buurtteam",
+            "Bezwaarschriften schrijven",
+            "Bemiddeling met IND",
+            "Bemiddeling Incasso",
+            "Brieven lezen en uitleggen",
+            "Reageren woningnet",
+            "Regeling treffen schuldeisers/incassobureau",
+            "Aanvraag scholierenvergoeding",
+            "Aanvraag Jeugdsport- en cultuurfonds",
+            "Inschrijving kind middelbare school",
+            "Aanvraag gezag kind",
+            "Ouderbetrokkenheid",
+            "Management",
+            "Coordinatie",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Preventie Jeugd & Veiligheid",
+          "description": "Preventie Jeugd & Veiligheid",
+          "subcategories": [
+            "Mentoring & Bemiddeling",
+            "Onderadvisering",
+            "Voorkoming Schoolverlaters",
+            "Voorkoming jeugdcriminaliteit",
+            "Trainingen (weerbaarheid)",
+            "Management",
+            "Coordinatie",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Armoedebestrijding",
+          "description": "Armoedebestrijding",
+          "subcategories": [
+            "Uitkering aanvragen",
+            "Leergeld aanvragen",
+            "Minima-regeling aanvragen",
+            "Betalingsregeling treffen",
+            "Bemiddeling Belastingdienst",
+            "Aanvragen toeslagen",
+            "Aanvraag kwijtschelding gemeentelijke belastingen",
+            "Bemiddeling Toeslagenaffaire",
+            "Aanvraag Scholierenvergoeding",
+            "Aanvraag Jeugdsport- en cultuurfonds",
+            "Management",
+            "Coordinatie",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "HR",
+          "description": "HR",
+          "subcategories": [
+            "Werving & Selectie",
+            "Performance",
+            "Overige",
+            "Coordinatie",
+            "Management",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Bestuur",
+          "description": "Bestuur",
+          "subcategories": [
+            "Meetings"
+          ]
+        },
+        {
+          "value": "Ledenadministratie",
+          "description": "Ledenadministratie",
+          "subcategories": [
+            "Intake",
+            "Algemeen Administratie",
+            "Coordinatie",
+            "Management",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Facilitair",
+          "description": "Facilitair",
+          "subcategories": [
+            "Voorraadbeheer",
+            "Coordinatie",
+            "Management",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "IT",
+          "description": "IT",
+          "subcategories": [
+            "Beheer",
+            "Coordinatie",
+            "Management",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "PR & Marketing",
+          "description": "PR & Marketing",
+          "subcategories": [
+            "Social media",
+            "Nieuwsbrief",
+            "Website",
+            "Coordinatie",
+            "Meeting"
+          ]
+        },
+        {
+          "value": "Coordinator",
+          "description": "Coordinator",
+          "subcategories": [
+            "Overig"
+          ]
+        },
+        {
+          "value": "Management",
+          "description": "Management",
+          "subcategories": [
+            "Overig"
+          ]
+        },
+        {
+          "value": "Financiën",
+          "description": "Financiën",
+          "subcategories": [
+            "Facturatie",
+            "Debiteurenbeheer",
+            "Coordinatie",
+            "Management",
+            "Meeting",
+            "Fondsenwerving"
+          ]
+        },
+        {
+          "value": "Overig",
+          "description": "Overig",
+          "subcategories": [
+            "Overig"
+          ]
+        }
     ],
     "hourRegistrationActivity": [
       "Intake",
@@ -144,4 +309,5 @@
       "Administratie",
       "Overig"
     ]
+    
 }

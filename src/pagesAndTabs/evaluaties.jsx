@@ -67,8 +67,6 @@ export function Tab_Evaluatie({
       const keys = Object.keys(item);
       return keys.some(key => key !== "date" && item[key] !== "");
     });
-
-    console.log(progressContent.progressMonitor)
     await firebaseEvaluation.updateEvaluation(profileID, weekId, lessonDaysContent, progressContent.progressMonitor);
     getEvaluationContent();
   };

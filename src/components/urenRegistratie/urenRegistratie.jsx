@@ -21,7 +21,7 @@ export function UrenRegistratie({ urenRegistratie, deletedAction }) {
     urenRegistratie.forEach(registration => {
       totalHours += dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true);
     });
-    return totalHours ? `(${totalHours} uur)` : "";
+    return totalHours ? `(${totalHours.toFixed(2)} uur)` : "";
   };
   
   const dateObj = dayjs(urenRegistratie[0].date).locale("nl");
@@ -54,7 +54,7 @@ export function UrenRegistratie({ urenRegistratie, deletedAction }) {
                   <StyledTableRow  key={uuidv4()}>
                     <TableCell>
                       <div style={{ fontSize: "large", fontWeight: "bold" }}>{registration.project} - {registration.product} - {registration.activity}</div>
-                      <div style={{ fontSize: "medium" }}>{registration.startTime} - {registration.endTime} ({dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true)} uur)</div>
+                      <div style={{ fontSize: "medium" }}>{registration.startTime} - {registration.endTime} ({dayjs(registration.endTime, "HH:mm").diff(dayjs(registration.startTime, "HH:mm"), "hour", true).toFixed(2)} uur)</div>
                       <div style={{ fontSize: "medium" }}>{registration.description}</div>
                     </TableCell>
                     <TableCell>

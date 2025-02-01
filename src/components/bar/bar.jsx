@@ -40,6 +40,8 @@ export function Bar({
       { type === "string_FH" && input && <input required={required} className="inputGiven" defaultValue={input} name={name} /> }
       { type === "string_readOnly" && !input && <input required={required} className="inputGiven" defaultValue={0} name={name} readOnly/> }
       { type === "string_readOnly" && input !== 0 && <input required={required} className="inputGiven" defaultValue={input} name={name} readOnly/> }
+      { type === "email" && !input && <input type="email" required={required} className="inputEmpty" placeholder={`Vul ${title.toLowerCase()} in...`} name={name} onChange={onChange} /> }
+      { type === "password" && !input && <input type="password" required={required} className="inputEmpty" placeholder={`Vul ${title.toLowerCase()} in...`} name={name} onChange={onChange} /> }
     </div>
   );
 }

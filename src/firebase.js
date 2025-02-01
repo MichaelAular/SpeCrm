@@ -2,6 +2,7 @@
  import { initializeApp } from "firebase/app";
  import { getAuth } from "firebase/auth";
  import { getFirestore } from "firebase/firestore";
+ import { getStorage } from "firebase/storage";
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
  // Your web app's Firebase configuration
@@ -21,3 +22,5 @@
  // It will be imported into your react app whenever it is needed
  export const db = getFirestore(app);
  export const auth = getAuth(app);
+ const STORAGE_FOLDER_PATH = "gs://stichting-spe.appspot.com";
+export const storage = getStorage(app, STORAGE_FOLDER_PATH);

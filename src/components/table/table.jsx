@@ -24,6 +24,14 @@ export function BasicTable({
         return splitDate[2] +" "+ splitDate[1] +" "+ splitDate[3];
       } 
     },
+    { field: 'active', 
+      headerName: 'Status', 
+      flex: 1,
+      minWidth: 150,
+      valueGetter: (value, row) => {
+        return value == 1 ? 'Actief' : 'Inactief'
+      } 
+    }
   ];
   const paginationModel = { page: 0, pageSize: 10 };
   const handleRowClick = (

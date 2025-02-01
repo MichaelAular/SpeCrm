@@ -18,13 +18,18 @@ export const getEvaluations = async (profileId) => {
       console.error('Error fetching evaluations: ', error);
       return [];
     }
-  };
+};
 
 // Add new evaluation to Firestore Database
 export const addEvaluation = async (profileId, weekId, lessonDaysData, progressMonitorData) => {
+    console.log('add');
+    console.log(profileId, weekId, lessonDaysData, progressMonitorData);
     try {
-        lessonDaysData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "lessonDays": lessonDaysData });
-        progressMonitorData && await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), { "progressMonitor": progressMonitorData });
+        const data = {
+            "lessonDays": lessonDaysData,
+            "progressMonitor": progressMonitorData
+        }
+        await setDoc(doc(db, "profiles", profileId, 'evaluations', weekId), data);
         console.log("Document written with ID: ", weekId);
     } catch (data) {
         console.error("Error adding document: ", data);
@@ -37,6 +42,8 @@ export const updateEvaluation = async (profileId, weekId, lessonDaysData, progre
     try {
         const docSnap = await getDoc(evaluationDocRef);
         if (docSnap.exists()) {
+            console.log('update');
+            console.log(profileId, weekId, lessonDaysData, progressMonitorData);
             lessonDaysData && await updateDoc(evaluationDocRef, { "lessonDays": lessonDaysData });
             progressMonitorData && await updateDoc(evaluationDocRef, { "progressMonitor": progressMonitorData });
             console.log("Document updated with ID: ", weekId);

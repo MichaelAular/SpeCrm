@@ -1,5 +1,7 @@
 import { db } from '@/firebase';
-import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, collection } from "firebase/firestore";
+import { signUp } from "@/app/auth";
+
 
 // Get specific user from Firestore Database by id
 export const getUser = (userId) => {
@@ -25,3 +27,22 @@ export const fetchAccountNames = async () => {
         return [];
     }
 };
+
+export const createAccount = async (email, password, firstName, lastName, permissions) => {
+    console.log(email, password)
+    const user = await signUp(email, password);
+    if (user != null) {
+        const userItem = {
+            id: user.uid,
+            email: email,
+            firstName: firstName,
+            lastname: lastName,
+            permissions: permissions
+        }
+        // Save user info to Firestore 
+        await setDoc(doc(db, 'accounts', user.uid), userItem);
+        return true;
+    } else {
+        return false;
+    }
+}
