@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 export function Tab_Profiel({
   dataLoaded,
   currentUser,
+  currentLocation,
   currentProfile,
   setCurrentProfile,
   profileID,
@@ -44,7 +45,7 @@ export function Tab_Profiel({
     currentProfile.active = currentProfile.active == 1 ? 0 : 1;
     setSaveStatus(true)
     console.log("update profile: ", currentProfile);
-    FirestoreProfileService.updateProfile(currentProfile).then(() =>{
+    FirestoreProfileService.updateProfile(currentProfile, currentLocation).then(() =>{
       
     });
   }
@@ -507,6 +508,7 @@ export function Tab_Profiel({
                 setModalOpen={setSaveModal}
                 profileID={profileID}
                 currentProfile={currentProfile}
+                currentLocation={currentLocation}
                 setCurrentPage={setCurrentPage}
                 setCurrentTab={setCurrentTab}
                 setProfileID={setProfileID}

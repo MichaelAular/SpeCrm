@@ -5,6 +5,7 @@ import * as FirestoreProfileService from "../../services/firebaseProfiles";
 export function Save({
   setModalOpen,
   currentProfile,
+  currentLocation,
   profileID,
   setCurrentPage,
   setCurrentTab,
@@ -23,13 +24,13 @@ export function Save({
   const saveProfile = () => {
     if (profileID === "new_user") {
       console.log("create new profile: ", currentProfile);
-      FirestoreProfileService.addProfile(currentProfile).then(() =>{
+      FirestoreProfileService.addProfile(currentProfile, currentLocation).then(() =>{
         setModalText("Gegevens zijn succesvol opgeslagen.")
         setSaveCompleted(true)
       });
     } else {
       console.log("update profile: ", currentProfile);
-      FirestoreProfileService.updateProfile(currentProfile).then(() =>{
+      FirestoreProfileService.updateProfile(currentProfile, currentLocation).then(() =>{
           setModalText("Gegevens zijn succesvol opgeslagen.")
           setSaveCompleted(true)
         });
@@ -37,10 +38,10 @@ export function Save({
   };
 
   const backToHome = () => {
-    FirestoreProfileService.fetchProfileNameList()
+    FirestoreProfileService.fetchAllProfileList()
       .then((doc) => {
         if (doc.exists) {
-          const onlyActiveProfiles = {"list": doc.data().list.filter(function (el) {
+          const onlyActiveProfiles = {"list": doc.data().filter(function (el) {
             return el.active == 1;
           })}
           setProfiles(onlyActiveProfiles);

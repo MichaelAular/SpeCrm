@@ -14,6 +14,15 @@ export function BasicTable({
     { field: 'firstName', headerName: 'Voornaam', flex: 1, minWidth: 150 },
     { field: 'lastName', headerName: 'Achternaam', flex: 1, minWidth: 150 },
     { 
+      field: 'school', 
+      headerName: 'Groep/Klas', 
+      flex: 1,
+      minWidth: 150,
+      valueGetter: (value, row) => {
+        return value.schoolYear;
+      } 
+    },
+    { 
       field: 'birthDate', 
       headerName: 'Geboortedatum', 
       flex: 1,
@@ -43,7 +52,7 @@ export function BasicTable({
     setCurrentPage("Student");
     setCurrentTab("Profielschets");
   };
-  const rows = profiles.list;
+  const rows = profiles;
 
   return (
     <Paper sx={{ width: '100%' }}>

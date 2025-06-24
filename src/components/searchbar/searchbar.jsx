@@ -10,10 +10,10 @@ export function Searchbar({
  }) {
   let options = [];
 
-  for (let i = 0; i < profiles.list.length; i++) {
+  for (let i = 0; i < profiles.length; i++) {
     options.push({
-      label: `${profiles.list[i].firstName} ${profiles.list[i].lastName}`,
-      id: `${profiles.list[i].id}`,
+      label: `${profiles[i].firstName} ${profiles[i].lastName}`,
+      id: `${profiles[i].id}`,
     });
   }
 

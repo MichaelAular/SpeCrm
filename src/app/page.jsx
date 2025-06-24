@@ -19,11 +19,13 @@ import { Page_UrenRegistraties } from "@/pagesAndTabs/urenRegistraties";
 import { Page_Reset_Password } from "@/pagesAndTabs/resetPassword";
 import { Tab_Files } from "@/pagesAndTabs/files";
 import { Page_AddUser } from "@/pagesAndTabs/addUser";
+import { Page_Location } from "@/pagesAndTabs/locationOverview";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("");
   const [currentProfile, setCurrentProfile] = useState(null);
   const [currentAccount, setCurrentAccount] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
   const [dataLoaded, setLoaded] = useState(false);
   const [profileID, setProfileID] = useState(null);
@@ -48,22 +50,16 @@ export default function Home() {
           setProfileID(currentAccount.parentOfChildId);
           setCurrentPage("Student");
           setCurrentTab("Profielschets");
-        } else if (currentAccount != null && currentAccount.permissions.studentList != 'denied') {
-            FirestoreProfileService.fetchProfileNameList()
-              .then((doc) => {
-                if (doc.exists) {
-                  // const onlyActiveProfiles = {
-                  //   "list": doc.data().list.filter(function (el) {
-                  //     return el.active == 1;
-                  //   })
-                  // }
-                  setProfiles(doc.data());
-                  setCurrentPage("Studenten");
-                } else {
-                  console.log("Document not found");
-                }
+        } else if (currentAccount != null && currentLocation != null && currentAccount.permissions.studentList != 'denied') {
+            FirestoreProfileService.fetchAllProfileList(currentLocation)
+            .then(data => {
+              console.log(data);
+              setProfiles(data);
+              setCurrentPage("Studenten");
             })
             .catch(() => console.log("Error"));
+        } else if (currentLocation == null) {
+          setCurrentPage("Locatie");
         } else if (currentAccount != null) {
           // If no access to student list or is no parent, only show account page
           setCurrentPage("Account");
@@ -71,7 +67,7 @@ export default function Home() {
         }
       }
       if (profiles) {
-        setCurrentPage("Studenten");
+        setCurrentPage("Locatie");
       }
       setLoaded(true);
     } else if (sessionStorage.getItem('user') == null || sessionStorage.getItem('user') == '') {
@@ -83,25 +79,19 @@ export default function Home() {
   }, [user, currentAccount]);
 
   useEffect(() => {
+    console.log(currentLocation, currentPage, currentTab, profiles);
     if (currentPage == 'Studenten') { //TODO: auth check
-      FirestoreProfileService.fetchProfileNameList()
-      .then((doc) => {
-        if (doc.exists) {
-          const onlyActiveProfiles = {
-            "list": doc.data().list.filter(function (el) {
-              return el.active == 1;
+      if (currentLocation != null) {
+        FirestoreProfileService.fetchAllProfileList(currentLocation)
+            .then(data => {
+              console.log(data);
+              setProfiles(data);
             })
-          }
-          setProfiles(onlyActiveProfiles);
-          //setLoaded(true);
-        } else {
-          console.log("Document not found");
-        }
-      })
-      .catch(() => console.log("Error"));
+            .catch((error) => console.log(`Error: ${error}`));
+      }
     }
 
-  }, []);
+  }, [currentLocation, currentPage]);
 
   useEffect(() => {
     const resetProfile = JSON.parse(JSON.stringify(emptyProfile));
@@ -147,10 +137,17 @@ export default function Home() {
         {currentPage === "Login" && (
           <Page_Login/>
         )}
+        {currentPage === "Locatie" && (
+          <Page_Location
+          setCurrentPage={setCurrentPage}
+          setCurrentLocation={setCurrentLocation}
+          />
+        )}
         {currentPage === "Studenten" && profiles && (
           <Page_Students
             profiles={profiles}
             currentUser={currentAccount}
+            currentLocation={currentLocation}
             setProfileID={setProfileID}
             setCurrentPage={setCurrentPage}
             setCurrentTab={setCurrentTab}
@@ -165,6 +162,7 @@ export default function Home() {
             <Tab_Profiel
               currentUser={currentAccount}
               currentProfile={currentProfile}
+              currentLocation={currentLocation}
               setCurrentProfile={setCurrentProfile}
               dataLoaded={dataLoaded}
               profileID={profileID}

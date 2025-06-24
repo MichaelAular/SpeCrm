@@ -7,6 +7,20 @@ export const fetchProfileNameList = async () => {
   return getDoc(doc(db, 'profiles', 'All'));
 }
 
+// Get profile name list from Firestore Database
+export const fetchAllProfileList = async (location) => {
+  const profileRef = collection(db, 'profiles');
+  const q = query(profileRef, where("location", "==", location));
+    try {
+      const querySnapshot = await getDocs(q);
+      const profiles = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return profiles;
+    } catch (error) {
+      console.error('Error fetching files: ', error);
+      return [];
+    }
+}
+
 // Get specific profile from Firestore Database by id
 export const getProfile = (profileId) => {
     const profileDocRef = query(collection(db, 'profiles'), where('id', '==', profileId), limit(1));
@@ -14,31 +28,32 @@ export const getProfile = (profileId) => {
 };
 
 // Add new profile to Firestore Database
-export const addProfile = async (data) => {
+export const addProfile = async (data, location) => {
     try {
-        try {
-            const response = await axios.get(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${data.address.postalCode} ${data.address.streetNo} ${data.address.city}&fl=wijknaam,buurtnaam&fq=type:(adres)&rows=1&wt=json`);
-            const buurt = response.data.response.docs[0]?.buurtnaam;
-            const wijk = response.data.response.docs[0]?.wijknaam;
-            data.address.buurt = buurt
-            data.address.wijk = wijk
-        } catch (apiError) {
-            console.error(`Error fetching wijk:`, apiError);
-        }
+        // try {
+        //     const response = await axios.get(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${data.address.postalCode} ${data.address.streetNo} ${data.address.city}&fl=wijknaam,buurtnaam&fq=type:(adres)&rows=1&wt=json`);
+        //     const buurt = response.data.response.docs[0]?.buurtnaam;
+        //     const wijk = response.data.response.docs[0]?.wijknaam;
+        //     data.address.buurt = buurt
+        //     data.address.wijk = wijk
+        // } catch (apiError) {
+        //     console.error(`Error fetching wijk:`, apiError);
+        // }
+        data.location = location;
         data.active = 1;
         data.registrationDate = new Date();
         const docRef = await addDoc(collection(db, "profiles"), data);
         console.log("Document written with ID: ", docRef.id);
         data.id = docRef.id;
         await updateDoc(docRef, data);
-        updateProfileList(data);
+        //updateProfileList(data);
     } catch (data) {
         console.error("Error adding document: ", data);
     }
 }
 
 // Update existing profile to Firestore Database
-export const updateProfile = async (data) => {
+export const updateProfile = async (data, location) => {
     try {
         try {
             const response = await axios.get(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${data.address.postalCode} ${data.address.streetNo} ${data.address.city}&fl=wijknaam,buurtnaam&fq=type:(adres)&rows=1&wt=json`);
@@ -49,10 +64,11 @@ export const updateProfile = async (data) => {
         } catch (apiError) {
             console.error(`Error fetching wijk:`, apiError);
         }
+        data.location = location;
         const profileRef = doc(db, 'profiles', data.id);
         console.log(data, profileRef);
         await updateDoc(profileRef, data);
-        updateProfileList(data);
+        //updateProfileList(data);
     } catch (data) {
         console.error("Error updating document: ", data);
     }

@@ -66,7 +66,9 @@ export function Header({
       <div className="header">
         <Grid container spacing={2}>
           <Grid item xs={12} md={3} order={{ xs: 1, sm: 1 }} className="headerSide" justifyContent="center">
-            <img className="headerImage" src="/images/27558_logonegatief.png" alt="Stichting SPE" height="60">
+            <img className="headerImage" src="/images/27558_logonegatief.png" alt="Stichting SPE" height="60" onClick={()=>{
+              setCurrentPage('Locatie')
+            }}>
             </img>
           </Grid>
           <Grid item xs={8} md={4} order={{ xs: 3, sm: 2 }} className="headerSide">
